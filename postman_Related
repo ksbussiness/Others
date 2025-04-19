@@ -1,2 +1,879 @@
+NOTES :
+
+...> Api testing basically on teh backend 
+
+...> to perfrom web testing we use the selenium
+
+...> to perform the api testing we use the postman
+
+...> For Api testing also we can do manully nd automatically
+
+...> For manual api testing we use postman.
+
+...> for automations testing we use Rest-assured.
+
+...> 
+
+A client is a computer hardware device or software that accesses a service' made available by a server.The server is often (but not always) located on a separate physical computer.
+
+...> A server is a physical computer dedicated to run services to server teh needs of other computers .Depending on teh service that is running , it could be a file server, database server, home media server , print server or web server.
+
+
+...> client is not always an browser, some times it may be the mobiles apps , 
+
+
+ # CLIENT /SERVER ARCHITECTURE :
+---------------------------------- >
+
+...> Web appliations mostly followed three tire architecture
+
+
+1- Tier Architecture :
+
+..> here we have teh single system we do not have any internet we have a single system where teh client will be running , and there will not be any database actually there will be some files 
+
+..> ex : we have some data written to teh ms word , ms excel, and we retrive the data successfully , 
+
+...> here the server is nothing but a file system, so when you run client and server in a same machine them it Comes unders an 1-Tire architecture.
+
+...>  
+
+2- Tier Architecture :
+
+..> here in this architecture we have the multiple Clients .
+
+..> and we have one db , and the clients are accessing this db , and this db will be there in some other machine.
+
+
+..> like banks maintain there own server and there staff will accessing this DB, which is on different machine,
+
+..> and here these  10 people  do not have the local memory , so what ever the tasks they are doing everything is happen in the common database only.
+
+3- Tier Architecture :
+
+...> here in this architecture it is divided in to 3 parts
+
+..> Client Tier
+
+..> Business logic
+
+..> Database Tier
+
+..> all web applications comes under the 3-tier architecture:
+
+..> 
+
+# API Application Program Interface (API) :
+
+API: it is a way of commucication between two applications where applications may differe platforms or in terms of technology
+
+
+..> APi is nothing but whicn contains teh business logic
+
+Front-end of the application
+
+| request comes from the client 
+^
+Middle-layer (API) 
+| request sending to Db 
+^
+Back-end of the Application
+
+
+..> here many types of apis Are available in the middle layer ans based on our request corresponding api  will be triggered and that API will send request to teh DB, and fetch teh data here and send back responce back to teh client 
+
+
+...> here api Layer is the responsibility to fetch data from teh backend and disply on the frontend 
+
+..> and to take data from frontend and insert into backend.
+
+..> API is a way of communication between the two laysers
+
+...> API , 
+APPLICATION :
+
+PROGRAMMING : here it contains the some programming where it will perfrom some tasks, like fetching and sending back the data to te servers etc
+INTERFACE : which acts has teh mediator between teh front end and backend applications
+
+..> testing on front-end : web testing 
+
+..> testing on api : api testing 
+
+..> testing on backend : database testing 
+
+..> if we conduct functional testing on the api then it will be easy for developers
+
+..>  
+
+# TYPES OF API :
+------------------------------------------
+
+There are several apis in market :
+
+1) Simple Object Access Protocol SOAP. old use the XMAL
+
+2) REST (Representational State Transfer). new , supports the XMAL, JSON HTML, TEXT ETC 
+
+both are are the web services:
+
+..> web service: API on the internet , 
+an api whic is accessed on the internet is called web service
+
+..> all web services are api's only.
+
+..> but all api's are not web services.
+
+..> once the api is moved in to the production then this api is called has teh web services.
+
+
+..> web service is an api wrapped in http.
+
+..> A web service needs a network while an API doesn't need a newtwork for its operation
+
+..> 
+
+
+# REST API METHODS: 
+------------------------------
+get
+put
+delete
+post
+patch
+
+
+ http VS HTTPS
+------------------------- : 
+
+..> These two are protocols used by the web applications
+
+..> to communicate withe the client and server we need these protocols
+
+..>
+
+URI - Uniform Resource Identifier
+URL - Uniform Resource Locator
+URN Uniform Resource Name
+
+		URI/URL
+------------------------------------------
+			URI
+	  -------------------------------
+
+				URN
+			       -----------
+ SCHEME    HOST        PATH
+--------- ----------- --------------------
+ https:// google.com/ articles/articlename
+
+
+Resource is something which is available in the server,  for which we can request
+
+
+
+
+
+
+endpoint : Other than the host all the things comes under the host'
+
+
+Feature is the term used in the manual testing to test some functionality and 
+Similarly 'resouce' is the term used in api automation testing referring some functionality.
+
+
+...> payload :It is nothing but the data which we are sending along with the request and , and the data which we getting along with teh response payload.
+
+here it can be in json /xml format
+
+
+for dummy apis:
+reqres.in
+
+
+
+...> post, put, delete request are not possible through the browser , only get request is possible through it.
+
+...>   
+
+when we are performing the api testing :
+
+In request  we may send the :
+data,URL,Key,Authentication
+
+In response we may get the result has:
+data , Statucode,Coockies,Header all neeed to be tested.
+
+..>DMG File
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+# VIDEO-2
+
+
+workspace: Area where we maintain files and other info and saved.
+
+@ create a new workspace:
+
+..> go to workspaces .> create new workspace
+
+personal : only i can see the all the resquest,respanses .
+
+private: i and invited members can only see the all the requests, responses can see.
+
+Team : all the team members can see it , here we need to add teh all the team members here.
+
+public : Everyone can view
+
+@ Creating the collection 
+..> collections is nothing but the folder , here we save everyhthing here, like the request, response , all things will be saved here.
+
+..> collections contains number of sub folders and many  http requests.
+
+..> we can create the collection, rename , delte it and run the collection at a time.
+
+..> Under workspace we can create any number of collections 
+
+
+
+get: https://reqres.in/api/users?page=2
+=======================
+post :
+https://reqres.in/api/users 
+
+{
+
+"name":"sai",
+"job":"trainer" 
+}
+
+=============================
+
+put :
+
+https://reqres.in/api/users/599
+
+{
+
+"name":"pavan",
+"job":"engineer" 
+}
+
+==============================
+delete :
+
+https://reqres.in/api/users/599
+
+{
+
+"name":"sai",
+"job":"trainer" 
+}
+
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$================
+
+#3 VIDEO
+
+NodeJS
+
+npm -node package manager
+
+npm  --version
+node --version
+
+
+json-server
+
+In the node js project we need to install the 
+
+npm install -g json-server
+
+
+..> encryptions the data and decryptions the data is only possible when the data is in the JSON and XML format.
+
+..>And these are the light weighted files , easy and fast way to tranfer the data.
+
+..> 
+json java script object notations
+
+JSON is a syntax for storing and exchanging data.
+
+Basically it was designed for human-readable data interchange.
+
+JSON is text, written with java script Object Notations.
+
+It has been extended from the js scripting language
+
+The filename extension is .json
+
+JSON internet media type is application/json
+
+.> this is tells what type of the response we got from the server .
+
+
+
+
+JSON Data Types:
+==================== >
+
+Number
+String 
+Boolean
+Null
+Object
+Array
+
+..> In json always we represent in the key and value pairs
+
+key:value paris:
+
+{
+"name":"john",
+"age":30,
+"phone":[12345]
+}
+
+
+
+
+
+json object is nothing but having multiple key value paris:
+
+Json Array can store multiple values . it can store string, number, Boolean or object in JSON Array.
+
+.> In JSON array , value must be separated by commas.
+
+.>The [ square bracket ] represets JSON array.
+
+
+..> in order to get the json path we use :
+
+https://jsonpathfinder.com/
+
+https://jsonpath.com/
+
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+# VIDEO-4
+
+
+Response Validations:
+Statucode eaders
+Cookies
+Response Time
+Response body
+
+Assertion-validation
+
+pm- is a library
+
+And in side it have the functions and we use the javascript to write that functions
+
+.> even the postman use the javascript.
+
+here the functions can be written in two ways:
+------------------------------------------------ >
+
+normal functions or array function
+
+Assertions : check whether API  responses meet expected conditions or not.
+
+They validate statuCodes , response bodies, headers, and Schemas.
+
+Assertions in the context of Postman and Api testing are statements that validate whether a certain conditions is true or false after executing an Api request.
+
+pm.test("Test Name",function(){
+
+{
+
+//assertions
+
+}
+
+}
+
+=================================== > 
+pm.test("Test Name",()=>{
+
+
+
+{
+
+//assertions
+
+}
+
+}
+
+Test for the reponse status code:
+------------------------------------- >
+
+pm.test.("Status code is 100:.()=>{
+
+pm.respone.to.have.statuscode(200);
+
+});
+
+If You Want to test for the status code being one of a set, include them all in an array and use one of
+------------------------------------------------------------------------ >
+
+
+
+pm.test("Successful POST  request", () =>{
+
+pm.expect(pm.response.code).to.be.oneOf( [201,202] );
+
+})
+
+
+Check the status code text:
+------------------------------------ >
+
+pm.test("Status code name has string",()=>{
+
+pm.response.to.have.status("Created");
+
+});
+
+
+
+Check if response time is below 200ms
+------------------------------------------------------------------------ >
+
+pm.test("Response time is less than 200ms", () => {
+  pm.expect(pm.response.responseTime).to.be.below(200);
+});
+
+
+to.be.above(60)
+
+// Check if response contains 'token'
+------------------------------------------------------------------------ >
+
+pm.test("Response contains token", () => {
+  const jsonData = pm.response.json();
+  pm.expect(jsonData).to.have.property("token");
+});
+
+
+
+// Check if response contains 'userId'
+------------------------------------------------------------------------ >
+
+pm.test("Response contains userId", () => {
+  const jsonData = pm.response.json();
+  pm.expect(jsonData).to.have.property("userId");
+});
+
+
+
+
+
+// Check if userId is a number:
+------------------------------------------------------------------------ >
+
+pm.test("userId is a number", () => {
+  const jsonData = pm.response.json();
+  pm.expect(jsonData.userId).to.be.a("number");
+});
+
+
+
+
+// Check if token value equals a specific string :
+------------------------------------------------------------------------ >
+
+pm.test("Token value is correct", () => {
+  const jsonData = pm.response.json();
+  pm.expect(jsonData.token).to.equal("abc123");
+});
+
+
+
+// Check if array contains 5 items :
+--------------------------------------------------------------- >
+
+pm.test("Response has 5 items", () => {
+  const jsonData = pm.response.json();
+  pm.expect(jsonData.items).to.have.lengthOf(5);
+});
+
+
+
+// Check if token length is greater than 10 :
+--------------------------------------------------------------- >
+
+
+pm.test("Token length is greater than 10", () => {
+  const jsonData = pm.response.json();
+  pm.expect(jsonData.token.length).to.be.above(10);
+});
+
+
+
+
+// Check if nested property 'data.userId' exists :
+--------------------------------------------------------------- >
+
+
+pm.test("Nested property exists", () => {
+  const jsonData = pm.response.json();
+  pm.expect(jsonData.data).to.have.property("userId");
+});
+
+ >
+
+// Check if Content-Type is application/json :
+------------------------------------------------------------------------ >
+
+pm.test("Content-Type is application/json", () => {
+
+  pm.expect(pm.response.headers.get("Content-Type")).to.include("application/json");
+});
+
+
+
+
+
+// Check if Content-Length is defined:
+------------------------------------------------------------------------ >
+
+pm.test("Content-Length header is present", () => {
+
+  pm.expect(pm.response.headers.has("Content-Length")).to.be.true;
+});
+
+
+
+Assertions based on the conditions: 
+------------------------------------------------------------------------ >
+
+pm.test("Check if status code changes based on input", () => {
+
+  if (pm.response.code === 200) {
+
+    pm.test("Valid request processed successfully", () => {
+      const jsonData = pm.response.json();
+      pm.expect(jsonData.message).to.equal("Success");
+
+    });
+
+  } else if (pm.response.code === 400) {
+
+    pm.test("Invalid request handled properly", () => {
+      const jsonData = pm.response.json();
+      pm.expect(jsonData.error).to.equal("Bad Request");
+
+    });
+  }
+});
+
+
+
+// Check if response is empty :
+------------------------------------------------------------------------ > 
+
+pm.test("Response is empty", () => {
+  pm.expect(pm.response.text()).to.equal("");
+});
+
+
+// Check if array length is greater than 3 :
+------------------------------------------------------------------------ > 
+
+pm.test("Array length is greater than 3", () => {
+
+  const jsonData = pm.response.json();
+  pm.expect(jsonData.items.length).to.be.above(3);
+
+});
+
+
+
+
+Testing cookies:
+
+Test if a cookie is present in the response:
+------------------------------------------------------------------------ >
+
+pm.test("cookie 'language' is present",()=>{
+
+pm.expect(pm.cookies.has('language')).to.be.true;
+
+});
+
+
+
+Test for a particular cookie value:
+------------------------------------------------------------------------ >
+
+pm.test("cookie language has value1",()=>{
+
+pm.expect(pm.cookies.get('language')).to.eql('en-gb');
+
+});
+
+
+
+Testing the array property:
+----------------------------------------------------------------- >
+
+{
+
+"data":["java","c++"]
+}
+
+const jsonData = pm.response.json();
+
+pm.test("test array properties",()=>{
+
+pm.expect(jsonData.data).to.be.include("java");
+
+});
+
+pm.expect(jsonData.data).to.have.members(["java","c++"]);
+
+
+
+Postman comes with Chai.js built-in for writing assertions.
+
+the pm object provides an interface to write test assertions using pm.expect()
+
+and pm.test() methods
+
+
+schema : the type of the data which we can store in teh database :
+json schema generater:
+
+copy the body and , paste it in the  free json schema generater:
+
+
+and 
+
+create a variable which can hold it .
+
+var schema= result from json generater
+
+
+pm.test('schema is valid',()=>{
+pm.expect(tv4.validate(jsonData,schema)).to.be.true;
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+# VIDEO-5
+
+
+Scripts :
+Pre-request scripts
+
+Tests
+
+time line:
+first will run then next  pre-request scripts ....> Request .....> Response ----> Tests
+
+
+..> we can run the pre-request scripts at these levels
+Collections level
+Folder level
+Request level
+
+
+
+
+Complete flow of the request scripts 
+
+first Colletions level pre-request script will execute 
+next Folder level pre-request script will execute
+next Request level pre-request script will execute
+
+next Request will execute 
+next response will come
+next Collections tests Scripts will execute
+next Folders tests Scripts will execute
+next Request tests Scripts will execute
+
+
+Variables : which can store some data
+we can store some thing in the variables and we can refer it when ever we need in the requests
+
+
+Scope:
+WE can have the Global variables
+and at Collection level
+and we  can declare the Environment variables
+
+and we have the local variables:
+
+and we have the data variables
+
+Scop
+-------------- >
+
+Workspace---> collections---->Request
+
+Global :  the global  varibles can be accessible at the workspace level and inside it in all the folders and in all the requests
+
+Environment variables : the varibles which are created at the different environments:
+like 
+QA
+DEV
+
+when we want to use that particular variables then we need to shift to that particular 
+
+environment
+
+local variables need to be defined inside the pre-request=scripts:
+
+//local variables:
+
+pm.variables.set("url_local","https://reqres.in/api");
+
+
+
+
+
+data varibles : we will create these varobles in external files like csv file/text files etc:
+
+
+
+
+we can create the global variables using the scripts which we can use these global varibles can where in the collections
+
+
+these creation of the varibles need to be written in the pre request Script
+//global varibales
+pm.global.set("userid_global","2");
+
+//Environment varibles:
+pm.environment.set("userid_qa_env","2");
+
+we can use under this particular environment 
+// Collection Varibles
+pm.collectionVariables.set("userid_collect","2");
+
+
+## my requirement is that after creating the varibles through scripts we need delete it 
+
+this can also be done by using the scripts:
+pm.globals.unset("key")
+
+
+this script  need to written in the TESTS
+pm.globals.unset("userid_global")
+
+
+pm.environment.unset("userid_qa_env");
+
+
+pm.collectionVariables.unset("userid_collect");
+
+
+
+# to see values before deletion i need to use this in the scripts:
+
+console.log(pm.globals.get("userid_global");
+
+console.log(pm.environment.get("userid_qa_env");
+
+console.log(pm.collectionVariables.get("userid_collect");
+
+
+
+# ) .................................> >.......................................>>....................................>>> ...............................> ...................................> 
+
+
+
+
+
+
+
+
+Video -6:
+-------------------- >
+
+Chaining of the Api's:
+
+
+
+ex: post : create the students , the you will get the responce store that responce in an variable in the tests
+
+var jsonData=JSON.parse(responceBody);
+
+pm.environment.set("id",jsonData.id) // This will set the environment for the id
+
+
+next i need the id in the request here :
+
+GET: http://localhost:3000/students/{{id}}
+
+
+..> for demo api's use the : gorest.co.in {after the getting the token }
+
+
+
+for automatic generation of the string and emails for the User creation in the pre-request Script
+
+
+const r=Math.random().toString(36).substring(3)
+
+const useremail="jim"+r+"@gmail.com";
+const username="jim"+r;
+
+// Here i need to use these varibles in teh colletion level every time 
+
+// For that i need to create the environment varibles here
+
+pm.environment.set("user_name",username)
+pm.environment.set("user_email",useremail);
+
+
+
+know these variables i need to access in the request body here
+
+
+In side the body
+{
+
+name:"{{user_name}}"
+email:"{{user_email}}"
+
+}
+
+, when the user is create , i need to extract the user id , from the responce and i need to use that in other requests
+
+For this i need write this is in the Test:
+
+var jsonData=JSON.parse(responceBody);
+pm.environment.set("user_id",jsonData.id);
 
 
