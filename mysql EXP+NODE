@@ -1,0 +1,142 @@
+DB.JS connection:
+
+const mysql = require('mysql2');
+
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '', // your MySQL password
+    database: 'UserDB'
+});
+
+connection.connect((err) => {
+    if (err) throw err;
+    console.log('✅ Connected to MySQL');
+});
+
+module.exports = connection;
+
+---------------------------------------------- >
+Way of importing it in the every model 
+way one :
+
+const db = require('../db');
+
+const insertUser = (username, email, cb) => {
+    db.query('INSERT INTO users (username, email) VALUES (?, ?)', [username, email], cb);
+};
+
+module.exports = { insertUser };
+
+---------------------------------------------- >
+SERVER .JS or APP.js file setup:
+
+const express = require('express');
+const db = require('./db');
+const bodyParser = require('body-parser');
+
+const userRoutes = require('./routes/userRoutes');
+const productRoutes = require('./routes/productRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+
+// Inject db into each model once
+require('./models/userModel').setDB(db);
+require('./models/productModel').setDB(db);
+require('./models/orderModel').setDB(db);
+
+const app = express();
+
+app.use(bodyParser.json());
+
+app.use('/api/users', userRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
+
+app.listen(3000, () => {
+    console.log('🚀 Server running at http://localhost:3000');
+});
+
+=--------------------------------========================================================== >
+different models setup :
+
+
+models/userModel.js
+
+let db;
+function setDB(connection) { db = connection; }
+
+const insertUser = (username, email, cb) => {
+    db.query('INSERT INTO users (username, email) VALUES (?, ?)', [username, email], cb);
+};
+
+module.exports = { setDB, insertUser };
+----------->
+ models/productModel.js
+
+let db;
+function setDB(connection) { db = connection; }
+
+const getAllProducts = (cb) => {
+    db.query('SELECT * FROM products', cb);
+};
+
+module.exports = { setDB, getAllProducts };
+-------------------->
+
+models/orderModel.js
+
+let db;
+function setDB(connection) { db = connection; }
+
+const placeOrder = (userId, productId, quantity, cb) => {
+    db.query('INSERT INTO orders (user_id, product_id, quantity) VALUES (?, ?, ?)', 
+             [userId, productId, quantity], cb);
+};
+
+module.exports = { setDB, placeOrder };
+
+
+
+
+
+
+-----------------------------------------------------------------===================================================== >
+router file :
+
+routes/userRoutes.js – Register Route
+
+const express = require('express');
+const router = express.Router();
+const { registerUser } = require('../controllers/userController');
+
+router.post('/register', registerUser);
+
+module.exports = router;
+
+-----------------------------------------------------------------===================================================== >
+Controller logic:
+
+
+controllers/userController.js – Business Logic
+
+const userModel = require('../models/userModel');
+
+const registerUser = (req, res) => {
+    const { username, email } = req.body;
+
+    userModel.findUserByUsername(username, (err, results) => {
+        if (err) return res.status(500).json({ error: 'DB error' });
+
+        if (results.length > 0) {
+            return res.status(400).json({ message: 'Username already exists' });
+        }
+
+        userModel.insertUser(username, email, (err, result) => {
+            if (err) return res.status(500).json({ error: 'DB error' });
+
+            res.status(201).json({ message: 'User registered successfully' });
+        });
+    });
+};
+
+module.exports = { registerUser };
