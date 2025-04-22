@@ -95,9 +95,32 @@ const placeOrder = (userId, productId, quantity, cb) => {
 
 module.exports = { setDB, placeOrder };
 
+...> VALUES (?, ?, ?): The ? placeholders are used to safely insert the actual values (to prevent SQL injection attacks). 
+The values for these placeholders will be provided through the second argument passed to db.query.
+
+The Values Array ([userId, productId, quantity]):
+
+This array contains the actual values to be inserted into the query. Here, the values userId, productId, and quantity are passed from the calling code, usually coming from the request body in the API.
+
+This array corresponds to the placeholders (?) in the SQL query.
+
+userId will replace the first ? in the SQL query (user_id column).
+
+productId will replace the second ? (product_id column).
+
+quantity will replace the third ? (quantity column).
 
 
 
+..> The Callback Function (cb):
+
+The callback function (cb) is passed as the last argument in the db.query method.
+
+Callback functions are used to handle asynchronous operations. Once the query is executed (either successfully or with an error), this function will be triggered with two parameters:
+
+Error: The first parameter is the error (if any) that occurred during the database operation.
+
+Results: The second parameter contains the results of the query.
 
 
 -----------------------------------------------------------------===================================================== >
