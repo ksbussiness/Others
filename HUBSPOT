@@ -1,0 +1,109 @@
+
+
+Skip to content
+Using Gmail with screen readers
+Conversations
+17.67 GB of 30 GB used
+Terms · Privacy · Programme Policies
+Last account activity: 31 minutes ago
+Details
+
+
+RESOURCES:
+----------------- >
+
+..> https://www.hubspot.com/products/crm/what-is
+
+..> https://medium.com/@chris_34581/what-is-hubspot-what-do-you-use-it-for-863f1da99028
+
+..>     npm install @hubspot/api-client --save
+
+
+..> https://www.google.com/search?q=HUB+SPOT+INTERGATION+USING+THE+NODE+EXPRESS&sca_esv=a2fccd0347a25b28&rlz=1C1VDKB_enIN1140IN1140&sxsrf=AHTn8zp5K3KXvQvJrW8XlcpTgC4w1FrF8Q%3A1745416685031&ei=7
+fEIaLLfAcKOvr0Pl_Oy4Aw&ved=0ahUKEwjyifzrp-6MAxVCh68BHZe5DMwQ4dUDCBA&uact=5&oq=HUB+SPOT+INTERGATION+USING+THE+NODE+EXPRESS&gs_lp=Egxnd3Mtd2l6LXNlcnAiK0hVQiBTUE9UIElOVEVSR0FUSU9OIFVTSU5HIFRIRSBOT0RFIEVYUF
+JFU1MyBxAhGKABGApI5okCUNoLWK-IAnAGeACQAQKYAcoBoAHHPaoBBjEuNDUuMrgBA8gBAPgBAZgCNKACpD2oAhTCAgcQIxgnGOoCwgIHEC4YJxjqAsICFBAAGIAEGJECGLQCGIoFGOoC2AEBwgIQEAAYAxi0AhjqAhiPAdgBAcICChAjGIAEGCcYigXCAgQQIxgnwgIQEC4Y
+gAQY0QMYQxjHARiKBcICChAAGIAEGEMYigXCAgsQABiABBiRAhiKBcICCxAAGIAEGLEDGIMBwgITEC4YgAQYsQMY0QMYQxjHARiKBcICEBAAGIAEGLEDGEMYgwEYigXCAggQABiABBixA8ICDRAAGIAEGLEDGEMYigXCAhIQLhiABBjRAxhDGMcBGIoFGArCAg0QABiABBixAxiKB
+RgKwgILEC4YgAQYxwEYrwHCAgUQABiABMICDRAuGIAEGNEDGMcBGArCAiEQLhiABBjRAxhDGMcBGIoFGAoYlwUY3AQY3gQY4ATYAQHCAgcQABiABBgKwgIHEAAYgAQYDcICBhAAGBYYHsICCxAAGIAEGIYDGIoFwgIIEAAYgAQYogTCAgUQABjvBZgDD_EFtLFnr09Euzy6BgYIARAB
+GAGSBwY3LjQzLjKgB6DXArIHBjEuNDMuMrgHgj0&sclient=gws-wiz-serp
+
+what is the CRM ?
+
+..> Traditional CRM software primarily functions as a repository for storing customer details such as names, emails, phone numbers, and addresses. Modern CRM systems support businesses across marketing, sales, and customer service, by enhancing the efficiency and effectiveness of these departments. 
+
+
+defi:
+Customer Relationship Management (CRM) is a strategy and technology used by businesses to manage and analyze interactions with current and potential customers.
+
+...> CRM involves managing all aspects of a company's interactions with its customers, including sales, marketing, and customer service.
+
+...> 
+
+
+Components:
+==================== >
+
+Operational CRM: Focuses on automating customer-facing processes like sales, marketing, and service.
+
+Analytical CRM: Analyzes customer data to improve decision-making.
+
+Collaborative CRM: Enhances communication and collaboration between different departments.
+
+
+
+
+HUBSPOTS:
+
+DEF: HubSpot is a leading customer relationship management (CRM) platform designed to help businesses grow better by integrating marketing, sales, customer service, and operations.
+
+
+
+
+Key Features
+CRM Software: HubSpot's free CRM tool allows businesses to manage customer interactions, track leads, and organize data efficiently.
+
+Marketing Hub: Tools for email marketing, social media management, SEO, and analytics to attract and engage customers.
+
+Sales Hub: Features like email tracking, meeting scheduling, and pipeline management to close deals faster.
+
+Service Hub: Tools for customer support, including ticketing systems, live chat, and knowledge bases.
+
+Content Management System (CMS): A user-friendly website builder with drag-and-drop functionality and SEO optimization.
+
+Operations Hub: Helps automate business processes and synchronize data across platforms.
+
+
+
+..>  The platform is customer-centric, meaning that all information about sales, marketing and communication will link to their relevant customers, storing all data for that customer in one place.
+
+
+WEB-FORMS:
+============================== >
+
+
+HubSpot Forms are online tools that help businesses collect information from website visitors, like names, emails, or feedback. Think of them as digital forms you fill out on a website to sign up for a newsletter or download a free guide.
+
+Flow of HubSpot Forms
+Creation: Businesses design the form using HubSpot's tools, adding fields like name, email, or custom questions.
+
+Placement: The form is added to a website, landing page, or even as a pop-up.
+
+Submission: Visitors fill out the form and submit their details.
+
+Data Collection: The information is automatically stored in the HubSpot CRM.
+
+Follow-Up: Businesses use the collected data to send emails, offer services, or analyze customer needs.
+
+Uses of HubSpot Forms :
+=============================== >
+
+Lead Generation: Collect contact details of potential customers.
+
+Customer Feedback: Understand customer opinions or needs.
+
+Event Registration: Sign people up for webinars or events.
+
+Surveys: Gather insights through questionnaires.
+
+
+hubspot.txt
+Displaying hubspot.txt.
