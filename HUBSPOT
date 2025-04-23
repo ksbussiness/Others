@@ -415,3 +415,10 @@ Edit
 const deals = await hubspotClient.crm.deals.getAll();
 const localStats = await UserModel.countDocuments({});
 
+===============================================================================================================>
+
+Scenario         	                         Can You Send to HubSpot?                            	Notes
+Basic fields (name, email, phone, etc.)	         ✅ Yes	                                      These map directly to HubSpot CRM contact fields.
+Custom fields (like userType, preferences)	    ✅ Yes	                                 You must first create custom properties in HubSpot.
+Sensitive data (like password)	              ❌ No	                                           Never send passwords or highly sensitive info. HubSpot is not meant for that.
+Long form content (e.g., feedback, messages)	    ✅ Yes	                                 You can send it as a note, timeline event, or custom property.
