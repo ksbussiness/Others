@@ -1,12 +1,9 @@
 
 
-Skip to content
-Using Gmail with screen readers
-Conversations
-17.67 GB of 30 GB used
-Terms · Privacy · Programme Policies
-Last account activity: 31 minutes ago
-Details
+
+
+email: sachin@qodictechnosoft.com
+pass: .#Sachin@Qodic123
 
 
 RESOURCES:
@@ -612,3 +609,13 @@ Track key actions like:
 “Order Delivered”
 
 These can be used to trigger email automations, support follow-ups, or sales calls.
+
+
+
+
+
+RESOURCES:
+1) https://developers.hubspot.com/blog/a-developers-guide-to-hubspot-crm-objects-contacts-object
+2) https://developers.hubspot.com/docs/getting-started/what-to-build#use-apis-and-build-integrations
+3) https://www.npmjs.com/package/@hubspot/api-client
+4) https://www.postman.com/hubspot/hubspot-public-api-workspace/overview
