@@ -18,6 +18,15 @@ RESOURCES:
 
 ..> https://medium.com/@eduardko2001/integrate-and-customize-hubspot-forms-in-your-react-applications-2f74be574669
 
+
+Hubspots:
+1) https://medium.com/@joshuadavidjenks/introduction-to-react-and-hubspot-cms-part-1-6d94bd340ca1
+2) https://medium.com/@joshuadavidjenks/part-2-getting-started-with-react-and-hubspot-cms-5f60879f07fc
+
+3) https://medium.com/@joshuadavidjenks/integrating-react-with-hubspot-cms-part-3-initial-integration-steps-adde4e7f390
+
+4) https://medium.com/@joshuadavidjenks/integrating-react-with-hubspot-cms-part-3-initial-integration-steps-adde4e7f3906
+
 ..>     npm install @hubspot/api-client --save
 
 
@@ -265,5 +274,34 @@ MongoDB stores user/product interaction data
 HubSpot used for contact management, automation
 
 Admin dashboard shows CRM sync status, failed syncs, etc.
+
+============================================================================================================================================ >
+
+Work Flow underStanding here:
+     ┌─────────────┐
+     │   Frontend  │
+     └────┬────────┘
+          │ POST /signup
+          ▼
+ ┌────────────────────┐
+ │ Node.js + Express  │
+ └────┬───────────────┘
+      │ Save to MongoDB
+      ▼
+ ┌────────────┐
+ │ MongoDB    │ ←→ Query / Logs
+ └────────────┘
+      │
+      ▼ Push contact data
+┌──────────────────────┐
+│ HubSpot CRM & APIs   │
+│ - Contacts           │
+│ - Deals              │
+│ - Tickets            │
+│ - Workflows          │
+│ - Webhooks           │
+└──────┬───────────────┘
+       ▼
+Webhook Event → Express → Update MongoDB
 
 
