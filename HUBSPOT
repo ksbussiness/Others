@@ -422,3 +422,193 @@ Basic fields (name, email, phone, etc.)	         ✅ Yes	                       
 Custom fields (like userType, preferences)	    ✅ Yes	                                 You must first create custom properties in HubSpot.
 Sensitive data (like password)	              ❌ No	                                           Never send passwords or highly sensitive info. HubSpot is not meant for that.
 Long form content (e.g., feedback, messages)	    ✅ Yes	                                 You can send it as a note, timeline event, or custom property.
+
+
+
+
+
+
+
+
+
+
+=============================================================================================================== >
+WHAT KIND DATA IS SEND TO THE HUBSPOT CRM : 
+
+Now you're asking:
+
+What kind of data from all this can (and should) be sent to HubSpot, and why?
+
+Let’s go module by module, and I’ll tell you:
+
+✅ What kind of data you can send
+
+🚫 What not to send
+
+🧠 Why to send it (what HubSpot does with it)
+
+✅ 1. User Registration & Login
+Send to HubSpot:
+email
+
+first name, last name
+
+phone number
+
+signup date
+
+user type (if admin/customer/vendor)
+
+lead_source (e.g., "Website Signup", "Google Ads")
+
+Why?
+To create a Contact in HubSpot CRM
+
+To enroll in a welcome automation (email, onboarding)
+
+To track user lifecycle (lead → customer)
+
+✅ 2. Admin Adding Products
+Don’t send to HubSpot directly 🚫
+Why?
+
+HubSpot is a CRM, not an e-commerce backend.
+
+Product catalog is better managed in your DB or platforms like Shopify/WooCommerce.
+
+But you can sync:
+
+🔹 Product metadata only if you’re creating marketing automation based on product types.
+
+✅ 3. User Searching Products
+This is optional but powerful.
+
+You can log:
+search keywords
+
+searched categories
+
+number of searches
+
+search timestamp
+
+Send as:
+Custom Timeline Events
+
+Or enrich the Contact record in HubSpot
+
+Why?
+To track user interests
+
+Trigger marketing automation: “User searched for ‘shoes’ → send shoe promotions”
+
+✅ 4. User Booking a Product (Order Placed)
+Send to HubSpot:
+product name
+
+order amount
+
+booking date
+
+delivery address (partial)
+
+order status (pending/confirmed)
+
+payment method (UPI/COD)
+
+Where?
+As a Deal or Custom Object
+
+Or as a timeline event on Contact
+
+Why?
+Track sales pipeline per user
+
+Trigger follow-up emails: order confirmation, delivery updates
+
+Allow sales/support team to manage orders
+
+✅ 5. User Paying the Amount
+Send:
+transaction ID
+
+payment status (Success/Failed)
+
+amount paid
+
+payment date
+
+Optional: Use for building a Deal pipeline in HubSpot.
+
+Why?
+Helps sales team see who paid
+
+Segment contacts: Paid vs Not Paid
+
+Trigger automated invoice, feedback survey, or thank-you mail
+
+✅ Summary Table
+
+Module	Send to HubSpot?	What to Send	Why
+User Signup/Login	✅ Yes	Name, Email, Signup source	Create contact, trigger welcome
+Admin Adds Product	🚫 No	(Optional metadata)	HubSpot not for inventory
+User Search	⚠️ Optional	Search keywords, category	Behavior tracking & targeting
+Booking Product	✅ Yes	Order info, booking time	Track deals, sales pipeline
+Payment	✅ Yes	Amount, Status, Txn ID	Trigger thank-you flows, mark as customer
+🚫 What NOT to Send
+
+Field	Reason
+Passwords	Security issue — never send
+Full Address (optional)	Unless needed for CRM/sales use
+Payment gateway tokens	Risky, better handled in your backend only
+✅ What HubSpot Will Do With This Data:
+Create/update Contacts
+
+Create Deals (representing orders)
+
+Trigger Workflows (email follow-ups, reminders, automations)
+
+Show in Dashboards for your sales/support teams
+
+Allow you to segment users (by behavior, order status, payment history)
+
+🚀 Bonus: HubSpot CRM Automation Examples for You
+
+Action	HubSpot Automation
+User signs up	Send welcome email, assign to sales rep
+User searches for "shoes"	Enroll in a drip campaign for footwear
+User places order	Create Deal, set stage to "Order Placed"
+Payment success	Send thank-you mail, mark deal as “Won”
+No payment after 3 days	Trigger reminder or cart abandonment mail
+
+
+
+EXAMPLE -2:
+
+ What Should You Send to HubSpot? And Why?
+HubSpot is a CRM and marketing automation platform. That means:
+
+It's meant to track leads, users, behaviors, and sales activities.
+
+It’s not meant to be a full database for your products or payment system.
+
+So you don't send everything — you send key business-relevant user info to help with:
+
+✅ Marketing
+✅ Sales tracking
+✅ Email campaigns
+✅ Automation workflows
+✅ Customer support
+
+3. Timeline Events
+Track key actions like:
+
+“User searched for iPhone”
+
+“User booked a product”
+
+“User made a payment”
+
+“Order Delivered”
+
+These can be used to trigger email automations, support follow-ups, or sales calls.
