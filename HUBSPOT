@@ -4,7 +4,13 @@
 
 email: sachin@qodictechnosoft.com
 pass: .#Sachin@Qodic123
+my token : pat-na2-1892ba37-9905-4e35-9c98-b3dbe080b1ef
 
+
+note :
+An app's access token is the key to making API calls to HubSpot. This is done by setting it as a Bearer in your HTTP request header. Learn more in the docs.
+
+This token can give anyone access to your HubSpot account, so it's important to keep it secure. Don't embed it directly in your code or share it in unencrypted source control.
 
 RESOURCES:
 ----------------- >
