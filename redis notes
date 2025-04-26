@@ -4,6 +4,53 @@ resources:
 ..> 
 
 
+Redis-server is the process or daemon that runs in teh background and listens for client connections.
+Its is tha main component of redis, responsible for storing and managing data in mempry.
+
+what is redis-cli:
+The redis commands line interface(redis-cli) is a terminal program used to send commands to and read
+to read replies from teh redis server.
+
+
+what redisInsifgt:
+redisInsight combines a graphical user interface with Redis cCLI to let you work with any Redis deployment.
+
+KEYS IN REDIS:
+Redis keys are binary safe, this means that you can use any binary sequence as a key,from a string like 'foo'
+to teh content of a JPEG file.
+.> the empty string also a valid key.
+.> the maximum allowed key size is 512MB.
+.> key should not be very long or very short.
+
+strings:
+ Redis strings are teh most basic redis data types, representing a sequences of bystes.
+
+lists:
+Redis lists are lists of strings sorted by insertion order.
+
+set:
+Redis sets are unordered collections of unique strings that act liek the sets from python, javs etc.
+
+sorted sets:
+Redis sorted sets are collections of unique strings that maintain order by each string's associated score
+
+hash's:
+redis hashes are record types models as collections of field-value pairs.Hashes are handy to represent objects.
+
+Strams:
+A redis stream is a data structure that acts like an append-only log.
+Streams help record events in teh order they occur and then syndicate them for processing.
+
+
+Basic Cnfiguration Commands:
+
+config get * - This command is used to get all config settings;
+config get requirepass- This command is used to get specific config setting.
+config set requirepass value- This command is used to set specific config setting.
+
+There is also a config file etc/redis/redis.conf which can be used to get all configurations and set configurations.
+
+
 redis : 
 .> the main application of the redis is the  caching of the data.{ for faster recovery. }
 .> session storge :  redi sis used to store teh session id , 
@@ -102,4 +149,5 @@ Sachin is running a Redis server.
 Every 5 minutes, if at least 10 changes happen, Redis automatically saves a snapshot to dump.rdb.
 Tomorrow, Sachin's server crashes suddenly.
 No problem — Sachin restarts Redis, and Redis loads the last snapshot automatically!
+
 
