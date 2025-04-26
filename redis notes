@@ -244,18 +244,104 @@ decrby roll 3 // decrement teh value of the key by one1
 
 
 
+CACHING STRATEGIES  explanation :
+
+..> Caching means temporarily storing a copy of data so that future requests for that data can be served faster 
+without fetching it again from the original source (like database, API, or server).
 
 
+1. Cache Aside (Lazy Loading)
+Idea: Only load into the cache when needed.
+
+How it works:
+App first checks the cache.
+If the data is in the cache → return it.
+If not → fetch from DB, store it in cache, and return it.
+
+Pros:
+Reduces memory usage (only needed data is cached).
+Always fresh after write.
+
+Cons:
+First request is slow (DB fetch happens).
+
+Diagram:
+Request -> Cache Hit -> Return Data
+Request -> Cache Miss -> Fetch from DB -> Save to Cache -> Return Data
+
+------------------------------------------------------------------------------------------------
+
+2. Write Through
+Idea: Write to the cache and the database at the same time.
+
+How it works:
+When you update or insert data → first update cache, then update DB.
+
+Diagram:
+Write Request -> Cache + Database
+
+Pros:
+Cache always has the latest data.
+
+Cons:
+Write operations are slower (because both cache and DB must be updated).
+
+------------------------------------------------------------------------------------------------
+
+3. Write Back (Write Behind)
+Idea: Write to cache only first, then asynchronously update the database later.
+
+How it works:
+Update cache immediately.
+Batch update or delayed update to the database.
+
+Diagram:
+Write Request -> Cache
+Later -> Cache flushes to Database
+
+Pros:
+Very fast writes.
+
+Cons:
+Risk of data loss if cache crashes before flushing to DB.
+
+-----------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+
+4. Read Through
+Idea: Application never directly talks to DB. Cache itself fetches from DB on a miss.
+
+How it works:
+If data is in cache → return.
+If not, cache itself fetches from DB and returns.
+
+Diagram:
+Request -> Cache (fetch if needed) -> Return Data
+
+Pros:
+Easy for the app — it just talks to the cache.
+
+Cons:
+Cache component becomes more complex (it must know how to fetch from DB).
+
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+
+5. Refresh Ahead (Auto Refresh)
+Idea: Predict data expiration and refresh it before it expires.
+
+How it works:
+If you know data expires after 5 mins, the cache refreshes it at 4:30 mins.
+
+Diagram:
+Timer/Background Job -> Cache Refresh
+
+Pros:
+Almost zero cache misses.
+
+Cons:
+Can waste resources if data isn't actually needed again.
 
 
-
-
-
-
-
-
-
-
-
-
-
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
