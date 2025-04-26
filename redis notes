@@ -1,4 +1,9 @@
 
+resources:
+..> https://blog.algomaster.io/
+..> 
+
+
 redis : 
 .> the main application of the redis is the  caching of the data.{ for faster recovery. }
 .> session storge :  redi sis used to store teh session id , 
