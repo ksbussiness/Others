@@ -886,15 +886,36 @@ use thig URL here:
 
 ..> https://simple-books-api.glitch.me
 
+post : https://simple-books-api.glitch.me/api-clients/
+
+body: {"clientName":"Sairam","clientEmail":"Sairam@gmail.com"}
+get your token :
+{
+    "accessToken": "79c6fe0101283ed35281ae79fce1075c55423c03608cce9090ae747e012d2ac7"
+}
+
+79c6fe0101283ed35281ae79fce1075c55423c03608cce9090ae747e012d2ac7
+
+get books detils:
+https://simple-books-api.glitch.me/books
+https://simple-books-api.glitch.me/status
 
 
+post:
+ booking the book and creating an order:
+https://simple-books-api.glitch.me/orders
 
+body:
+{
+    "bookId":1,
+    "customerName":"John"
+}
 
-
-
-
-
-
+responce:
+{
+    "created": true,
+    "orderId": "xqDrthIygC1fnwzwoFjN-"
+}
 
 
 
