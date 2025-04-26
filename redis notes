@@ -39,5 +39,67 @@ controls, otherwise rejects here. and here teh key also set to expire after spec
 .> gaming Leaderboard:j
 
 
+redis snapshoots  concepts:
 
+SNAP in Redis usually means Snapshot.
+(Full name = RDB Snapshot.)
+
+..> Snapshot = Saving a copy of your Redis data into a file.
+So even if the server crashes or shuts down, you won't lose your data — because Redis saved a snapshot (copy) safely.
+
+
+Term	                Meaning
+RDB	                  Redis Database file (example: dump.rdb)
+Snapshot	            A full copy of current data saved at a specific time
+Persistence	          Keeping your in-memory (RAM) data safe on disk
+RDB Snapshotting	    Redis will create .rdb file (compressed) and save your data periodically
+
+
+Its use cases are here :
+
+Redis saves a .rdb file
+1) This .rdb file can be loaded back later
+2) Safe even if server restarts/crashes
+
+
+note point:
+--------------- >
+.> Redis automatically saves snapshots based on rules you set in your redis.conf file.
+
+some redis commands are :
+=============================== >
+Commands:
+Command	What it does
+SAVE	Immediately save a snapshot (synchronous, blocking)
+BGSAVE	Background Save (non-blocking, Redis still working)
+LASTSAVE	See the last time Redis created a snapshot
+CONFIG SET save	Set the rules for automatic snapshot saving
+CONFIG GET dir	See where snapshots are being saved
+CONFIG GET dbfilename	See the filename of the snapshot (default: dump.rdb)
+
+ex: 
+127.0.0.1:6379> SAVE
+# Blocks Redis, saves snapshot immediately
+
+127.0.0.1:6379> BGSAVE
+# Starts saving in background, Redis keeps working
+
+127.0.0.1:6379> LASTSAVE
+# Shows last snapshot time (in UNIX timestamp)
+
+
+Where is the Snapshot saved?
+
+Linux: /var/lib/redis/dump.rdb
+Windows: Where your Redis server is installed (in the bin folder)
+You can change this using redis.conf settings:
+dir /path/to/save
+dbfilename mydata.rdb
+
+
+ex: scenario 
+Sachin is running a Redis server.
+Every 5 minutes, if at least 10 changes happen, Redis automatically saves a snapshot to dump.rdb.
+Tomorrow, Sachin's server crashes suddenly.
+No problem — Sachin restarts Redis, and Redis loads the last snapshot automatically!
 
