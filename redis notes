@@ -1,0 +1,22 @@
+
+redis : 
+.> the main application of the redis is the  caching of the data.{ for faster recovery. }
+.> session storge :  redi sis used to store teh session id , 
+note: the session data in the redis will be lost when the redis server is re-started , web browser is closed.
+
+.> redis also supports the persistent storage of teh data { permanent storege } using the snapshopt, AOF, 
+IN  this case te data will be stored in to teh disk and reloaded in to the memory when aware it needed { by the event of the re-start} .
+
+.> Distributed looks : redis acts has the automic looks 
+
+.> rate limiter : redis even atcs has the rate limiter
+
+when the user logs in then his ip will ip made to set has te key , and when user keeps, on requesting 
+then his ip address will be incremented and come paried to the default  rate set inside it , allow the request to reach teh DB only teh rate limits is with in the
+controls, otherwise rejects here. and here teh key also set to expire after specfic 
+
+.> gaming Leaderboard:j
+
+
+
+
