@@ -150,4 +150,112 @@ Every 5 minutes, if at least 10 changes happen, Redis automatically saves a snap
 Tomorrow, Sachin's server crashes suddenly.
 No problem — Sachin restarts Redis, and Redis loads the last snapshot automatically!
 
+BASIC COMMANDS:
+
+redis-cli --version
+
+
+redis.service : to restart teh server
+enable redis
+
+sudo systemctl enable redis.service
+
+sudo systemctl disable redis
+
+sudo systemctl start redis
+sudo systemctl stop redis
+sudo systemctl restart redis
+sudo systemctl status redis
+
+sido service redis status
+
+sudo snap enable redis
+sudo snap restart redis
+sudo snap services.
+
+
+STRINGS RELATED COMMANDS:
+
+keys *
+set key <value>
+get key
+set name sachin
+get name
+del key 
+
+// making the token for teh expirations 
+exists <key_name> // to check for the all existing keys here
+expire roll 10 // making an key with the expires time limt.
+
+// renaming of the keys:
+set name sachin
+key *
+rename <key_name> <new_key_name>
+rename name namedemo;
+
+// token settings
+set token <nay _token_value>
+get token
+expire token 20
+ttl token // to see how much time it is there here for teh token expiration.
+
+// to get the length of the keys:
+keys *
+get name
+strlen name
+
+//  generally the set will override the keys but to make sure not to override the keys 
+// we need to use the setnx
+
+set id 11
+get id // 11
+set id 222
+get id // 222 { keys are overriding here }
+
+setnx state biahr // if alread key is there then it will make sure not to  make it over written other wise it will creaate the new key 
+get state // bihar
+
+
+// to delete all the keys we need use the
+
+flushall //  by using this all the keys will be deleted form the redis.
+
+// to crete teh inline multiple keys and values we use the 
+
+mset name raj roll 90 class 9
+keys * {name,roll,class}
+
+
+setex state 20 bihar
+get state
+ttl state
+
+// At the time of the key creation only if we want set teh expiration then we need to use the:
+
+psetex state 5000 telangane
+get state
+
+
+incrby roll 2 // increment the value of the key by one1
+
+decrby roll 3 // decrement teh value of the key by one1
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
