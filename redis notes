@@ -7,7 +7,23 @@ note: the session data in the redis will be lost when the redis server is re-sta
 .> redis also supports the persistent storage of teh data { permanent storege } using the snapshopt, AOF, 
 IN  this case te data will be stored in to teh disk and reloaded in to the memory when aware it needed { by the event of the re-start} .
 
-.> Distributed looks : redis acts has the automic looks 
+..> Distributed looks : redis acts has the automic looks 
+Distributed Locks in Redis mean using Redis to make sure that when multiple computers are working together,
+only one computer can access/modify a resource at a time, safely and fast.
+
+Redis can:
+
+#) Create a lock using a simple key (example: "lock:account123").
+Set an expiration (if something goes wrong, the lock will automatically expire).
+Check if lock is held before allowing work.
+
+#) Imagine you and your friend are editing the same document at the same time.
+You lock the document when you are editing.
+Until you finish and unlock it, your friend cannot edit.
+After you unlock, your friend can edit.
+Now imagine thousands of users and many servers are trying to edit the same data.
+You need a central system to manage locks — Redis is perfect for this!
+
 
 .> rate limiter : redis even atcs has the rate limiter
 
