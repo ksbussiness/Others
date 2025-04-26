@@ -917,8 +917,44 @@ responce:
     "orderId": "xqDrthIygC1fnwzwoFjN-"
 }
 
+WE CAN KEEP THE DATA WHICH WE CAN WANT TO SEND FROM THE BODY  IN TEH .CSV /.JSON  FILE AND TEST THE END POINTS USING  THIS FILE WHILE MAKING THE TEST AT THE 
+COLLECTION  LEVEL .
+
+like flow :
+
+we get the order:
+bookid and customer name from the csv file  one by one next 
+it is set in to teh environment variables , 
+
+next we get the order and and that order id  ineed to store it immediately in teh environ ment varibales and next they will be accessed in the  get the order 
+by id automatically
 
 
+chaining of the api call for the testig :
+
+
+IN THE GET ORDER DETAILS 
+// this validation is after getting the order detils here 
+pm.test("Status code is 200",function(){
+    pm.response.to.have.status(200);
+})
+
+
+pm.test("check orderId present in the response body",()=>
+{
+    var jsonData=pm.response.json();
+    pm.expect(jsonData.id).to.eql(pm.environment.get("orderid"));
+});
+
+
+IN THE DELEET ORDER DETAILS BY ID 
+// these validations are for the  order deletion here:
+
+pm.test("Status code is 204", function () {
+    pm.response.to.have.status(204);
+});
+
+pm.environment.unset('orderid');
 
 
 
