@@ -289,6 +289,98 @@ linsert <key_name> after <element>
 linsert <key_name> before <element>
 
 
+.> generally in the lpush the elements are stored in the reverse order like if the 1st elemt is stored at the last position 
+but to over come this we use the:
+
+rpush <key_name> elemt1 elemt2 elemt3 ...
+
+rpush students sai ram manu
+rpop // remove th elast element from the list 
+
+
+
+SET RELATED COMMANDS:
++++++++++++++++++++++++++++++++++
+It is an un-ordered collection of elements
+
+.> to add elemnt in the set
+sadd <key_name>  sai sonu ram
+
+.> to get the elements from teh set we use the 
+smembers <key_name>
+
+.> 
+ebven we try to give the duplicate numbers , but it only saves the unique numbers;
+sadd students sai ram sonu sai
+
+.> To ge teh length of the set we use the
+scard <key _name>
+
+.> To remove the particular element from teh set we use the :
+smembers <key_name> <element_name>
+
+.> To reomve any random elemnt form the set we use the
+spop <key_name>
+
+.> To remove tghe elements from teh set randomly with the count valuse:
+spop <key_name> count_value
+spop usersid 2
+
+.> To see the difference between the twonsets we use the 
+sdiff <key_name1>  <key_name2>
+
+.> To merger teh two sets we use the 
+sunion <key_name1> <key_name2>
+
+.>  To get only common elements from the two sets we use the
+sinter <key_name1> <key_name2>
+
+
+.> To store the result after performing the union 
+sunionstore finalresult1 result1 result2
+sinterstore fianlresult2 result1 result2
+
+
+.> TO check wheather any element  is belongs to the set or not we use:
+sismember <key_name> <element>
+
+.> 
+
+SORTED SET RELATED COMMANDS:
++++++++++++++++++++++++++++++++++
+
+.> zadd <key_name> <score> <value> // To add the elements here in to the sorted set we use this.
+
+.> zrange  <key_name> range {0-0} // To see the values 
+
+.> zrange <key_name> range withscores // To see the scores with the values we use this 
+
+.> to the multiple scores we use the 
+
+zadd run 200 sachin 120 dhoni 203 virat
+zrange <kwy_name> range we use this 
+
+NOTE :here the scores are automatically sorted here based on teh score values from the low to high.
+
+
+.> To find the length of the sorted set we use the:
+zcard <key_name> // to get the length we use this
+
+.>To find the scores  in between we use this
+zcount <key_name> 120 300 // this will find the runs made bu th eno of persons in between these numbers here and it will print the count here 
+
+.> To find the scores of a particular person we use this:
+zscore run virat
+
+.>  To find the index of the particular person we use the:
+zrun <key_name> virat
+
+.> To get the range of scores between the given values withscores
+zrangebyscore run  150 200 withscores
+
+.> To delete the firt scores we use this 
+zrem run 
+
 
 DIFFERENT CACHING STRATEGIES  explanation :
 ------------------------------------------------------------------------------------------------------------------------------ >
