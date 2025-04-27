@@ -175,6 +175,7 @@ sudo snap services.
 
 
 STRINGS RELATED COMMANDS:
++++++++++++++++++++++++++++++++++++++++++++++++++
 
 keys *
 set key <value>
@@ -241,10 +242,56 @@ incrby roll 2 // increment the value of the key by one1
 decrby roll 3 // decrement teh value of the key by one1
 
  
+LIST RELATED COMMANDS:
++++++++++++++++++++++++++++++++++
+
+.> To push the elemnst into the list
+LPUSH mylist a b c
+{ here the last element which we send in the mylist defination will become the first element  of the list here}
+
+LPUSH mylist "hello"
+LPUSH mylist "world"
+LPUSH mylist 0-1 { assinging the keys here }
+
+op: "hello"
+"world"
+
+LPUSH students sai
+LPUSH students manoj
+LRANGE students 0-1
+
+op: manoj
+sai
+
+: here we get the elemnst from te last to first 
+
+.> to remove the elemts froms the list:
+LPOP <KEY_NAME>
+LPOP students // removes the first element
+LPOP studensts 2 // removes the no of elements from the list 
+
+LLEN students // to know the lenght of the  LIST 
+
+LINDEX students <index> // To get the elements from the specific index 
+LINDEX students 2
+
+
+FLUSHALL // to remove the complete list  droping of that list 
+
+
+.> to pass teh multiple elements into the list we use the
+
+LPUSHX <key_name>  1 2 3 4  // here all  elements are stored in the list 
+NOTE POINT HERE : the key which we are using need to be exists here early or previously only otherwise elemenst  will not be inserted here.
+
+.> To insert to specific position we use the 
+linsert <key_name> after <element>
+linsert <key_name> before <element>
 
 
 
-CACHING STRATEGIES  explanation :
+DIFFERENT CACHING STRATEGIES  explanation :
+------------------------------------------------------------------------------------------------------------------------------ >
 
 ..> Caching means temporarily storing a copy of data so that future requests for that data can be served faster 
 without fetching it again from the original source (like database, API, or server).
