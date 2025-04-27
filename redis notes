@@ -382,6 +382,77 @@ zrangebyscore run  150 200 withscores
 zrem run 
 
 
+
+HASH RELATED COMMANDS:
++++++++++++++++++++++++++++++++++
+
+
+..> To set the hsets we use this 
+hset <key_name> <field> <nalue>
+ex: hset users:1 name ramu class 10 rollno 101 state telangana
+
+..> To get all teh hash set users we use this
+hgetall <key_name>
+hgetall users:1
+
+..> To get teh specific fields from the hset we  use this:
+hget <key_name> <field>
+hget users:1 name
+
+..> To check for teh specific field is exists are not we use this
+hexists <key_name>  <field>
+hexists users:1 name
+
+if exists we get the 1
+else we get teh 0
+
+...> To modify the particular field we use the 
+hset users:1 name sachin 
+// if name early =sai know will be changed to the sachin
+
+..> to avoit this kind of overwritting we use this:
+hsetnx users:1 <key_name> <value>
+
+..> To delete the particular field from the keys we have 
+hdel <key_name> <field_name>
+hdel users:1 subjet
+
+..> To get all the fields from teh key we use the
+hkeys <key_name>
+ex: hkeys users:1
+
+..> in teh same way to get the values we use the
+hvals <key_name>
+ex: hvals users:1
+
+..> To get the comlete length of teh hash set we use the
+hlen <key_name>
+hlen users:1
+
+..> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 DIFFERENT CACHING STRATEGIES  explanation :
 ------------------------------------------------------------------------------------------------------------------------------ >
 
