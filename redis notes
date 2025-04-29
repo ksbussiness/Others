@@ -432,11 +432,55 @@ hlen users:1
 ..> 
 
 
+REDIS PUB / SUB :
+======================= >
+
+..> Pub/Sub short publish /subscribe is a messaging technology that facilitates communication between different
+components in a distributed system.
+
+..> it is an Asynchronous and scalable messaging service .
+
+..> It can be used in Real-Time messaging and chat, News updates, Alert and Notofiations, Iot devices, Load 
+Balancing, Online Gaming, Live, streaming etc.
+
+
+HOW PUB/SUB Works :
+====================== >
+
+.> Pub/sub is a fundamentally a simple communication model where a broker receives messages from a
+publisher and distributes tham to one or more subscribes.
+
+Type's of models:-
+--------------------------- >
+One to One- One publisher one subscriber.
+One to Mnay - one publisher many subscriber.
+Many to one - many publishers one subscriber.
+Many to many - many publishers many subscribers.
+
+Redis Pub/Sub :-
+
+Publisher : publisher is an application or service that sends messages.
+Subscriber- subscriber is an application or service that receives messages.
+
+ Channel-Channel is the subject or the information feed.The publisher can push messages to teh channel,
+which will broadcast messages to teh subscribers.
+
+Message:- Message holds the received or transmitted data throughout the system.
+
+Broker:Broker is responsible for guiding the messages throughout the system.
+It acts as a middleman to establish and exchange communication between the publisher and subscriber.
 
 
 
+COMMANDS:
+============ >
 
+SUBSCRIBE:It is used to subscribe the client to teh specified channels.
+PUBLISH : It is used to unsubscribes the client from teh given channels, or from all them if none is given.
+UNSUBSCRIBE : It is used to unsubscribes the client from the given channels, or from all of them if none is given.
+PSUBSCRIBE-It is used to subscribes the client to the given patterns.
 
+PUBSUB CAHNNELS: It is used to list the currently active channels.
 
 
 
