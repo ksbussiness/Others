@@ -482,9 +482,43 @@ PSUBSCRIBE-It is used to subscribes the client to the given patterns.
 
 PUBSUB CAHNNELS: It is used to list the currently active channels.
 
+PUBSUB NUMSUM: It return the number of subscribes for teh specified channels.
+
+PUNSUBSCRIBE :- It is used to unsubscribe the client from teh given patterns, or from all of them 
+if none is given.
 
 
+HOW TO CONNECT HERE:
 
+.> CONNECT TO THE REDIS 3-4 DIFFERENT CLIENT USING THE REDIS CLI'S:
+
+IN ONE OF THE CLIENT ENTER THIS COMMANDS HERE:
+.> SUBSCRIBE { NEW_CHANNEL _NAME}
+
+IN ONE OF TEH CLIENT ENTER THIS COMMANDS HERE 
+.> PUBLISH <Channel names> " HELLO"
+
+YOU CAN SEE THE MESSAGES IN THE OTHER END AT TEH SUBSCRIBER END HERE THE MESSAGE WHICH ARE PUBLISHED BY TEH 
+PERSONS
+
+.> 
+
+SUBSCRIBING THE PATTERN MATCHING CHANNELS:
+
+
+..> INTER THIS IN ANY ONE OF THE CLIENT'S SIDE:
+
+PSUBSCRIBE GEEK* 
+
+..> IN ANOTHER CLIENT SIDE WE CAN SEE THE  WHICH WE ARE SENDING BELOW MESSAGE" 
+PUBLISH GEEKYSHOWS "HELLO FROM THE MESSAGES"
+
+
+..> TO SEE HOW MANY PEOPLE ARE SUBSCRIBED TO THIS CHANNEL WE CAN USE THE:
+PUBSUB NUMSUB <channel_name>
+
+..> to set teh active channel we use the:
+pubsub channels;
 
 
 
