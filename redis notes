@@ -536,6 +536,7 @@ Redis provides a range os persistence options. These include:
 
 
 NO PERSISTENCE:
+--------------------------------------------------------- >
 -------------------- >
 -> You can diable persistence completely.This is somtimes used when caching.
 -> 
@@ -602,15 +603,122 @@ keys*
 ..> Here we can not see the data here because we restarted teh server then al teh data is gone from teh 
 redis cache .
 
+TO MAKE THE PERSISTENCE WE HAVE TEH 3 METHODS  :-
+---------------------------------------------------------------------------- >
+1) REDIS DATABASE (RDB) :- 
+
+RDB persistence performs point-in -time snapshots of your dataset at specified intervals.
+
+By default redis save snapshots of the dataset on disk, in a binary file called dump.rdb.
+
+You can configure Redis to have it save the dataset every N seconds if there are at least M keys changes 
+in teh dataset, or you can manually call teh SAVE or BGSAVE commands .
+This strategy is know sa snapshotting.
+
+ex:
+save 3600 1 { here in the 3600 seconds if there is a change in the one key then it will save the snapshoot here}
+
+
+In order to make the snapshooting we need to have the 
+save option in enable mode:
+
+go to the redis file,
+open the redis file,
+cont+w
+snahoot
+
+have this in the file:
+# save ""
+
+.> in done you can see the  this in the congif file :
+
+save 3600 1 ,300 100 ,60 10000
+     tp   kc,tp   kc , tp   kc
+
+tp= time period range{ with in teh time}
+kc= key changes
+
+cont+x
+cont+y
+enter
+restart redis-server
+redis-cli
+
+To see the what config we have kept here in teh config file we need to use this:
+config get save
+
+here the data is saved in to the dump.rdb file  
+it is location we  can see in teh redis-config file
+
+/var/lib/redis
+dump.rdb
+
+2) Append Only File (AOF) :
+---------------------------------------------- >
 
 
 
+AOF persistence logs every write operation received by the server.
+These operations can then be replayed again at server startup, Reconstructing the original dataset.
+
+.> when ever an write  operation it will get then only a log file is saved in to the data base.
+
+.> Snashotting is not very durable,If your computer running redis stops,your power line fails, or you 
+accidentally kill-9 instance, the latest data written to redis will be lost.
+
+.> so this si snot sutaible for some applications, so the append-only file is an alternative,
+fully-durable strategy for redis.
+
+Append Only File :-
+
+.> You can turm on the AOF in your configuration file:
+appendonly yes
+
+Every time redis receives a command that changes the dataset (e.g SET) it will appemd it to the AOF.
+When you restart Redis it will re-play the AOF to rebuild teh State.
 
 
+.> First go in to the redis config file
+disabel the configuation file here
+# save 3600 1 300 100 60 100000
 
+.> In the config file go to the { append only mode } 
+we can see this 
+appendonly no
+change this to the
+appendonly yes
 
+cont+x
+cont+y
+enter
+restart redis-server
 
+..> to check whaether the append file is created or not we need to use the
 
+go to the
+
+cd /var/lib/redis
+ls
+// here we can see the files here
+
+set name1 sai
+set name2 sachin
+keys *
+exit 
+restart redis-server
+redis-cli
+keys * 
+.> here we can see our data { which is coming from the AOF files }
+
+cd /var/lib/redis
+ ls 
+you can see the append file here
+just go into the 
+cd appendonlydir/
+ ls
+we can see here .rdb files and .aof files 
+so into the .aof files and see the data there
+cat appendonly.aof.1.incr.aof
 
 
 
