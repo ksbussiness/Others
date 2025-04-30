@@ -520,6 +520,82 @@ PUBSUB NUMSUB <channel_name>
 ..> to set teh active channel we use the:
 pubsub channels;
 
+=============================================================================================================================
+==============================================================================================================================
+=================================================================================================================================
+=============================================================================================================================
+
+
+Redis Persistence :-
+Persistence refers to the writing of data to durble storage, such as a solid-state disk(SSD).
+Redis provides a range os persistence options. These include:
+1) NO persistence
+2) RDB ( Redis Database File) 
+3) AOF ( Append Only File)
+4) RDB+AOF 
+
+
+NO PERSISTENCE:
+-------------------- >
+-> You can diable persistence completely.This is somtimes used when caching.
+-> 
+
+
+
+
+DEMO :Set the two  keys with the names to check the data persistence or not.
+set name1 sai
+set name2 sachin
+
+exit 
+restart redis-server
+redis-cli
+keys *
+<here we  get the data  keys > 
+
+Because: redis will provide the RDB data persisntence.
+
+DEMO :-> SO TO MAKE THE REDIS IN PERSISTENCE:
+
+In  the command prompt go up to /redis
+cd/etc/redis
+ls
+redis.config
+
+open this file 
+
+sudo nano redis.config
+cont+w
+snapshoooting
+
+in the fiel we have the in this way:
+# save ""
+
+...> just make sure to do the uncomment this one.
+next press
+cont+x
+cont+y
+enter
+
+...> re start teh server:
+restart redis-server
+redis cli
+
+
+..> enter the data or just set teh keys here
+
+set name1 sai
+set name2 sachin
+keys* 
+
+exit 
+
+redis-cli
+keys* 
+we can see teh redis keys here 
+..> 
+
+
 
 
 
