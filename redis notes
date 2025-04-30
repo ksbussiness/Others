@@ -592,8 +592,16 @@ exit
 
 redis-cli
 keys* 
-we can see teh redis keys here 
-..> 
+--> we can see teh redis keys here  { because here teh server is not restarted here}
+
+
+
+restart redis-server
+redis-cli
+keys*
+..> Here we can not see the data here because we restarted teh server then al teh data is gone from teh 
+redis cache .
+
 
 
 
