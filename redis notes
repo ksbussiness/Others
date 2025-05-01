@@ -722,6 +722,89 @@ cat appendonly.aof.1.incr.aof
 
 
 
+=============================================================================================================================
+=============================================================================================================================
+=============================================================================================================================
+=============================================================================================================================
+Redis Access Control List :
+
+.>  Its limits the use authtication , and provides someset of rules to access the data here.
+
+.> it only provied access to the users how  provide the passwords and authtication, they only able to work 
+on the cli 
+
+.> we can provide the security here by limiting the user access to data 
+
+.>  ACL list { it will give all the details here about the users details here }
+how logged in and the names , wheather they are active or not 
+* user default on nopass ~* ,, ,, 
+
+.> Default : { usersname}
+.> on : user is active
+.> off : user is in active
+.>nopass :{ which means user is active so ot required no password has off know here}
+
+.>  ~* :{ this indicates the user is allowed to access all the keys here }
+
+.> &* :{ this indicates here that user to allowed to acces the pub/sub}
+
+.> *@all :{ this indictaed here that user is allowed to access the every command here}
+
+
+
+ACL GETUSER default :
+..> by using this commnad we get all the users info here.
+..> 
+
+redis cli
+acl list
+.> here we cn see the all teh user info here.
+
+acl whoami:
+..> to so which user is logged in here
+
+acl getuser <user_name>
+.> by this commad we can see all teh information about the usere here.
+
+
+To create teh new user we have here:
+acl setuser <user_name> on >{password} allcommands allkeys
+. here allkeys is teh als name for the allcommands
+
+.> to see whaether the user is created or not we can do this has 
+acl list
+
+.> to lohin with this user name we need to do here has :
+auth <user_name> <password>
+
+.> acl whoami
+< To see teh current user login information. >
+
+.> to make this user limited acces we need to use here has:
+acl setuser <user_name> on <password>  nocommands -set +get
+.> this commands describes here that he can only access the get commands but not the set commands here
+
+to test purpose use this commands here:
+acl list {we get teh error 
+keys* { we get teh erro
+set city hyf { we get teh erro
+get <any_key_name> { we do not get any erro
+
+
+To delet the user we need to use this command here:
+
+acl list
+..> we get all teh user info here
+
+acl deluser <user_name>
+
+
+.> to generate a new password for teh user
+.> login with teh user name
+.> acl genpass
+# we get here new passowrd here
+
+
 
 DIFFERENT CACHING STRATEGIES  explanation :
 ------------------------------------------------------------------------------------------------------------------------------ >
