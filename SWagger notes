@@ -4,6 +4,7 @@
 3. REST Client (Bonus tool)
 1. Swagger Snippets
  2. Document This (JSDoc Generator)
+Swagger Viewer:
 
 Extension Name: REST Client
 All Possible Options in swaggerUi.setup(swaggerSpec, options) (with Simple Explanations)
