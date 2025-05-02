@@ -1,0 +1,162 @@
+
+your-project/
+├── app.js
+├── routes/
+│   └── v1/
+│       └── authroutes.js
+├── docs/
+│   └── swagger.js
+├── swagger-output.json (auto-generated)
+└── setupSwagger.js
+1.  docs/swagger.js — Swagger Generation Script
+
+// docs/swagger.js
+const swaggerAutogen = require('swagger-autogen')();
+
+const doc = {
+  info: {
+    title: 'EVENT MANAGEMENT ROLE-BASED API',
+    description: 'API Documentation for User Authentication and Event Management System',
+    version: '1.0.0',
+  },
+  host: 'localhost:3033',
+  schemes: ['http'],
+  tags: [
+    {
+      name: 'FOR REGISTRATION/LOGIN/LOGOUT',
+      description: 'Endpoints for the user/admin registration, login, logout, and forgot password',
+    },
+    {
+      name: 'EVENT-MANAGEMENT-ADMIN',
+      description: 'Admin endpoints for managing events',
+    },
+    {
+      name: 'BOOKING-USER',
+      description: 'User endpoints for booking events',
+    },
+    {
+      name: 'GENERAL OPERATIONS',
+      description: 'General info routes',
+    },
+    {
+      name: 'DEMO ROUTES',
+      description: 'Demo routes',
+    },
+  ],
+  components: {
+    securitySchemes: {
+      BearerAuth: {
+        type: "apiKey",
+        name: "Authorization",
+        in: "header",
+        description: 'Enter JWT token as "Bearer <token>"',
+      },
+    },
+  },
+};
+
+const outputFile = './swagger-output.json';
+const endpointsFiles = ['./routes/v1/authroutes.js']; // Add more route files if needed
+
+swaggerAutogen(outputFile, endpointsFiles, doc);
+2.  setupSwagger.js — Swagger UI Setup
+
+// setupSwagger.js
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './swagger-output.json' assert { type: 'json' };
+
+export default function setupSwagger(app) {
+  app.use(
+    '/docs',
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocument, {
+      explorer: true,
+      swaggerOptions: {
+        docExpansion: 'list',
+        deepLinking: true,
+        displayRequestDuration: true,
+      },
+    })
+  );
+
+  console.log('Swagger docs available at http://localhost:3033/docs');
+}
+3.  app.js — Main App Entry
+
+// app.js
+import express from 'express';
+import setupSwagger from './setupSwagger.js';
+import authRouter from './routes/v1/authroutes.js';
+
+const app = express();
+app.use(express.json());
+
+app.use('/api/v1/auth', authRouter);
+
+// Swagger setup
+setupSwagger(app);
+
+const PORT = 3033;
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+4.  routes/v1/authroutes.js — Example Route with Autogen Comment
+
+// routes/v1/authroutes.js
+import express from 'express';
+const router = express.Router();
+
+/**
+ * @swagger
+ * /api/v1/auth/register:
+ *   post:
+ *     tags:
+ *       - FOR REGISTRATION/LOGIN/LOGOUT
+ *     description: Register a new user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Successfully registered
+ */
+router.post('/register', (req, res) => {
+  // #swagger.tags = ['FOR REGISTRATION/LOGIN/LOGOUT']
+  // #swagger.description = 'Register a new user'
+  /* #swagger.requestBody = {
+        required: true,
+        content: {
+          "application/json": {
+            schema: {
+              username: "string",
+              password: "string"
+            }
+          }
+        }
+    }
+  */
+  res.status(201).send('User registered');
+});
+
+export default router;
+5.  Run to Generate Swagger File
+Before starting your app, run this once:
+
+
+node docs/swagger.js
+This generates the swagger-output.json file.
+
+6.  Optional: Automate with NPM
+In your package.json:
+
+
+"scripts": {
+  "swagger-gen": "node docs/swagger.js",
+  "start": "npm run swagger-gen && node app.js"
+}
