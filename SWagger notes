@@ -117,3 +117,21 @@ swaggerUi.setup(spec, {
   }
 });
 But in Fastify, you're directly configuring the Swagger UI as a plugin, so it gives you more options upfront like theme, hooks, etc.
+
+================================================================================================ >
+
+
+ What is Swagger Central?
+Swagger Central is a centralized dashboard (or web UI) where you can see all your API documentation in one place, especially useful when you have many microservices.
+
+It’s not a library — it’s more like a central webpage/UI that loads Swagger docs (openapi.json) from different services (auth, users, orders, etc.) and displays them together.
+
+ Swagger Central vs Normal Swagger – Simple Comparison
+Feature	Normal Swagger (Per Project)	                                             Swagger Central (Multi-Service)
+ Location 	  Lives inside each API project (/docs in Node, Fastify, Laravel, etc.) 	A separate UI app (like Swagger UI Docker or SwaggerHub)
+ Scope	      Shows only that project’s APIs	                                      Combines APIs from many projects (Node, PHP, etc.)
+⚙ Setup	    One swagger-jsdoc or @fastify/swagger setup per app	                  One Swagger UI app pulling multiple OpenAPI URLs
+Maintenance	  Maintained inside app’s codebase	                                    Maintained independently — usually via Docker or hosted portal
+ Auth	       Follows app’s security	                                                Can have own login or expose public docs
+ Best        For	Small apps, single-service projects	                              Large, real-time apps with many microservices
+ Examples	   localhost:3000/docs for one service	                                  docs.company.com shows all microservices' Swagger docs
