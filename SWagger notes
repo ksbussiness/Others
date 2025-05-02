@@ -1,0 +1,50 @@
+
+
+All Possible Options in swaggerUi.setup(swaggerSpec, options) (with Simple Explanations)
+Here are the commonly used UI options you can pass:
+
+Option	Type	Description
+explorer	boolean	Shows the "Explore" bar to let users enter their own Swagger spec URL
+swaggerOptions	object	Configuration passed to the Swagger UI directly (like filtering, default models expansion)
+customCss	string	Add custom CSS styles to the Swagger UI
+customCssUrl	string	Load external CSS file
+customJs	string	Load external JavaScript file
+customfavIcon	string	Set a custom favicon for the Swagger UI page
+customSiteTitle	string	Set a custom title for the Swagger UI HTML page
+html	string	Replace the full Swagger UI HTML
+req, res	object	Request/response objects for customizing UI per request (rarely used)
+
+🔧 swaggerOptions Sub-options
+This is a key field: you can pass options under swaggerOptions to control Swagger UI behavior.
+
+Sub-option	Type	Description
+defaultModelsExpandDepth	number	Number of levels to expand models by default (use -1 to hide models)
+defaultModelExpandDepth	number	Controls how deeply nested models show up
+defaultModelRendering	'example' or 'model'	Whether to show example values or model structure
+docExpansion	'none', 'list', 'full'	Controls how endpoints are initially expanded
+filter	boolean or string	Show filter box for operations (can filter by tag or method)
+showExtensions	boolean	Show vendor-specific extensions (like x-*)
+showCommonExtensions	boolean	Show extensions that are common in OpenAPI
+displayRequestDuration	boolean	Show how long requests take
+tryItOutEnabled	boolean	Enable/disable the "Try it out" feature
+supportedSubmitMethods	array	What HTTP methods are allowed to "Try it out" (e.g., ['get', 'post'])
+validatorUrl	string or null	Set to null to disable validator URL
+persistAuthorization	boolean	Keep authorization token after page refresh
+layout	'BaseLayout' or 'StandaloneLayout'	Choose Swagger layout
+syntaxHighlight	object	Controls code syntax highlighting colors and theme
+
+
+swaggerUi.setup(swaggerSpec, {
+  explorer: true,
+  customSiteTitle: 'My API Docs',
+  customfavIcon: '/favicon.ico',
+  customCss: '.swagger-ui .topbar { display: none }',
+  swaggerOptions: {
+    docExpansion: 'none',
+    defaultModelsExpandDepth: -1,
+    tryItOutEnabled: true,
+    displayRequestDuration: true,
+    persistAuthorization: true,
+    supportedSubmitMethods: ['get', 'post'],
+  }
+});
