@@ -48,3 +48,72 @@ swaggerUi.setup(swaggerSpec, {
     supportedSubmitMethods: ['get', 'post'],
   }
 });
+
+
+============================================================= >
+Swagger in Fastify :
+
+For @fastify/swagger-ui: Full List of Options (with explanations)
+These options are used when registering @fastify/swagger-ui with Fastify:
+
+
+fastify.register(require('@fastify/swagger-ui'), {
+  routePrefix: '/docs',
+  staticCSP: true,
+  exposeRoute: true,
+  uiConfig: {
+    docExpansion: "list",        // expands tag list by default
+    deepLinking: true,           // enable anchor links to individual operations
+    displayRequestDuration: true,// shows request duration
+    tryItOutEnabled: true,       // enables "Try it out" for APIs
+    filter: true,                // enables filtering API endpoints
+    showExtensions: true,        // shows x-* vendor extensions
+    showCommonExtensions: true,  // shows common vendor extensions
+    persistAuthorization: true,  // remember bearer token on reload
+  },
+  uiHooks: {
+    onRequest: (request, reply, next) => next(), // custom middleware for docs route
+    preHandler: (request, reply, next) => next()
+  },
+  theme: {
+    title: 'Custom API Docs',
+    favicon: '/favicon.ico' // your static favicon path
+  }
+});
+
+ Meaning of Key Options :
+================================== >
+
+Option	Type	Purpose
+routePrefix	string	Path to access the Swagger UI (e.g. /docs)
+staticCSP	boolean	Enables Content Security Policy headers for static assets
+exposeRoute	boolean	Automatically exposes the /docs route
+uiConfig	object	Swagger UI configurations (explained below)
+uiHooks	object	Middleware functions for handling docs request
+theme	object	Customize Swagger UI title and favicon
+
+uiConfig Details
+These are passed directly to Swagger UI and are equivalent to the swaggerOptions in Express.
+
+Option	Purpose
+docExpansion	none, list, full – controls how APIs expand
+deepLinking	Enables direct linking to endpoints
+displayRequestDuration	Shows time taken for requests
+tryItOutEnabled	Enables live API calls
+filter	Adds a filter input
+showExtensions	Shows custom vendor extensions
+showCommonExtensions	Shows common x-* extensions
+persistAuthorization	Keeps token after page refresh
+
+Why Express Setup Doesn’t Use These? :
+=============================================== >
+
+Because swagger-ui-express doesn't wrap Swagger UI in the same way. In Express, you pass options like:
+
+
+swaggerUi.setup(spec, {
+  swaggerOptions: {
+    ...
+  }
+});
+But in Fastify, you're directly configuring the Swagger UI as a plugin, so it gives you more options upfront like theme, hooks, etc.
