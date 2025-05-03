@@ -721,6 +721,164 @@ so into the .aof files and see the data there
 cat appendonly.aof.1.incr.aof
 
 
+=============================================================================================================================
+=============================================================================================================================
+=============================================================================================================================
+=============================================================================================================================
+=============================================================================================================================
+Redis Cluster :
+
+
+..> It is silimar to the master and slave .
+
+..> Redis sclaes horizontally with a deployment topology called Redis cluster.
+
+..> redis scales horizontally with the multiple servers
+
+..> Redis Cluster provides a way to run a redis installation where data is automatically shred across 
+multiple redis nodes.
+
+..> Redis cluster automatically splits your dataset among multiple nodes.
+
+..> It continues operations when a subset of the nodes are experiencing failures or unable to communicate
+with the rest of the cluster.
+
+..> Redis cluster does not use consistent hashing, but uses a different foem of the sharding.
+
+..>  Normal master slave structure:L
+
+Master {Redis +sentinel}
+|
+|
+> Slave 1                Slave 2                  Slave 3
+redis + Sentinel      redis + sentinel         redis + sentinel   
+
+.> here we have the one master and many slaves ,  { all read and write operations occure on the master only }
+.> and the data which is stored on the master will be saved or copied in to the slaves simultaneosully.
+.> when master is dead , then from the slaves any one will become the master.
+
+.> but redis something different here:
+
+..> In redis there will be multiple masters and we have the multiple slaves corresponding to that master.
+
+..>  Read the redis scaling with the horizontal.
+
+To run the redis cluster we need to hve teh 6 folders  3 for master and 3 for teh slaves.
+
+
+
+create a floder and move in to that floder :
+
+mkdir 7000 7001 7002 7003 7004 7005
+ls
+
+...> next we need to create a file in each of these directories with the name redis.conf
+
+.> nano redis.conf
+write these in side that folder :
+port 7000
+cluster-enabled yes
+cluster-config-file nodes.conf
+cluster-node-timeout 5000
+appendonly yes
+
+clt+x
+clt+y
+enter
+
+ cp redis.conf 7000/redis.conf
+cd 7000
+ls
+>we can see the redis.conf file here inside it.
+cat redis.conf
+
+In the same way we need to copy the redis conf in all the files.
+
+cp redis.conf 7001/redis.conf
+cp redis.conf 7002/redis.conf
+cp redis.conf 7003/redis.conf
+cp redis.conf 7004/redis.conf
+cp redis.conf 7005/redis.conf
+
+NOTE here we copied this content in all these file sbut need to need ton chaneg ethe port number accordinly 
+for teh files :
+..............................> 
+
+go inside the 7002:
+nano redis.conf
+
+port 7000
+cluster-enabled yes
+cluster-config-file nodes.conf
+cluster-node-timeout 5000
+appendonly yes 
+
+Know we just created the nodes  but  need to start the servers in side that nodes:
+
+go inside the 7000
+
+redis-server ./redis.conf
+
+know open a new ternimal and 
+
+go previsoly from where you runned the redis,
+
+go inside the cd 7001
+redis-server ./redis.conf
+
+
+In the same way need to go inside the all the nodes and start the srevers.
+
+go previsoly from where you runned the redis,
+go inside the cd 7001
+redis-server ./redis.conf
+
+for all the nodes like 7002, 7003, 7004, 7005
+
+
+.....> after all set up , open a new terminal for working purpose 
+here we need to create teh cluster 
+enter this command :
+
+redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 \
+127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 \
+--cluster-replicas 1
+
+enter teh yes
+
+know opone the a cluster here:
+redis-cli -c -p 7000
+cluster slots { to see the slots here }
+
+to see the cluster information we enter this :
+#cluster info
+
+ set key1 sachin 
+get key1
+
+
+here to see the master  information we need to enter this :
+
+exit 
+redis-cli -p 7000 cluster nodes | grep master
+
+
+to see the nodes we need to enter this :
+redis-cli  -p cluster nodes
+
+
+To see if any master is down then what heppens here like wheather the slave will be become the
+master or not.
+
+> open the termial where we are runnig  the server any 
+stop it by cont+c
+
+and come to the server where we operating
+redis-cli -p 7000 cluster nodes | grep master
+redis-cli  -p cluster nodes
+
+
+
 
 =============================================================================================================================
 =============================================================================================================================
