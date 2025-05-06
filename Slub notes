@@ -1,0 +1,47 @@
+
+ABOUT THE SLUB IN DETAILLY HERE:
+
+..> What is a Slug in a URL?
+A slug is the readable part of a URL, usually at the end of the path, that identifies a specifi
+c page or resource in a website.
+
+https://myblog.com/posts/how-to-learn-javascript
+In this example, the slug is: how-to-learn-javascript
+It usually represents the title or name of the page content.
+
+
+You can use libraries like:
+=============================== >
+
+npm install slugify
+
+const slugify = require("slugify");
+const title = "10 Tips for Full-Stack Developers";
+const slug = slugify(title, { lower: true }); // "10-tips-for-full-stack-developers"
+🔹 Where You See Slugs Commonly
+Blogs: /posts/my-first-blog
+
+E-commerce sites: /products/iphone-14-pro
+YouTube: /watch?v=abc123 (not a slug, just an ID)
+Custom portfolios: /projects/chat-app-using-react
+
+
+..> we need the slug because :
+
+In big projects, slugs make URLs clean, meaningful, and SEO-friendly, which improves user experience and discoverability.
+
+ Why We Use Slugs in Big Projects:
+Problem Without Slugs	How Slugs Help
+URLs look like site.com/post/92837 – not readable	Slugs give site.com/post/learn-react-basics – easy to read
+Users can’t guess what the page is	Slugs describe the content directly
+Search engines rank your page lower	Slugs with keywords improve SEO
+URLs are hard to remember/share	Slugs make sharing simple and meaningful
+Developer routing is less clear	Slugs help in clean routing logic like /:slug
+
+
+
+for more refer read these blogs Related to teh slub:
+
+.> https://mishkaorakzai.medium.com/implementing-url-slugs-on-express-node-js-5f5890431dea
+.> https://himanshu-sharma.medium.com/use-slugs-to-create-custom-urls-7e2c5e9d8d41
+.> https://medium.com/@elizabethmodupeoluwa10/how-to-create-a-slug-26998747d9c2
