@@ -142,3 +142,117 @@ Maintenance	  Maintained inside app’s codebase	                               
  Auth	       Follows app’s security	                                                Can have own login or expose public docs
  Best        For	Small apps, single-service projects	                              Large, real-time apps with many microservices
  Examples	   localhost:3000/docs for one service	                                  docs.company.com shows all microservices' Swagger docs
+
+
+
+Swagger set  for teh cookies releadted data :
+--------------------------------------------------------- >
+
+ components: {
+      securitySchemes: {
+        cookieAuth: {
+          type: "apiKey",
+          in: "cookie",
+          name: "sessionId", // This must match your actual cookie name
+        },
+      },
+    },
+    security: [
+      {
+        cookieAuth: [],
+      },
+]
+
+There are two places you can define security in Swagger:
+
+ 1. Global security field (applies to all routes unless overridden) :
+..> in side the swagger set up we can have like this :
+    // 👇 Apply cookieAuth globally to all routes
+    security: [
+      {
+        cookieAuth: [],
+      },
+    ],
+
+2. Per-route security (recommended when using mixed auth)
+You override the global one by explicitly defining the security scheme in the Swagger comments for each route.
+
+
+ /admin:
+ *   get:
+ *     summary: Admin route using JWT
+ *     security:
+ *       - bearerAuth: []
+
+
+components: {
+      securitySchemes: {
+        // 1. JWT via headers
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+        // 2. Cookie-based auth
+        cookieAuth: {
+          type: "apiKey",
+          in: "cookie",
+          name: "sessionId", // or whatever cookie name you use
+        },
+      },
+
+In routes using teh cookies for info  this :
+------------------------------------- >
+/**
+ * @swagger
+ * /profile:
+ *   get:
+ *     summary: Get user profile
+ *     description: Requires sessionId cookie to be present
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: Successful profile fetch
+ *       401:
+ *         description: Unauthorized
+ */
+
+In routes using teh bearer auth token we use the :
+
+/**
+ * @swagger
+ * /secure-data:
+ *   get:
+ *     summary: Access with JWT token
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Secured data with JWT
+ *       401:
+ *         description: Unauthorized
+ */
+router.get("/secure-data", (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+  // validate JWT
+  res.send("Protected data using JWT");
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
