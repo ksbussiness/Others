@@ -158,6 +158,43 @@ log("Hello, TypeScript!");
 When a module has both default and named exports:
 import log, { PI } from './mathUtilsWithDefault';
 
+// utils/math.ts
+export const PI = 3.14159;
+export function add(x: number, y: number): number {
+  return x + y;
+}
+
+// utils/logger.ts
+export default function log(message: string): void {
+  console.log("[LOG]:", message);
+}
+
+Never in typescript:
+---------------------------- >
+
+never means "this should never happen."
+It’s not the same as void (which means "returns nothing").
+
+never in TypeScript – Simple Explanation
+The never type represents a value that never occurs. It is used when:
+A function never returns (e.g., it throws an error or has an infinite loop).
+A variable is guaranteed to never have a value.
+
+let x: never = true;  error 
+let x: never = false; error  
+
+
+Type: undefined & null
+---------------------------------- >
+undefined and null are types that refer to the JavaScript primitives undefined and null respectively.
+
+let y: undefined = undefined;
+let z: null = null;
+
+ex:
+These types don't have much use unless strictNullChecks is enabled in the tsconfig.json file.
+
+
 
 ==========================================================================================================================================================================================================================================================================================
 // Imports rewritten with TypeScript module syntax
