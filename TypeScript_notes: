@@ -40,15 +40,126 @@ symbol are used to create a globally unique identifier.
 Type Assignment :
 When creating a variable, there are two main ways TypeScript assigns a type:
 
-Explicit
-Implicit
-In both examples below firstName is of type string
+Explicit : we need to define the type of the variable.
+let firstName: string = "Dylan"; // type string
+console.log(typeof firstName);
+
+let varib:string ="dinnu";
+console.log(varib)
 
 
 
+Implicit : Here in this case typescript will guess teh type here in this case:
+const sa="sachin"
+console.log(sa)
+console.log(typeof sa)
 
 
 
+Note: Having TypeScript "guess" the type of a value is called infer.
+Implicit assignment forces TypeScript to infer the value.
+
+
+let firstName: string = "Dylan"; // type string
+firstName = 33; // attempts to re-assign the value to a different type  we get teh error here in thiscase
+
+..> TypeScript may not always properly infer what the type of a variable may be. In such cases, it will set the type to any which disables type checking.
+
+
+we have an option in the tsconfig.ts file to follw the strict type orimplicity type.
+This behavior can be disabled by enabling noImplicitAny as an option in a TypeScript's project tsconfig.json. That is a JSON config file for customizing how some of TypeScript behaves.
+
+
+
+The special Types in TypeScript:
+TypeScript has special types that may not refer to any specific type of data.
+
+1) Type: any
+any is a type that disables type checking and effectively allows all types to be used.
+
+The example below does not use any and will throw an error:
+
+EX: let u = true;
+u = "string"; // Error: Type 'string' is not assignable to type 'boolean'.
+Math.round(u); // Error: Argument of type 'boolean' is not assignable to parameter of type 'number'.
+We get Error here in this case .
+
+
+EX-2:
+let v: any = true;
+v = "string"; // no error as it can be "any" type
+Math.round(v); // no error as it can be "any" type
+
+2) Type: unknown
+unknown is a similar, but safer alternative to any.
+TypeScript will prevent unknown types from being used,
+
+unknown is best used when you don't know the type of data being typed. To add a type later, you'll need to cast it.
+Casting is when we use the "as" keyword to say property or variable is of the casted type.
+
+
+Difference Between any and unknown in TypeScript
+Feature	any	unknown
+Type Safety	       ❌ Unsafe – disables type checking	✅ Safe – forces type checking
+Assignability	     Can be assigned to any other type	Cannot be assigned to other types without type checking
+Purpose          	Used when you don't care about the type	Used when you don't know the type yet
+Type Inference	 Treated like an escape hatch	Treated like a type that must be checked
+Recommendation	❌ Should be avoided in most cases	✅ Safer and better alternative to any
+
+
+any Example (Unsafe)
+-------------------------- >
+
+let value: any;
+value = 10;
+value = "Hello";
+value = { name: "Sachin" };
+
+let str: string = value; // No error, but unsafe
+console.log(str.toUpperCase()); // May fail at runtime if value is not a string
+
+
+TypeScript import and export – Syntax & Example
+Exporting Code
+There are two main ways to export in TypeScript:
+
+
+1. Named Exports
+You can export multiple things from a file.
+
+// mathUtils.ts
+export const PI = 3.14;
+export function add(a: number, b: number): number {
+  return a + b;
+}
+export type User = { name: string; age: number };
+
+2. Default Export
+You can export one thing as the default.
+
+// logger.ts
+export default function log(message: string) {
+  console.log("Log:", message);
+}
+
+
+Importing Code
+ 1. Named Imports
+Import specific exports from a module.
+import { PI, add, User } from './mathUtils';
+console.log(add(10, 20)); // 30
+
+ 2. Default Import
+Import the default export.
+import log from './logger';
+log("Hello, TypeScript!");
+
+ 3. Mixed Import
+When a module has both default and named exports:
+import log, { PI } from './mathUtilsWithDefault';
+
+
+==========================================================================================================================================================================================================================================================================================
 // Imports rewritten with TypeScript module syntax
 import swaggerJsdoc, { Options } from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
