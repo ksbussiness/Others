@@ -1,0 +1,122 @@
+// Imports rewritten with TypeScript module syntax
+import swaggerJsdoc, { Options } from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
+import path from "path";
+import { fileURLToPath } from "url";
+import { Express } from "express";
+
+// Properly resolving __dirname in an ES module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Exported function with explicit type annotations
+export default function setupSwagger(app: Express): void {
+  const swaggerDefinition = {
+    openapi: "3.0.0",
+    info: {
+      title: "EVENT MANAGEMENT ROLE-BASED API",
+      description:
+        "API Documentation for User Authentication and Event Management System",
+      version: "1.0.0",
+    },
+    servers: [
+      {
+        url: "http://localhost:3033",
+        description: "Local Server",
+      },
+    ],
+    tags: [
+      {
+        name: "FOR REGISTRATION/LOGIN/LOGOUT",
+        description:
+          "Endpoints for the user/admin registration, login, logout, and forgot password",
+      },
+      {
+        name: "EVENT-MANAGEMENT-ADMIN",
+        description: "Admin endpoints for managing events",
+      },
+      {
+        name: "BOOKING-USER",
+        description: "User endpoints for booking events",
+      },
+      { name: "GENERAL OPERATIONS", description: "General info routes" },
+      { name: "DEMO ROUTES", description: "Demo routes" },
+    ],
+    components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: "apiKey",
+          name: "Authorization",
+          in: "header",
+          description: 'Enter JWT token as "Bearer <token>"',
+        },
+      },
+    },
+  };
+
+  // Adding type safety to Swagger options using swagger-jsdoc's Options type
+  const swaggerOptions: Options = {
+    swaggerDefinition,
+    apis: [
+      path.resolve(__dirname, "../routes/v1/authroutes.ts"),
+      path.resolve(__dirname, "../routes/v1/eventroutes.ts"),
+      path.resolve(__dirname, "../routes/v1/BookingsRoutes.ts"),
+      path.resolve(__dirname, "../routes/v1/generalroutes.ts"),
+    ],
+  };
+
+  const swaggerDocs = swaggerJsdoc(swaggerOptions);
+
+  // Applying middleware to the Express app with type-safe setup
+  app.use(
+    "/docs",
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocs, {
+      explorer: true,
+      swaggerOptions: {
+        docExpansion: "list",
+        deepLinking: true,
+        displayRequestDuration: true,
+        examples: true,
+      },
+    })
+  );
+
+  console.log("Swagger docs available at http://localhost:3033/docs");
+}
+
+changes for this :
+=================== >
+
+Changes Explained:
+#	Change	Reason
+1	import swaggerJsdoc, { Options } from "swagger-jsdoc"	In TypeScript, we import types explicitly to ensure strong typing (Options helps ensure the swaggerOptions object follows Swagger structure).
+2	import { Express } from "express"	We need the Express type to annotate the app parameter, giving better IntelliSense and type checking.
+3	function setupSwagger(app: Express): void	Declares this function takes an Express app and returns void, helping catch any misuses or return errors.
+4	Changed .js to .ts in apis array	TypeScript project files should reference .ts extensions to ensure correct documentation generation.
+5	Added swaggerOptions: Options	This gives the Swagger options object full type safety, preventing misconfiguration.
+6	Used const __filename and __dirname using fileURLToPath()	This is required for ES Modules in TypeScript, as __dirname is not natively available.
+
+
+Make sure this in the tsconfig.js :
+--------------------------------------------- >
+
+Make sure your tsconfig.json includes:
+
+json
+Copy
+Edit
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ES2020",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "outDir": "./dist",
+    "strict": true,
+    "baseUrl": "./",
+    "types": ["node"]
+  }
+}
+Also ensure type: "module" is set in your package.json to support import.meta.url.
