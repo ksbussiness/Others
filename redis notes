@@ -2,6 +2,9 @@
 resources:
 ..> https://blog.algomaster.io/
 ..> https://medium.com/redis-with-raphael-de-lio/understanding-pub-sub-in-redis-18278440c2a9
+..> https://daminibansal.medium.com/redis-pub-sub-a-guide-to-real-time-messaging-cab59e965c36
+..> https://medium.com/@alextkd/redis-pub-sub-communication-between-microservices-in-node-js-ff91fb308996
+..> 
 
 
 Redis-server is the process or daemon that runs in teh background and listens for client connections.
