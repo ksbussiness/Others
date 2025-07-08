@@ -523,6 +523,229 @@ PUBSUB NUMSUB <channel_name>
 ..> to set teh active channel we use the:
 pubsub channels;
 
+REDIS-STREAMS :
+------------------ >
+
+XADD : To add the data to the stream
+
+XADD EcomChartBot * fields1 value1
+
+XREAD : TO read the data from one or more multiple streams
+
+XREAD streams <Stream _name> 0-0
+
+XRANGE : To get the data from the stream from the specified range of the given ids
+
+XRANGE stream_name start_time stop_time
+XRANGE stream_name start_time stop_time count count_value
+XRANGE stream_name-+(All messages)
+XRANGE stream_name start_time+
+
+XREVRANGE:- This command is exactly like XRANGE, but it will returning the entries in reverse order.
+
+XREVRANGE stream_name+_count 1 (Last message)
+
+
+XLEN <StreamName> 
+{ we get the length of the complete stream messages }
+
+
+
+XINFO STREAM Ecommerce_chatbot {
+It gives the information about the stream in detaily }
+XINFO STREAM <Stream_name>
+.> length 
+.> last generated-id
+.> first-entry
+.> last entry
+.> groups 
+.> 
+
+XTRIM trims the stream by evicting older entries (entries with lower IDs) if needed.
+
+
+Trimming the stream can be done using one of these strategies:
+
+MAXLEN: Evicts entries as long as the stream's length exceeds the specified threshold, where threshold is a positive integer.
+
+MINID: Evicts entries with IDs lower than threshold, where threshold is a stream ID.
+
+XTRIM mystream MAXLEN 1000 { THIS IS DELETE ALL THE MESSAges from the stream expect the last 1000 messages from the stream } 
+
+XTRIM <Stream_name> MINID <Id-of-the-stream>
+
+..> Normally what happens when you delete an entry from a stream is that the entry is not really evicted, it just gets marked as deleted.
+
+..> 
+
+XDEL Ecommerce_chatbot "1751967804266-0"
+
+(integer) 1 { This on deletes the an entry from the streams } and return he number of entries deleted from the stream
+
+
+.> Consumer Group: A collection of consumer where messages will be distributed to multiple consumers.
+
+.> To distribute the workload and ensure each consumer gets a fair share of the messages, you can create consumer groups.
+
+.> For instance there 10 messages and 5 consumers then messages can be distributed to all consumers lets say 2 messages to each consumer.
+If there is event in message then consumer can process those events parallely.
+
+.> This will sped up the completing events.
+
+.> Its similar to having multiple teams working togthere to real and  can process  the messages
+.>You  can have multiple consumers groups.
+
+
+XGROUP CREATE :This command is used create a new consumer group uniquely indentified by <Groupname> for the stream stored at <key>
+
+.> Every group has a unique name in a given stream, 
+When a consumer group with the same name already exists, the command returns a BUSYGROUP Error.
+.>  When a consumer group with the same name already exists, the command returns a -BUSYGROUP error.
+
+
+
+XGROUP CREATE stream_name group_name $
+.> By default, the XGROUP CREATE command expects that the target stream exists, and returns an error when it doesn't.
+
+
+XGROUP CREATE stream_name group_name $ MKSTREAM
+.>  If a stream does not exist, you can create it automatically by using the optional MKSTREAM subcommand as the last argument after the <id>:
+
+
+#) XGROUP DESTORY key group
+
+XGROUP DESTROY <stream name> <group_name>
+< It returns the number of items where the 
+
+
+
+127.0.0.1:6379> XGROUP DESTROY mydemo group1
+(integer) 1
+
+
+XREADGROUP : This command is a special version of the XREAD command with support for consumer groups.
+
+.> This is used to delete an  Consumer group.
+
+.> 
+
+
+#) XINFO GROUP <Stream_Name>
+.> This command is used to get the details of the particular consumer group.
+
+.> name :The consumer group's name
+.> consumers: The number of consumers in the group
+.> Pending: The length of the group's pending entries list , which are messages that were delivered but are yet to be acknowledged
+.> last-delivered-id: The ID of the last entry delivered  to the group consumers 
+
+.> lag: The number of entries in the stream that are still waiting to be delivered to the group's consumers, or NULL when that number can't be determined.
+
+.> 
+ 
+#) XINFO CONSUMERS <stream_name> <Group_name> { This will return the list of the users/consumers belongs to that particular group }
+
+name : The consumer's name
+pending: The numbers of the pending messages for the consumers, which are messages that were delivered but are yet to be acknowledged
+idle: The number of milliseconds that have passed since the consumers last attempted interaction
+inactive : The numbers of milliseconds that passed since the consumers last successful interaction .
+
+#) 127.0.0.1:6379> XINFO CONSUMERS mydemo group1
+(empty list or set) { If no users are present }
+
+#) XACK 
+.> This command is used to remove one or more messages form the Pending Entries List (PEL) of a stream consumer group.
+
+
+
+About this server.
+..> Once a consumer successfully processes a message, it should call XACK so that such message does not get processed again, and as a side effect, the PEL entry about this message is also purged, releasing memory from the Redis server.
+
+XACK <my-stream name> <my-group> <ID-0>
+
+
+STREAM FLOW :
+---------------- >
+
+There is a stream with an associated consumer group,
+
+Some consumer A reads a message via XREADGROUP from a stream, in the context of that consumer group.
+
+As a side effect a pending message entry is created in the Pending Entries List {PEL} of the consumer group: it means the message was delivered to a given consumer, but it was not yet acknowledged via XACK.
+
+Then suddenly that consumer fails forever.
+Other consumers may inspect the list of pending messages, that are stale for quite some time, using the XPENDING commoad, In order to continues processing such messages, they use XCLAIM to acquire the ownership of message and continues.
+Consumers can also use the XAUTOCLAIM command to automatically scan and claim stale pending messages.
+
+
+
+//===============================================================
+
+
+in the redis , i have an channel, where the an admin will update about the stock of the products ,details, 
+and all the user have an access to that message , 
+
+but when an user responds to an a particular post, 
+
+like admin: added the new dell laptops in the app
+admin: added the new clothes in the app
+
+need to see all the messages 
+user A : what is the price of the dell laptops
+
+user B : what is the types of the clothes added in the app
+
+here both the users are questioned with the different questions
+
+my intention is that user a need to see only his all the posts from the admin and his own questions only 
+
+and user B need to see the all the questions posted by admin and his own questions when he open the channel 
+
+
+{ XADD }2
+{ XDEL, XGROUP CREATE }1
+{ XGROUP DESTROY }2
+{ XINFO GROUPS, XINFO CONSUMERS ,  }1
+{ XLEN, XINFO STREAM,  }1
+{ XREAD, XRANGE }1
+{ XTRIM ,XREVRANGE }1
+
+https://medium.com/@yudhasubki/redis-stream-simple-reliable-and-scalable-for-real-time-data-processing-692985a02a65
+
+https://medium.com/nerd-for-tech/implementing-feed-reactions-using-nodejs-and-redis-1b6cb851c0b1
+
+https://medium.com/redis-with-raphael-de-lio/understanding-redis-streams-33aa96ca7206
+
+
+
+XADD admin:stream * type=post content="Added new Dell laptops"
+XADD admin:stream * type=post content="Added new clothes"
+
+
+
+User-Specific Streams or Groups
+Users don’t write to this stream, but they consume messages using Consumer Groups.
+
+You can create one consumer group per user:
+
+XGROUP CREATE admin:stream userAGroup $ MKSTREAM
+XGROUP CREATE admin:stream userBGroup $ MKSTREAM
+
+
+Each user reads messages from the stream independently:
+
+XREADGROUP GROUP userAGroup userAConsumer COUNT 10 STREAMS admin:stream >
+
+
+3. User Questions Stream
+You can also have a separate stream where users post their own replies:
+
+XADD user:A:questions * reply_to="added new Dell laptops" content="What is the price?"
+XADD user:B:questions * reply_to="added new clothes" content="What types?"
+
+
+
+
+
 =============================================================================================================================
 ==============================================================================================================================
 =================================================================================================================================
