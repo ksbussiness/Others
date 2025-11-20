@@ -1,0 +1,139 @@
+My socket notes:
+--------------------- >
+
+TCP :
+
+@)  What is a TCP Connection?
+..> TCP = Transmission Control Protocol
+..> It is the base layer protocol used for reliable communication over the internet.
+..> When two devices communicate, TCP creates a persistent connection using a handshake:
+🔸 3-step handshake
+Client → Server: SYN
+Server → Client: SYN + ACK
+Client → Server: ACK
+
+Key Features of TCP
+---------------------------- >
+[[ Reliable (guarantees delivery)
+Ordered (packets arrive in order)
+Connection-oriented (long-lived)
+Error recovery
+Flow control  ]]
+🔸 TCP = long, continuous connection
+Once opened, client & server can keep sending data continuously without re-opening connection every time.
+
+Key Features of HTTP
+----------------------------> 
+.> HTTP runs on top of TCP, but works differently:
+.> HTTP = stateless, Each request is independent.
+.> Client must initiate every communication
+.> 🔸 Steps every time
+Client opens a TCP connection
+Sends HTTP request
+Server sends response
+TCP connection closes (mostly)
+
+
+
+
+
+
+
+
+
+
+
+1. What Is Real-Time Communication?
+..> Real-time communication means data is delivered instantly between client and server without delay.
+Used in: chat apps, live dashboards, gaming, notifications, streaming.
+
+2️. Different Techniques for Real-Time Communication ?
+..> Polling 
+Client repeatedly asks server:
+“Do you have new data?”
+
+ How it works: Browser sends an HTTP GET request every X seconds.
+Server responds with latest data.
+
+Advantages: [ Very simple, Works everywhere. ]
+Disadvantages: [ High network usage, Delayed updates, Not real-time. ]
+
+B) Short Polling
+
+Same as polling but shorter intervals (e.g., every 1 second).
+ Pros: Slightly faster updates.
+ Cons: [ More server load, Still not true real-time. ]
+
+C) Long Polling [ A better version of polling. ]
+
+D) Server-Sent Events (SSE): [
+One-way real-time connection from server → client.
+[  Works over HTTP, Server continuously pushes updates., Client cannot send data back through SSE. ]
+
+E) sockets : [ One persistent TCP connection, Bi-directional ]
+cons: Cannot be cached, Requires WebSocket-enabled infrastructure.
+
+
+Points: 
+.> Socket.IO is a library built on top of WebSockets.
+.> People often think Socket.IO is the same as WebSocket, but this is wrong.
+
+What Happens When You Refresh the Browser in Socket.IO :
+
+
+1. The Socket connection is destroyed
+
+..> The browser closes the old WebSocket connection.
+..> A new WebSocket connection is immediately created.
+..> The server treats you as a NEW client (new socket.id).
+..> and we are disconnected from the your rooms.
+
+Note :== >
+Sockets.io internally uses, WebSocket (preferred transport), This gives true real-time, full-duplex communication.
+But, If WebSocket cannot be used (due to firewall, proxy, browser, network restriction),
+Socket.IO falls back to long-polling.  which menas here 
+Long polling = client sends request → server responds → new request → repeat.
+DEMO Required.
+
+Difference between the sockets and web_sockets:
+----------------------------------------------------------- >
+| Feature                                         | WebSocket |                                               | Socket.IO  |
+| --------------------------- | ----------------------------------- | --------------------------------------------- |
+| Type                                            Low-level protocol                                  High-level framework     
+| Fallback                                              ❌ None                                         ✅ Long polling           
+| Reconnection                                     ❌ No                                             ✅ Auto reconnect         
+| Heartbeats                                          Basic                                                Advanced                 
+| Rooms, namespaces                           ❌ No                                             ✅ Yes                    
+| Event-based                                        ❌ One channel                             ✅ event emit + listeners 
+| Supports old networks                        ❌ No                                            ✅ Yes                    
+
+TIP :- 
+WebSocket = one tool
+Socket.IO = toolkit
+The toolkit prefers using the best tool (WebSocket).
+But if that tool is blocked, it uses a backup tool (long-polling) to keep things working.
+
+              +--------------------+
+              |      Socket.IO     |
+              |  (Framework Layer) |
+              +---------+----------+
+                        |
+           +------------+-------------+
+           |                          |
+       WebSocket               HTTP Long-Polling
+   (Primary Transport)       (Fallback Transport)
+
+
+“WebSocket = protocol.
+Socket.IO = framework built on top of WebSocket + fallback.”
+
+
+✔️ Socket.IO Features : 
+--------------------------------- > 
+Auto reconnect
+Heartbeats / ping-pong
+Event-based communication (socket.emit, socket.on)
+Rooms & namespaces
+Binary data support
+Built-in fallback to long-polling
+Works even behind strict firewalls or proxies
