@@ -820,10 +820,34 @@ Step	Component / File	Action	Direction
 ================================================================================================================================================================================================================
 ====================================================================
 PART-3 :- 
+pooling : Increase the load on the servers.
+
+.> Upgrade : The HTTP 1.1 (only ) Upgrade hearder can be used to upgrade an already established client/server connections to a different protocol ( over the same transport protocol )
+.> For example : It can be used by a client to upgrade a connection from HTTP 1.1 to HTTP2.0 or an HTPP or HTTPS connections into a websocket
+
+// socket server 
+const { Server } = require("socket.io");
+
+// express server 
+const server = http.createServer(app);
+
+// io input-output
+const io = new Server( server );
+
+io.on("connections" , (socket) => {
+      console.log(" A new user has connected",  socket.id )
+});
+
+here when ever an connection is establised then a new scoekt will be created ( It means a new user / client is created )
+
+socket.emit("")  from FE : send the message 
+socket.on( "" ), from BE: get the message
 
 
 
-
+================================================================================================================================================================================================================
+====================================================================
+PART-4 :- 
 
 
 
