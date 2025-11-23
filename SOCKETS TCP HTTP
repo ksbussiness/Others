@@ -137,3 +137,700 @@ Rooms & namespaces
 Binary data support
 Built-in fallback to long-polling
 Works even behind strict firewalls or proxies
+
+
+================================================================================================================================================ >
+PART- 2:-
+Resources:
+
+.> https://dev.to/wpreble1/socket-io-namespaces-and-rooms-d5h
+.> https://technicqa.com/what-are-namespaces-in-socket-io/
+.> https://www.tutorialspoint.com/socket.io/socket.io_hello_world.htm
+.> https://blog.cybermindworks.com/post/socket-io-comprehensive-guide-for-beginners
+.> https://www.youtube.com/watch?v=cDFpvtxQHxA&list=PLdHg5T0SNpN09AlLBAYahKZUrAWsIL7No&index=5
+
+
+
+
+What is Socket.IO?
+Socket.IO is a powerful JavaScript library that enables real-time, bidirectional, and event-based communication between web clients and servers. It's designed to work on every platform, browser, or device, focusing equally on reliability and speed.
+
+
+Socket.IO consists of two parts:
+
+A client-side library that runs in the browser
+A server-side library for Node.js
+
+npm install socket.io-client
+npm i socket.io
+
+
+How Communication Happens :
+------------------------------------ >
+
+A client connects to the Socket.IO server.
+The server acknowledges the connection.
+Both parties can send and receive messages using events.
+If the connection is lost, Socket.IO automatically tries to reconnect.
+
+
+
+What is WebSocket?
+WebSocket is a computer communications protocol, providing full-duplex communication channels over a single TCP connection.
+
+..> WebSocket promotes real-time communication between the Client and the Web Server. It has the significant advantage of providing full-duplex communication over an HTTP connection. WebSocket also increases the accuracy and efficiency of stream events.
+
+
+Socket.IO is a JavaScript library for real-time web applications. It has two parts: a client-side library that runs in the browser, and a server-side library for Node.js. Socket.IO automatically upgrades the requirement to WebSocket if needed.
+
+
+Difference Between WebSocket and Socket.io :
+-------------------------------------------------- >
+
+.> It’s important to note that Socket.IO is not a WebSocket implementation.
+
+.> WebSocket is the protocol that is established over the TCP connection, Socket.io is the library to work with WebSocket.
+
+.> WebSocket provides full-duplex communication on TCP connections, Socket.io provides the event-based communication between browser and server.
+
+.> WebSocket does not support Proxy and load balancer, with Socket.io a connection can be established in the presence of proxies and load balancers.
+
+.> WebSocket doesn’t support broadcasting, Socket.io supports broadcasting. { what does it means }
+
+.> WebSocket doesn’t have a fallback option, Socket.io supports fallback options. { rd}
+
+.>
+
+
+
+
+
+
+
+socket.to($client-id): sending a message from a client to just one client
+io.sockets: sending messages to all clients connected to the server with Socket.io
+socket.brodcast: communicating with other clients from a client with Socket.io.
+
+
+Best Practises :
+---------------------- >
+
+.> No, you do not need a separate port for Socket.IO. In fact, the best practice is to have both your Express API and your Socket.IO server running on the same port—for example, 3333.
+
+.> Socket.IO is designed to attach itself to the same HTTP server your Express app uses. That means both HTTP (REST API) and WebSocket (Socket.IO) requests go through the same TCP port.
+
+.> Socket.IO needs access to the actual HTTP server instance.
+app.listen(port);
+
+.> This makes express internally create and manage the HTTP server. But you don't get a reference to it, so you can't attach Socket.IO to it directly.
+.> To integrate Socket.IO properly, you need to:
+.> Create the HTTP server manually by wrapping your app
+and attach Socket.IO to that server.
+
+
+Client-Side API Overview :
+---------------------------------- >
+
+The client-side Socket.IO API provides methods for:
+
+io() - Connects to the server
+socket.emit() - Sends an event to the server
+socket.on() - Listens for events from the server
+socket.disconnect() - Disconnects from the server
+
+
+Socket.IO Events :
+-------------------------- >
+Socket.IO uses an event-based architecture for communication. Here are some key events:
+
+Built-in Events
+connect - Fired upon connection
+disconnect - Fired upon disconnection
+error - Fired upon an error
+reconnect - Fired upon successful reconnection
+reconnect_attempt - Fired upon reconnection attempt
+
+
+
+
+
+io.on and io.emit:
+--------------------- >
+
+..> The io.on function triggers a sequence of actions when a connection arrives. The codes in this function will only work if the connection is received. This event handler uses the socket object to handle connection, disconnection, events, and more.
+
+..> The Socket.IO API is inspired by the Node.js EventEmitter, which means you can emit events on one side and register listeners on the other.
+..> The socket.emit function takes an emit name as its first argument. You can specify this name and listen to it on the client-side according to this name. The second argument should be the data you want to send.
+
+.>
+
+
+Always use socket.emit(...) when you want to talk to just one client.
+
+Use io.emit(...) to message everyone.
+
+
+Use socket.broadcast.emit(...) to reach everyone else but the sender.
+
+You can avoid the socketsConnected array and instead use io.of("/").sockets.size in newer Socket.IO versions.
+
+
+
+NAMESPACES:
+------------------ >
+
+NamesSpaces: "Socket.IO namespaces are a feature that allows you to create separate communication channels within a single WebSocket connection. "
+
+.> Namespaces are essentially endpoints or paths that clients can connect to.
+.> By default, all clients connect to the root namespace (/).
+
+
+A namespace is like making different rooms in a big building.
+
+..> Everyone in the /drawing room only talks about drawing.
+..> People in /games don’t hear what's said in /reading.
+..> But they're all still in the same building (same server).
+
+
+const socket = io("http://localhost:3333/chat")
+"Hey server! I want to connect to the chat room in the server building at this exact address."
+
+
+
+ROOMS :
+---------------- >
+
+.> Room Communication (Small Groups Inside a Namespace).
+
+.> Even inside a classroom (like /drawing), you might want smaller groups—like one group drawing animals and another drawing flowers.
+These smaller groups are called rooms!
+
+
+.> Rooms let you group some people inside a namespace.
+.> One person’s message goes only to people in their room.
+.> Rooms are temporary—created and joined using code.
+
+
+
+iam having this line : "http://localhost:3333/chat")
+where how can i see them communication  is established or not  in the browser and how i find the differentiation using the normal communication and namespace communication.
+
+and
+.> I need to develop an dedicated chat bot using the socket-io , how i need it
+
+
+
+
+
+
+
+Fix:
+
+.> "type": "module" in package.json, Node treats your files as ES modules, and in that scope, __dirname and __filename aren't available by default.
+
+
+Instead of using __dirname, use this approach:
+
+import path from "path";
+import { fileURLToPath } from "url";
+
+// Convert import.meta.url to a real file path
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
+
+// Fix for __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
+
+
+/ Serve static files
+app.use(express.static(path.join(__dirname, "public")));
+
+
+
+============================================================================================================================================= >
+
+What is a Room in Socket.IO?
+A room is simply a label for a group of connected clients. Clients can join or leave rooms, and the server can send messages to all clients in a specific room.
+
+.> Rooms are only known and managed on the server side.
+
+.> 
+
+
+Basic Room Concepts
+Joining a Room:
+A client can be added to a room by the server using:
+
+socket.join('room-name');
+Leaving a Room:
+A client can leave a room using:
+
+
+socket.leave('room-name');
+Sending to All in a Room:
+You can broadcast a message to all sockets in a room (except optionally the sender):
+
+io.to('room-name').emit('event', data);
+
+
+.> Each socket is automatically added to a default room named with its own socket ID. So every socket is in at least one room.
+
+
+
+
+You can also get a list of all sockets in a room:
+const sockets = await io.in('room-name').fetchSockets();
+
+
+
+A socket represents one active connection between the client and the server. It’s like a tunnel through which events can be sent back and forth — instantly.
+When a user opens your app and connects to your server via Socket.IO, the server creates a unique socket object for that connection:
+io.on("connection", (socket) => {
+  console.log("A user connected!", socket.id);
+});
+
+
+That socket:
+Is unique to that user’s browser/tab/session.
+Has an ID (socket.id) — like a fingerprint for the connection.
+Can join/leave rooms, emit events, listen for events, and more.
+
+
+
+we can create rooms without defining a custom namespace, By default, all Socket.IO connections land in the root namespace (which is essentially "/"), and we can organize rooms within this space too.
+
+
+
+# Broadcasting to all sockets in a room — including sender
+
+io.to("chat-room-1").emit("message", data);
+Here, the server sends message event with data to every socket in that room.
+Even the sender (the one who triggered the event) receives it.
+Internally, Socket.IO looks at the rooms map and dispatches the event to all connected sockets in that set.
+Useful when you want everyone (including sender) to receive the update
+
+
+
+# Broadcasting to room excluding the sender
+
+socket.to("chat-room-1").emit("message", data);
+This sends the event to everyone in the room except the originating socket.
+
+Think of it like “Hey, tell everyone else in this room… but not me.”
+
+Under the hood, Socket.IO filters out the sender socket before dispatching the message.
+
+Use-case: chat apps — the sender already sees their message locally, so you avoid redundant echo.
+
+
+
+
+
+
+
+
+====================================================================================================================================================================================================
+====================================================================================================================================================================================================
+====================================================================================================================================================================================================
+==========================================================================================================================================================================================================================================================================================================================================================================================================================================================
+====================================================================================================================================================================================================
+====================================================================================================================================================================================================
+====================================================================================================================================================================================================
+==========================================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+.> web socket is an persistence connection bw the client, server
+where bi directional communication will happen
+
+>  In the network tab we can see the socket connection for the data sharing
+> Th red colour, : the info coming back from the server 
+> The blue colour , the info which we are sending from the client to the server
+>  This web sockets majorly used for the  real Time gaming app, stock plat form,  chart applications etc.
+> 
+Working of the web sockets :
+-------------------------------------- >
+NORMAL HTTP WORKING :
+# generally we send an request from the client to the server via an Tcp connection, then from that server will send an request back to the client then an TCP connection will be closed.
+# HTTP it is an Uni-directional, Stateless protocol 
+Traditional web apps use HTTP request–response:
+
+Client → [HTTP Request] → Server
+Server → [HTTP Response] → Client
+
+.> This is one-way and client-initiated.
+If something changes on the server (e.g., a new message arrives), the server cannot push updates automatically — it must wait for the client to ask again.
+
+
+
+# Polling : 
+================ >
+.> we have the two type of the polling , short , long polling
+. > In the short polling under timely manner request , response will be
+happens { which means only there will be an short time period bw the req,res }
+.> In the long polling work in same ,away has the short polling, 
+but the time bw req,res will be long.
+.> 
+
+  .> The client repeatedly asks the server for new data at regular intervals.  
+Every 5 seconds:
+  Client → GET /messages
+  Server → returns latest messages
+
+Property	Description
+Direction	Client → Server only
+Frequency	Periodic (fixed interval)
+Latency	Moderate (depends on interval)
+Efficiency	Poor — sends many unnecessary requests
+Use case	Simple dashboards, low-frequency updates
+Client     →  Server  [GET data]
+(wait 5s)
+Client     →  Server  [GET data]
+(wait 5s)
+...
+ 3. Short Polling
+Short polling = The simplest kind of polling.
+
+The client sends an HTTP request every n seconds (say, every 2–5s).
+
+The server responds immediately, even if there’s no new data.
+
+ It’s easy to implement but wastes bandwidth and CPU because most responses are empty (no new messages).
+
+
+4. Long Polling
+Long polling is an improved version of short polling.
+
+ How it works
+Client sends a request to the server.
+
+The server holds the connection open until new data is available.
+
+When something happens, the server responds immediately.
+
+Client receives data and immediately sends another request.
+
+Client → [HTTP request open]
+Server waits...
+Server → [responds when new data]
+Client → [immediately reopens request]
+
+
+# Server send Events:
+=========================== >
+
+.> This is unidirectional only, server only send the data to the client
+.>  
+5.Server-Sent Events (SSE)
+SSE uses the EventSource API.
+It’s a one-way stream (server → client) over HTTP using a persistent connection.
+
+ How it works
+Client opens a connection to the server (EventSource).
+Server keeps sending updates (in text/event-stream format) without closing the connection.
+
+web sockets connections:
+-------------------------------------- >
+
+@ :How it works
+Client sends an HTTP upgrade request to the server.
+
+Server upgrades to the WebSocket protocol (ws:// or wss://).
+
+From then on, both can send messages at any time.
+
+.> In order to make the webSocket connection ,  first client will send an HTTP req to the server.
+.> If the server accepts this connection then it will send an 101 response which means Switching Protocol Response 
+.> After successful connection of the hand shake your web socket connection is estb
+.> 
+
+http                                     websockets 
+stateless                               statefull
+unidirectional                        bi-directional 
+half-duplex                            full duplex
+
+hoppscotch
+ws://localhost:8000
+
+import express from "express";
+import {WebSocketServer } from "ws;
+
+const app = express();
+const port =8080;
+
+const server = app.listen(port,() =>{
+console.log(" o" );
+});
+const wss= new WebSocketServer ({server });
+wss.on("connection", (ws) => {
+ws.on("message",(data) => {
+console.log(" data from client  %s:",data);
+ws.send("thaks");
+})
+})
+
+
+
+
+
+
+C:\Program Files\Hoppscotch\
+
+
+
+npm i --save-dev @types/ws 
+import amqp from 'amqplib';
+
+
+i have this producer file :
+import amqp from 'amqplib';
+export const connect = async function connect() {
+  try {
+
+    // connection to the rabbit Mq
+    const connection = await amqp.connect('amqp://localhost');
+    // channel creation 
+    const channel = await connection.createChannel();
+
+    // queue declaration 
+    const queue = 'testing';
+    const message = `Hello, This is my first message from rabbitMQ `;
+
+
+    //  Here for the queue setting here in this case, we have the two options:
+    //  assertQueue(queue: string, options):
+    //  durable:true overcomes the loss of messages when RQM crashed.
+
+    await channel.assertQueue(queue,{ durable: true });
+    // creating the exchnage nmae from the code
+    channel.assertExchange("testingExchange", 'direct', { durable: true });
+
+   // directly sedning the messages to the queue:
+   // channel.sendToQueue(queue, Buffer.from(message), {persistent: true});
+
+   // SYNTAX: For the .publish( exchange: string, routingKey: string, content: Buffer, options?: Options.Publish ),
+
+   // we can publish the message to the exchnage from there the message are pushed to the queue:
+   channel.publish("testingExchange", "demoRoutingKey123", Buffer.from(message),{});
+  
+  
+   // creating of the exchnage: channel.publish('logs', '', Buffer.from('Hello World!')); // DEFAULT EXCHANGE
+
+    console.log(`Message sent to queue: ${queue}`);
+    console.log(`Sent: ${message}`);
+
+    setTimeout(() => {
+      connection.close();
+      process.exit(0);
+    }, 500);
+  } catch (error) {
+    console.error('Error connecting to RabbitMQ:', error);
+  }
+}
+
+And i ahev this consumer file :
+
+import amqp from 'amqplib';
+export const receiveMessage = async function receiveMessage() {
+    const connection = await amqp.connect('amqp://localhost');
+    const channel = await connection.createChannel();
+
+    const queue = 'testing';
+    // durable:true needs to be assign in both the file, in produser, consumer.
+    await channel.assertQueue(queue, { durable: true });
+
+
+    // ADDING PREFETCH VALUE TO the consumer.
+    channel.prefetch(1);
+
+    console.log(`Waiting for messages in ${queue}. To exit press CTRL+C`);
+    
+    // receiveing the messages from the queue.
+    channel.consume(queue, (msg:any) => {
+        console.log(`Received: ${msg.content.toString()}`);
+    }, { noAck: true });
+}
+
+ 
+
+and i hve this file here in this case web_server.ts file :
+import express from "express";
+import { WebSocketServer } from "ws"
+
+const app = express();
+const port = 8080;
+
+const server = app.listen(port, () => {
+    console.log("The web server is running on the 8080!");
+});
+
+const wss = new WebSocketServer({ server });
+wss.on("connection", (ws) => {
+    ws.on("message", (data) => {
+        console.log(" data from client  %s:", data);
+        ws.send("thaks");
+    })
+})
+
+
+
+i need to implement the complte full level charting app: 
+so give me complte set up and working code { here for the sockets i have only crated the server file but not the cliet file 
+give me complet full length working chart app, using this sockets, rabbit mq
+
+
+
+
+
+
+┌────────────────────────────┐
+│  1. WebSocket Clients (A,B)│  ← users in browser
+└────────────┬───────────────┘
+             │ (WebSocket msg)
+┌────────────▼───────────────┐
+│  2. Web Server (Express + WS) │  ← web_server.ts
+└────────────┬───────────────┘
+             │ (Publish)
+┌────────────▼───────────────┐
+│  3. RabbitMQ Broker         │  ← handles exchange/queue
+└────────────┬───────────────┘
+             │ (Consume)
+┌────────────▼───────────────┐
+│  4. Consumer Process        │  ← consumer.ts
+└────────────┬───────────────┘
+             │ (Broadcast)
+┌────────────▼───────────────┐
+│  1. WebSocket Clients (A,B)│  ← message delivered to all
+└────────────────────────────┘
+
+
+
+
+
+STEP-BY-STEP FLOW
+🧍‍♂️ User A sends a message in client.html
+
+User A types:
+
+"Hello everyone!"
+
+When User A clicks Send, the browser code runs:
+
+ws.send(message);
+
+
+That message travels over the WebSocket connection to the WebSocket server (in web_server.ts).
+
+ Step 2 — Message received by web_server.ts
+
+Inside web_server.ts, this code runs:
+
+ws.on("message", (data) => {
+  const message = data.toString();
+  console.log("💬 Message from client:", message);
+
+  // Publish to RabbitMQ
+  publishMessage(message);
+});
+
+
+ So the WebSocket server receives the message from User A,
+and then it publishes it to RabbitMQ using the publishMessage() function from producer.ts.
+
+ Step 3 — producer.ts publishes to RabbitMQ
+
+Inside producer.ts:
+
+const exchange = "chat_exchange";
+channel.publish(exchange, routingKey, Buffer.from(message), { persistent: true });
+
+
+ The message now enters the RabbitMQ broker, into the exchange named "chat_exchange".
+
+RabbitMQ handles all distribution of the message to queues that are bound to that exchange.
+
+Step 4 — consumer.ts receives the message from RabbitMQ
+
+Your consumer.ts code is listening to the same exchange:
+
+channel.consume(q.queue, (msg) => {
+  const message = msg.content.toString();
+  console.log("📩 Received:", message);
+
+  // broadcast to all WebSocket clients
+  wss.clients.forEach((client) => {
+    if (client.readyState === client.OPEN) {
+      client.send(message);
+    }
+  });
+});
+
+
+ So as soon as RabbitMQ receives the message from the producer,
+the consumer picks it up, and broadcasts it to every connected WebSocket client via the shared wss instance.
+
+💬 Step 5 — WebSocket server pushes it back to all browsers
+
+The consumer sends the message to the WebSocketServer (wss).
+
+Every connected browser (User A, User B, User C, …) receives the message through its open WebSocket connection.
+
+The browser JavaScript in client.html handles it:
+
+ws.onmessage = (event) => {
+  appendMessage("💬 " + event.data);
+};
+
+
+ Each browser prints the received message in the chat box.
+
+ Step 6 — Now User B sends a message
+
+The entire process repeats, just with User B as the sender:
+
+User B types “Hi A!” and clicks Send →
+sent via WebSocket → web_server.ts.
+
+web_server.ts calls publishMessage("Hi A!") →
+producer.ts publishes it to RabbitMQ.
+
+RabbitMQ routes it →
+consumer.ts receives → broadcasts via wss.
+
+All clients (User A, User B, others) get the message in real time.
+
+ Summary of Message Journey
+Step	Component / File	Action	Direction
+1	client.html	User sends message over WebSocket	Browser → Server
+2	web_server.ts	Receives message and calls publishMessage()	WS Server → Producer
+3	producer.ts	Publishes message to RabbitMQ exchange	Server → RabbitMQ
+4	consumer.ts	Subscribes and receives from exchange	RabbitMQ → Consumer
+5	consumer.ts	Broadcasts to all WebSocket clients	Consumer → All Browsers
+6	client.html	Displays message	—
+ In Simple Terms
+
+ UserA → WebSocket → web_server.ts → RabbitMQ (via producer.ts) → consumer.ts → WebSocket broadcast → UserB + everyone
+
+ UserB → same route back to → UserA + others
+
+
+================================================================================================================================================================================================================
+====================================================================
+PART-3 :- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
