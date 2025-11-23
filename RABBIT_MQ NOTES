@@ -1,0 +1,768 @@
+About the sockets and RabbitMq Notes:
+[Frontend (React / HTML + JS)]
+         |
+         |  (WebSocket)
+         ↓
+[Node.js Server with Socket.IO]
+         |
+         |  (AMQP protocol)
+         ↓
+[RabbitMQ Exchange → Queue → Consumer(s)]
+         |
+         ↓
+[Chat Bot logic, microservices, DB, notifications, etc.]
+
+
+🧩 Step 1: Socket.IO (Real-Time Web Communication)
+🔹 Core Concepts to Learn
+
+What WebSockets are
+Understand difference between HTTP vs WebSocket.
+Why WebSocket is bidirectional and persistent.
+Socket.IO Basics
+
+How Socket.IO adds reliability on top of WebSocket (auto-reconnect, event-based messaging).
+Key Events: connection, disconnect, emit, on.
+Server Setup (Node.js + Express)
+How to integrate Socket.IO with Express.
+Handling CORS for Socket.IO.
+Client Setup
+Connecting from frontend JS: const socket = io('http://localhost:5000')
+
+Listening and emitting:
+socket.emit('sendMessage', { text: 'Hi!' });
+socket.on('receiveMessage', (msg) => console.log(msg));
+
+
+Rooms & Namespaces
+How to group users into chat rooms.
+socket.join(room) and io.to(room).emit(...).
+Broadcasting Events
+Send message to all except sender: socket.broadcast.emit(...).
+Send message to specific user/socket ID.
+
+User Management: 
+Map users to socket IDs.
+Handle disconnection and reconnection.
+Error Handling and Debugging
+Use socket.on('connect_error') and enable debugging logs with DEBUG=socket.io*.
+Security
+JWT token-based authentication with Socket.IO middleware.
+CORS, rate limiting, and namespaces for isolation.
+
+Scaling Socket.IO
+How to scale Socket.IO horizontally using Redis adapter.
+(This connects nicely with RabbitMQ later).
+
+🧩 Step 2: RabbitMQ (Message Broker for Async Communication)
+🔹 Core Concepts to Learn
+Message Brokers 101
+Understand what RabbitMQ is and why it’s used.
+Difference between synchronous (Socket.IO) vs asynchronous (RabbitMQ) communication.
+
+AMQP Protocol
+The protocol that RabbitMQ implements.
+How messages flow between producers, exchanges, and queues.
+
+Core Components
+
+Producer: Sends messages.
+Exchange: Routes messages based on routing keys.
+Queue: Stores messages until they’re consumed.
+Consumer: Reads messages and processes them.
+Binding: Links exchange → queue with routing keys.
+
+Exchange Types
+direct – one-to-one routing.
+fanout – broadcast to all queues.
+topic – pattern-based routing (chat.room.*).
+headers – routing based on message headers.
+Queues
+Durable vs transient.
+
+Auto-delete, exclusive, dead-letter queues (DLQs).
+Publishing & Consuming
+Using Node.js amqplib or rabbitmq-client.
+Code examples:
+
+const amqp = require('amqplib');
+const connection = await amqp.connect('amqp://localhost');
+const channel = await connection.createChannel();
+await channel.assertQueue('chat');
+channel.sendToQueue('chat', Buffer.from('Hello RabbitMQ!'));
+
+Message Acknowledgements
+ack and nack — to confirm message processing success or failure.
+Prefetch & Load Balancing
+How to handle multiple consumers fairly.
+Use channel.prefetch(n).
+Error Handling & DLQs
+Use dead-letter exchanges for failed messages.
+Retry mechanisms.
+Persistence and Reliability
+Make queues and messages durable.
+Publisher confirmations for delivery guarantees.
+Monitoring RabbitMQ
+Learn to use the Management Dashboard (http://localhost:15672).
+Understand queues, connections, channels visually.
+Scaling
+How to run RabbitMQ in Docker.
+Clustered setup for microservices.
+
+🧩 Step 3: Integrating RabbitMQ with Socket.IO
+🔹 Flow Example
+
+Use Case: When a user sends a message, you queue it for processing (like chatbot reply, moderation, etc.), and when processed, you push it back to the client.
+User emits message via Socket.IO:
+socket.emit('chatMessage', { userId, text: 'Hi Bot!' });
+Server receives, pushes into RabbitMQ:
+channel.sendToQueue('chat_messages', Buffer.from(JSON.stringify({ userId, text })));
+RabbitMQ Consumer listens:
+channel.consume('chat_messages', async (msg) => {
+  const { userId, text } = JSON.parse(msg.content.toString());
+  const reply = await botReply(text);
+  io.to(userId).emit('botReply', reply);
+  channel.ack(msg);
+});
+
+
+Client receives botReply via Socket.IO → updates UI instantly.
+
+============================================================================================================================================================================================================ >
+PART-2:- 
+
+import amqp from 'amqplib';
+export const receiveMessage = async function receiveMessage() {
+    const connection = await amqp.connect('amqp://localhost');
+    const channel = await connection.createChannel();
+
+    const queue = 'hello123';
+    await channel.assertQueue(queue, { durable: true });
+
+    console.log(`Waiting for messages in ${queue}. To exit press CTRL+C`);
+    
+    channel.consume(queue, (msg:any) => {
+        console.log(`Received: ${msg.content.toString()}`);
+    }, { noAck: true });
+}
+
+
+
+
+import amqp from 'amqplib';
+export const connect = async function connect() {
+  try {
+    const connection = await amqp.connect('amqp://localhost');
+    const channel = await connection.createChannel();
+    const queue = 'hello123';
+    const message = 'Hello, RabbitMQ!';
+
+    await channel.assertQueue(queue,{ durable: true });
+    channel.sendToQueue(queue, Buffer.from(message));
+
+    console.log(`Message sent to queue: ${queue}`);
+    console.log(`Sent: ${message}`);
+
+
+    setTimeout(() => {
+      connection.close();
+      process.exit(0);
+    }, 500);
+  } catch (error) {
+    console.error('Error connecting to RabbitMQ:', error);
+  }
+}
+
+
+
+
+======================================================================================================================================================================================
+===========================================================================================
+
+
+C:\Program Files\Erlang OTP
+   C:\Program Files\RabbitMQ Server
+   
+   Rabbit MQ : RUNNING LIVE ON:
+: http://localhost:15672/#/connections
+
+   Simple commands:
+   ----------------- >
+   rabbitmq-plugins enable rabbitmq_management
+   rabbitmqctl status
+   
+
+  Credentials
+  ------------- >
+  User: guest
+  Pass: guest
+
+
+
+Notes Reference:-
+# https://medium.com/cwan-engineering/rabbitmq-concepts-and-best-practices-aa3c699d6f08
+#  
+
+
+Rabbit Mq :-
+======================== >
+Decoupling Applications: The Middleman Analogy
+Imagine you have three friends: Alice (who likes to write letters), Bob (who likes to send text messages), and Charlie (who only uses email).
+
+If they want to talk directly:
+
+Alice would need to learn how to text and email.
+
+Bob would need to learn how to write letters and use email.
+
+Charlie would need to learn how to text and write letters.
+
+This quickly becomes a mess, and if you add a fourth friend, they all have to learn a new way to communicate. This is like tightly coupled applications—they have to know too much about each other's communication methods.
+
+📦 How the Message Broker Helps
+A Message Broker acts as a neutral post office or middleman in this scenario:
+
+Standardized Format: The post office (Message Broker) says, "Everyone just put your message on a standard postcard (the data format) and give it to me."
+
+Sending (Publishing): Alice, Bob, and Charlie just put their message on the postcard and drop it off at the post office. They don't care if the message is ultimately going to a texter, an emailer, or another letter writer.
+
+Receiving (Subscribing): The post office then takes the postcard and makes sure it gets delivered to the right people in a format they can understand (text, email, or a physical letter).
+
+🌟 Key Benefits in Simple Terms
+Decoupling (Separation): The applications (Alice, Bob, Charlie) are decoupled—they never talk to each other directly. They only ever talk to the Message Broker. This makes the whole system more flexible.
+
+Handling Heterogeneous Applications (Different Types): Because every application only has to conform to the Broker's single postcard format, it's easy to add completely different types of applications (like an old mainframe program and a new smartphone app) without them needing to know anything about each other's complex inner workings.
+
+Simplicity: Every application's job is simplified: Send a message to the broker, or receive a message from the broker. They don't need to write code to handle the unique communication style of every other service.
+
+
+
+RabbitMQ :-
+---------------- >
+
+resoucres:
+https://medium.com/cwan-engineering/rabbitmq-concepts-and-best-practices-aa3c699d6f08
+https://medium.com/@buttraheel6/integrating-rabbitmq-with-node-js-building-real-time-applications-fa94135bada3
+
+
+# RabbitMQ is an extremely popular open-source Message Broker used for building message-based systems. Although RabbitMQ supports multiple protocols, the most commonly used is AMQP.
+# It’s an application layer protocol that transmits data in binary format. In this application, data is sent as frames.
+# This is done by setting a “prefetch count” value. The value defines the maximum number of unacknowledged deliveries permitted on a channel.
+# When the number reaches the configured count, RabbitMQ will stop delivering more messages on the channel until at least one of the outstanding ones is acknowledged.
+#
+
+video:2 notes:
+https://www.youtube.com/watch?v=pKnbYGrDAKY&list=PLLz6Bi1mIXhEwMukSl5JVPjJNZ_wfiN5C&index=2
+publisher set up :
+# we need to install the client library , we need to write the code for the set up of the publisher in an programmming language.
+# At the publisher we have the host, protocol on which it is running, and an data packet will be constructed at application layer and passes through the OSI model { other layeers , at each layer an extra info is added} and
+# And this data packet will come to the TCp layer { this is higly reliable }. at this point the connection will be establised bw the publisher || rabbit MQ
+#
+
+tcp 3 way hand shake ( tcp connection )  here first there will be an establishment of connection bt the [Pusblisher ,rabbit MQ].
+   publisher              rabbitMQ
+  SYN
+           ..................>  
+     SYN AK
+ < -------------------
+        ACK
+ ---------------------- >  [[ At this point an TCP  Socket Will Be established ]].
+ 
+ 
+ Over view of the publisher connection with the Rabbit mq
+
+# After establishing of the connection, bw the publisher, and rabbit mq , there may be a chanse of conecction breaking in the tcp{ which was estblished } earlier, then their will be an loss so info,
+this case need to be handled in the code.
+# Once the connection is established bw the publisher, rabbit mq, then we can create an multiple channel's.
+# By using the rabbit mq UI, we can create the exchnages, queus and we can modify them.
+# while making the publisher only we need to give the exchnageName, payload
+# Here this exchnage can be various types: direct exchange, etc.
+
+# Even there will be an connection between the Exchnage,Queue. { Internally }. Here Binding will happen. { here an routing key or binding key need to be provided. }
+# When we are sending the messages fomr the publisher, we send the routing key also, alogn with the payload , so based on the routing key only the messages are forwarded to particular Queue.
+
+exchanges : default, topis{#,* }
+
+# defaultExchange: when we start the rabbit mq, default exchnage will be created {an routing key name } and an default queue { here routing key will be created has the default queueName } will be created, for binding also there will be an
+same routing key or same queueName.
+# Topic exchange: If we keep the routing key name has like this : { r1.*}  then all thebinding which having the r1.e1.m1, r1.e2.m2 all these quere will get the message here in this case because r1.* which means r1. {after r1 it
+need to be matched by all}
+ 
+# fanOut Exchnage: Here even if we specified the routing key it will be ignored, here the message will be send to all the Quese which are bounded to the particular Exchange.
+# headersExchnage: publishere { exchangeName, mesg, headers it will be like object { which consists of the key : value pairs }
+.> here all the header which are published, need to be matched with  the binders then only the message will be transfered.
+.>
+
+binding exchnage :          headers
+{                        {
+a:b,                      a:b ,  in this case the headers will be matched
+c:d,                      c:d
+e:f                        }      
+}
+
+
+binding exchnage :          headers
+{                          {
+                            a:b ,  in this case the headers will not be matched  because we have the c:d, but we do not ahve the e:f so the essages will not be forwarded here in this case.
+c:d,                       c:d
+e:f                        }      
+}
+
+Note : we ahve an case where if we use the { x-match:all } then if the headers are not matched then also it will send the message to the quere
+
+# dead letter exchnage (Alternative exchaneg) :
+
+Overview of the Queue connection with the consumer :
+# We can create the exchnages, queue from the clients it self I mean from the publisher, consumer code it self.
+# Similarly there will be an connection process in order to make the connection bw the rabbit mq, consumer.
+#  
+
+
+resources:
+video:3 notes:
+https://www.youtube.com/watch?v=mZ1uzu-l-ks&list=PLLz6Bi1mIXhEwMukSl5JVPjJNZ_wfiN5C&index=3
+
+#  scenario:
+rabbit mq works at the application layer.
+.> When an queue send an message to an consumer, but that message is not delivered to the consumer. { data loss}
+.> basically there will be an acknowdelgement bw the queue and consumer while communicating.
+.> This acknowdelgement is auto, manullay : which means after the mesasge is omitted then there will be an handshake bw the consumer, Queue.
+.> as soon has the message is omitted out the queue will remove the message. In in auto acknowdelgement.
+.> in the manual acknowdelgement, after the message send to the consumer, and consumer performed the operation then only the message will be removed from the queue.
+.> ## here the message is delivered to the consumer,and consumer performed the operations, then before sending and acknowdelgement, if the consumer is crached.  { more}
+.> ## here the time for acknowdelgement is completed, but still the consumer is still processing the message { more}
+.> ## here when consumer processed the message, and acknowdelgement is send back then, but the rabbit MQ server is down, not able to receive the acknowdelgement {more } if rabbit mq restarts, it willnot
+have messages, stored, in it before crash.
+.> ## here  To over come teh above issue we have the durable queues, persistent messages concepts so that the messages are stored in the queue, so nothing is lost.
+.> ## then is the rabbit mq , restarts then the messages will be resend to the consumer.
+.> ##
+
+Note: we can do the bulk acknowdelgement also.This bulk acknowdelgement will be performed in the batches,
+when making the bulk acknowdelgement, assume ia hev send the 4 ak , then from this only 3 are acknowdledged. then next we are making the bulk acknowdelgement, the 4 unacknowledged messages will be send next time
+
+
+PrefetchCount : This is an count after which the consumer will not consume any messages, because this is an max limit of the unacknowledged messages.
+This is called the PrefetchCount.
+
+
+.> if the PrefetchCount is reached then the consumer will reject the messages from consuming.
+
+.> ## here the consumer can do the rejection, nack { bulk rejection }, after the rejection the Queue will do eithere requeue the messages,discard that message, route that message to the alternate exchnage,
+.> ##
+
+when publisher send the messages , and the message is reached to the exchnager then it will be saved to the disk, then only the ack will be send to the publisher.
+
+
+
+
+https://www.youtube.com/watch?v=eZavmIowBJc
+https://www.youtube.com/watch?v=YwBiS_tmFgA&t=4864s
+
+.> 
+.> The rabbit-mq: rabbit mq server will store the data in the in-memory, which means it will store the data in the same server itself.
+.> The message sending will no longer be an issue here in this case,
+> if we sent the message from one application to the other application from the 
+via RabbitMQ, then the server dependency of the server will no longer be needed.
+the RabbitMQ mq will send the message only when the server is up and running
+> RabbitMQ mq will store the message in the form of a FIFO, { which means first in, first out.
+
+
+
+RabbitMQ mq : It is used to overcome the application dependency for sending the message.
+.> queue is a Data structure/
+.> Queues are present with the exchanges.
+We can create your know exchanges with the exchange type
+While creating the queue without any specific exchange then it will be connected to the default exchange.
+binding: It is a process of connecting the queue with the exchange 
+.> 
+direct exchange: Based on the routing key, the messages are forwarded to the consumer.
+.> fanout exchange: here, there is nothing like the routing key,
+any message which is produced here, in this case, if any 100 queues are connected to the queue will get the message.
+.>  Fanout ex: when an order is created, the message needs to be sent to the admin team, inventory team, customer, etc.
+
+.> 
+
+
+
+
+note : Declaring a queue is idempotent - it will only be created if it doesn't exist already. The message content is a byte array, so you can encode whatever you like there.
+
+
+  AssertQueue {
+        exclusive?: boolean | undefined;
+        durable?: boolean | undefined;
+        autoDelete?: boolean | undefined;
+        arguments?: any;
+        messageTtl?: number | undefined;
+        expires?: number | undefined;
+        deadLetterExchange?: string | undefined;
+        deadLetterRoutingKey?: string | undefined;
+        maxLength?: number | undefined;
+        maxPriority?: number | undefined;
+    }
+
+
+
+Work queue:
+---------------- >
+.> When you run many workers the tasks will be shared between them.
+.> Acknowledgement must be sent on the same channel that received the delivery. Attempts to acknowledge using a different channel will result in a channel-level protocol exception.
+.> 
+
+Message durability :
+.> When RabbitMQ quits or crashes it will forget the queues and messages unless you tell it not to. Two things are required to make sure that messages aren't lost: we need to mark both the queue and messages as durable.
+.> This durable option change needs to be applied to both the producer and consumer code.
+
+.> Marking messages as persistent doesn't fully guarantee that a message won't be lost. 
+    Although it tells RabbitMQ to save the message to disk, there is still a short time window
+     when RabbitMQ has accepted a message and hasn't saved it yet. Also, RabbitMQ doesn't do fsync(2) for every message 
+     -- it may be just saved to cache and not really written to the disk. The persistence guarantees aren't strong, 
+     but it's more than enough for our simple task queue. If you need a stronger guarantee then you can use publisher confirms.
+
+.> About the prefetch :
+ RabbitMQ just dispatches a message when the message enters the queue. It doesn't   look at the number of unacknowledged messages for a consumer. It just blindly   dispatches every n-th message to the n-th consumer.
+.> n order to defeat that we can use the prefetch method with the value of 1. This tells RabbitMQ not to give more than one message to a worker at a time. Or, in other words, don't dispatch a new message to a worker until it has processed and acknowledged the previous one. Instead, it will dispatch it to the next worker that is not still busy.
+
+NOTE: If all the workers are busy, your queue can fill up. You will want to keep an eye on that, and maybe add more workers, or have some other strategy.
+
+
+
+PUBLISH/SUBSCIBE :
+-------------------- >
+.> we'll deliver a message to multiple consumers. This pattern is known as "publish/subscribe".
+.> The producer doesn't even know if a message will be delivered to any queue at all.
+
+.> Instead, the producer can only send messages to an exchange. An exchange is a very simple thing. On one side it receives messages from producers and the other side it pushes them to queues. The exchange must know exactly what to do with a message it receives. Should it be appended to a particular queue? Should it be appended to many queues? Or should it get discarded. The rules for that are defined by the exchange type.
+.> 
+
+Binding :
+.> That relationship between exchange and a queue is called a binding.
+command to get the binding  list :
+# rabbitmqctl list_bindings
+
+NOTE : Routing key values will be ignored for fanout exchanges.
+
+ROUTNIG:
+...............> 
+.> This command is used to create an bind with the queue,exchange_name,
+channel.bindQueue(queue_name, exchange_name, 'black');
+
+DIRECT EXCHNAGE:
+#... > The routing algorithm behind a direct exchange is simple - a message goes to the queues whose binding key exactly matches the routing key of the message.
+#... > It is perfectly legal to bind multiple queues with the same binding key. In our example we could add a binding between X and Q1 with binding key black. In that case, the direct exchange will behave like fanout and will broadcast the message to all the matching queues. A message with routing key black will be delivered to both Q1 and Q2.
+#... > 
+
+
+Different types of the exchange of the rabbit mq:
+------------------------------------------------------- >
+we have 4 different types of the exchanges:
+.> 
+
+DIRECT EXCHNAGE: 
+.> Binding : This is an process of connection of the exchange with the queue:
+.> In order to move the message from the exchange to the queue, bindingKey == Routing Key
+.> producer will send the message to the exchange with the routing key, and queue will have the bindingKey , so there will be comparison of this key then based on the matching only the exchnaeg will deliver the message to the queue.
+
+
+Fanout_Exchnage:
+.> Here the message are delivered to all the queue which are bounded to this exchange.
+.> all the routing, headers are ignored.
+.> 
+
+
+Topic exchange:
+.> This exchange will be similar to the direct exchange, But in the routing keys,wildcards will be used.
+.> * this represents 1 or more 
+.> # this represents 0 or more 
+
+
+These all are matched:
+abcd.*  
+abcd.com 
+abcd.net
+abcd.gmail
+
+
+Headers Exchange:
+.> 
+
+
+
+
+
+
+
+
+difference between the publish, sendToQueue: 
+
+
+
+
+
+
+===================================================================================================================.
+setup before code:
+
+
+Publisher code:
+
+
+/*
+
+ > RabbitMQ is a message broker: it accepts and forwards messages. You can think about it as a post office:
+    when you put the mail that you want posting in a post box, 
+    you can be sure that the letter carrier will eventually deliver the mail to your recipient. 
+    In this analogy, RabbitMQ is a post box, a post office, and a letter carrier
+
+ > Producing means nothing more than sending. A program that sends messages is a producer :
+
+ > A queue is the name for the post box in RabbitMQ. Although messages flow through RabbitMQ and your applications, they can only be stored inside a queue.
+    A queue is only bound by the host's memory & disk limits, it's essentially a large message buffer.
+
+ > An ack(nowledgement) is sent back by the consumer to tell RabbitMQ that a particular message has been received, 
+    processed and that RabbitMQ is free to delete it.
+
+ > If a consumer dies (its channel is closed, connection is closed, or TCP connection is lost) without sending an ack, 
+    RabbitMQ will understand that a message wasn't processed fully and will re-queue it. If there are other consumers online at the 
+    same time, it will then quickly redeliver it to another consumer. 
+    That way you can be sure that no message is lost, even if the workers occasionally die.
+
+> 
+
+
+*/
+
+
+export const connect = async function connect() {
+  try {
+
+    const connection = await amqp.connect('amqp://localhost');
+    const channel = await connection.createChannel();
+
+    // queue declaration 
+    const queue = 'testing';
+    const message = `Hello, This is my first message from rabbitMQ `;
+
+
+    //  Here for the queue setting here in this case, we have the two options:
+    //  assertQueue(queue: string, options):
+
+    await channel.assertQueue(queue,{ durable: true });
+    // creating the exchnage nmae from the code
+    channel.assertExchange("testingExchange", 'direct', { durable: true });
+
+   // directly sedning the messages to the queue:
+   // channel.sendToQueue(queue, Buffer.from(message), {persistent: true});
+
+
+   channel.publish("testingExchange", "demoRoutingKey123", Buffer.from(message),{});
+  
+  
+   // creating of the exchnage: channel.publish('logs', '', Buffer.from('Hello World!')); // DEFAULT EXCHANGE
+
+    console.log(`Message sent to queue: ${queue}`);
+    console.log(`Sent: ${message}`);
+
+    setTimeout(() => {
+      connection.close();
+      process.exit(0);
+    }, 500);
+  } catch (error) {
+    console.error('Error connecting to RabbitMQ:', error);
+  }
+}
+
+
+
+
+
+
+
+import amqp from 'amqplib';
+export const receiveMessage = async function receiveMessage() {
+    const connection = await amqp.connect('amqp://localhost');
+    const channel = await connection.createChannel();
+
+    const queue = 'testing';
+    // durable:true needs to be assign in both the file, in produser, consumer.
+    await channel.assertQueue(queue, { durable: true });
+
+
+    // ADDING PREFETCH VALUE TO the consumer.
+    channel.prefetch(1);
+
+    console.log(`Waiting for messages in ${queue}. To exit press CTRL+C`);
+    
+    // receiveing the messages from the queue.
+    channel.consume(queue, (msg:any) => {
+        console.log(`Received: ${msg.content.toString()}`);
+    }, { noAck: true });
+}
+
+
+
+The browser connects to your WebSocket server (ws://localhost:8080).
+
+When a user sends a message:
+
+It is sent to the Express + WebSocket server.
+
+The server publishes it to RabbitMQ.
+
+The consumer listens to RabbitMQ and broadcasts the received message to all connected WebSocket clients.
+
+All clients see the message instantly.
+
+rabbitmq-server
+npx ts-node web_server.ts
+ http://localhost:8080/client.html
+
+
+
+.> The actual RabbitMQ messages do
+ NOT travel on the WebSocket — RabbitMQ communication happens separately via AMQP protocol inside your server (using amqplib).
+.> The WebSocket is only between browser client and your Node.js server.
+.> The RabbitMQ connection is internal server-side communication and is not exposed on the WebSocket.
+.> 
+
+
+
+
+# const q = await channel.assertQueue("", { exclusive: true });
+{ exclusive: true } option means:
+.> The queue belongs only to this connection (this consumer’s connection).
+.> No other connection can use or even access it.
+.> When this connection closes, the queue is automatically deleted.
+
+.> You cannot manually read or manage exclusive queues from the RabbitMQ UI or from another connection.
+They are only accessible to the connection that created them.
+
+
+
+# channel.bindQueue(q.queue, exchange, "")
+..> This is how you tell RabbitMQ:
+“I want my queue to receive messages from this exchange.”
+
+You’re saying:
+---------------- >
+.> Bind the queue q.queue (the temporary one)
+.> To the exchange called "chat_exchange"
+.> With a routing key of "" (empty string — since it’s a fanout exchange, the key is ignored anyway);
+
+
+
+What these properties mean
+{ durable: true }
+Makes the queue survive RabbitMQ restarts.
+
+The queue definition and its messages (if persistent) are written to disk.
+The queue must have a fixed name, because RabbitMQ needs to restore it after restart.
+{ exclusive: true }
+The queue is private to one connection only.
+It auto-deletes when that connection closes.
+No other connection (even from RabbitMQ UI) can access it.
+
+ Why they conflict :
+-------------------- >
+.> These two options imply opposite lifetimes:
+Property	Lifetime Meaning
+durable: true	“Keep this queue forever (across restarts).”
+exclusive: true	“Delete this queue as soon as this client disconnects.”
+
+
+
+
+
+
+http://172.26.240.1:8080/web_client.html
+http://localhost:8080/web_client.html
+http://192.168.31.245:8080/web_client.html
+https://www.youtube.com/watch?v=oq4BiZlfGGI
+
+
+
+
+notes :
+----------- >
+#) : You open & close a RabbitMQ connection for every message :
+const connection = await amqp.connect("amqp://localhost");
+const channel = await connection.createChannel();
+channel.publish(...)
+connection.close()
+
+..>  This is very inefficient, especially if you send payslips for 50–1000 employees.
+..> RabbitMQ connections are heavy.
+..> Best practice =
+ keep one single connection + one channel alive for the whole server,
+ NOT open + close for every message
+
+#) : Your exchange publishes messages, but you didn’t create a queue + binding
+..> const exchange = "Niyo_exchange";
+const routingKey = "chat_key";
+await channel.assertExchange(exchange, "direct", { durable: true });
+  It creates the queue if it does NOT exist. [ OR ];
+      If the queue already exists, it verifies that the queue parameters match. 
+      Because in RabbitMQ:
+      Messages cannot be delivered directly to an exchange.
+      Exchange → Queue → Consumer (Worker)
+      So you must explicitly create a queue where messages will be stored until a worker consumes them.
+      If you do NOT call assertQueue():
+      the queue may not exist
+      the binding will fail
+      the routing will fail
+      your consumer will not receive any messages
+      RabbitMQ will drop published messages (if mandatory flag is false)
+
+
+
+NOTE: Cloudinary issue :
+----------------------------- >
+.> Cloudinary allows timestamps only ±1 hour drift.
+
+
+// This is my producer code:
+========================================================= >
+RabbitMQ can handle only ~500 connections total before it dies
+
+
+// manually updating the users info for uninstallation status.
+export const triggerUninstallWebhook = async (userId) => {
+  const url = `https://track.customer.io/api/v1/customers/${userId}`;
+  const payload = {
+     userId,
+    "Installation status": "Uninstalled",
+    'Product Last Seen Date': new Date().toISOString(),
+  };
+  try {
+    await axios.put(url, payload, {
+      auth: {
+        username: 'adffc35c96c246431fd1',  
+        password: '585ea304d07739f4bd18'  
+      }
+    });
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+
+=====================================================================================================================================================================================================================================
+===========
+
+PART-3:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
