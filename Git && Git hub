@@ -1,0 +1,372 @@
+These are common Git commands used in various situations:
+
+start a working area (see also: git help tutorial)
+   clone     Clone a repository into a new directory
+   init      Create an empty Git repository or reinitialize an existing one
+
+work on the current change (see also: git help everyday)
+   add       Add file contents to the index
+   mv        Move or rename a file, a directory, or a symlink
+   restore   Restore working tree files
+   rm        Remove files from the working tree and from the index
+
+examine the history and state (see also: git help revisions)
+   bisect    Use binary search to find the commit that introduced a bug
+   diff      Show changes between commits, commit and working tree, etc
+   grep      Print lines matching a pattern
+   log       Show commit logs
+   show      Show various types of objects
+   status    Show the working tree status
+
+grow, mark and tweak your common history
+   branch    List, create, or delete branches
+   commit    Record changes to the repository
+   merge     Join two or more development histories together
+   rebase    Reapply commits on top of another base tip
+   reset     Reset current HEAD to the specified state
+   switch    Switch branches
+   tag       Create, list, delete or verify a tag object signed with GPG
+
+collaborate (see also: git help workflows)
+   fetch     Download objects and refs from another repository
+   pull      Fetch from and integrate with another repository or a local branch
+   push      Update remote refs along with associated objects
+
+'git help -a' and 'git help -g' list available subcommands and some
+concept guides. See 'git help <command>' or 'git help <concept>'
+to read about a specific subcommand or concept.
+See 'git help git' for an overview of the system.
+
+================================================================================================= ===================================================================== >
+  PART -2 
+
+
+
+git : it is an application/software and it is an distributed version control system
+
+..> GitHub is a developer platform that allows developers to create, store, manage, and share their code
+
+
+>git config --global --list {to see the configuration 
+user.email=sachinreddy91619@gmail.com
+user.name=Sachin reddy
+
+..> git config --global user.name "sachn"
+..> git config --global user.email "sachin@gmail.com".
+
+
+
+working directory :
+
+git init { for intializay=tion of the git}
+
+git add { to move the file from the WD to the staging area/index }
+
+STaging Area/ :
+ 
+git commit { to the files from the SA to the Local Repository. }
+
+till this code all the code changes will be final and it will be saved after this command.
+
+LOCal Repository :
+
+HERE WD, SA, LR : All stages are the local in the system only.
+
+git push { to move the files to the cloud database in to the repository.
+  
+
+
+scenario:
+we have the project folder in the GitHub: to work on it i need to get the folder in to the local so for that i need to use:
+
+git clone
+
+after working on it : to push in the GitHub:
+
+git add
+git commit
+git push
+
+git status { to see the get files status  
+
+
+..>  1 file changed, 1 insertion(+)
+ create mode 100644 demogit.txt,
+
+here  1 insertion(+)
+ this line indicates that we have changed one line in the project folder  here, 
+
+
+....> Add one branch for the one features when working in the project:
+
+.> git log { for seeing how many commits happened and what happened in the  how has done it we use the , see commits,  and commit messages,  git commit id for usages: }
+
+.> git add . { used to add all the files.
+ 
+....>
+
+
+scenario:
+--------------->
+I a have  project folder in the in my local i need to post it in the GitHub/cloud for that
+
+for first time :
+
+git init
+git add .
+
+git commit -m "This is my commiting"
+
+git remote add origin https://github.com/sachinreddy91619/demogit11.git
+
+{ here the "origin"it can be any thing nay name. it represents the URL
+
+{ when ever we use the origin it indicates the URL
+
+{ By this command just it will link to the remote  repository.
+
+git push -u origin main
+
+
+
+
+.> git branch { it is used to see the current branch
+
+
+git push -u origin main{ here -u represents that "origin main" is common for every time you  do next time push in github
+
+
+scenario:
+
+we have a project folder in the github repository in the cloud i we to work on that complete project :
+
+to get the files in to the local :
+open GitHub repo { in cloud we have an option called <CODE> click on it and we get the options to choose for the GitHub clone:
+https: select the link:
+
+git clone URL
+
+
+
+.....> 
+
+after cloning the project every developer will add new features to the project and we need to get the updated code in to the folder we use:
+
+git pull 
+
+but iam getting this  error :
+$ git pull
+There is no tracking information for the current branch.
+Please specify which branch you want to merge with.
+See git-pull(1) for details.
+
+    git pull <remote> <branch>
+
+If you wish to set tracking information for this branch you can do so with:
+
+    git branch --set-upstream-to=origin/<branch> master
+
+I need to use this:
+
+..> so use : git pull origin <branch>
+
+-------------------------------------------------------->
+gitignore
+
+..> the files in the gitignore will not be tracked here.
+
+..>the files which are not need to send in to the git hub remote repository  that need to kept in the gitignore:
+
+like :
+log files
+API keys/credential file
+libraries/dependencies
+.env
+
+..>Ignore specific files { credentials.txt , .env }
+
+..>Ignores files with some extension { ".txt",.mp4..
+
+..> Igonre specific folder ex: temp/,/nodemodule,
+
+ig: /node_modules only ignores the first folder from where our git initialized , 
+if these folders are in the sub folders to ignore them  we need to give /postfix of the folder name. , node_modules/
+
+..> if we donot want to send the .txt files at all then we need to give it in the gitignore has
+*.git
+
+..> but we need all .txt files to be ignored but i need sachin.txt to skip the ignore then we need to give it has
+!text.txt
+
+
+======================================>
+git readme.md
+
+md..> markdown
+
+======================================>
+
+How To go to Previous Version of code:
+
+to get the commit id :
+
+git log { shows large code
+
+git log --oneline { to get the compressed hash code we this command.
+
+
+git checkout <commit-id> { to move into that particular id we use this command }
+
+you will move in to the id branch : to see the content at this place use: cat <filename>
+
+..> to move out of that id : use the "git checkout master"
+
+exit { to move out of the git bash and close git bash }
+
+
+======================================>======================================>======================================>
+
+
+GIT REVERT :
+
+.> It is used to undo changes introduced by a specific commit while preserving the commit history.
+
+sy:
+
+git revert commit id
+
+git revert HEAD
+
+
+
+HEAD ===resent commit id or last commit id
+
+head~1 === penultimate commit it (last-1)
+
+
+..> When you use git revert <commit-id>, it creates a new commit that undoes the changes introduced by the specified commit.
+
+..> this new commit only affects your local repository. It doesn't automatically update the remote repository (e.g., GitHub).
+
+..> You need to push the changes to the remote repository for it to reflect the changes made by git revert.
+
+.> git revert <commit-id>
+.> git push
+
+GIT RESET:
+
+.> It is used to move the HEAD POinter to a specific commit, it modifies the commit history by adjusting the HEAD Pointer.
+
+git reset commit id
+
+after this command the commits after the <given commit ids > will be deleted.
+
+.> git reset HEAD~NUMBER {ALSO WORKS } 
+
+
+.> git reset <commit-Id> { the commit history will be delete but the filesare in the staging area}
+
+git add .
+git commit -m
+
+
+
+.> git reset --soft commit id 
+
+{by this commit the COMMITS after this commits will be deleted but the the code will be present in the staging Area.
+git commit -m "message"
+
+.>git reset -- hard commit id
+
+{ by this commit the COMMITS after this commits will be deleted , files completly delete the files even from the staging area.}
+
+=====================================>=====================================>
+=====================================>
+=====================================>
+=====================================>
+
+.> git branch {To see the list of branches }
+
+.> git branch <branch_name> { To create a new branch }
+
+git checkout <branch_name> { switches working to the specified branch}}
+
+
+git checkout -b <bracnh_name> { to  create new and shift to that branch}
+
+
+
+
+git merge <branch_name> { To merge a branch with other branch }
+
+ex: git merge dev
+
+
+
+:> In order to merge the code , to which branch we need to merge , for that we need to be in that Branch.
+
+;> generally after we are creating the a sub branch from main branch, if we try to delete a that sub branch without completely merging into the master branch then we get the ERROR.
+
+
+git branch -d <branc/,;
+
+
+...> * indicated that on which branch you are in
+
+...> A merge conflict happens when Git tries to merge changes from two branches, but can't automatically determine which changes to keep. 
+
+...> This usually occurs when the same lines in a file have been changed in different branches.
+
+
+...> To come out of the merge conflict and return to a clean state:
+If you want to abort the merge and discard the current merge attempt:
+
+...> git merge --abort
+
+
+===============================================> =========================================>
+===============================================> =========================================>
+===============================================> =========================================>
+
+MERGE CONFLICTS :
+--------------------->
+
+..> If one branch renames or moves a file while another branch modifies it
+
+
+
+..> if a file deleted in one branch and modifies in another branch then we get the conflicts.
+
+...>
+
+===============================================> =========================================>
+===============================================> =========================================>
+===============================================> =========================================>
+
+git rebase:
+
+
+===============================================> =========================================>
+===============================================> =========================================>
+===============================================> =========================================>
+
+PUll request:
+
+..> pull request is used to merge branches in remote repository.
+
+
+It is used when:
+
+scenario-1:
+If we have the two or more branches in the same repository , then too merge them we use the
+PULL REQUEST
+
+scenario-2:
+merging branches in forked repository to original repository.
+
+
+==============================================================================================================================================================================================================================================================================================
+========
+
+PART-3
+
