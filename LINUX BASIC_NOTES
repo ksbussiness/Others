@@ -1,0 +1,1339 @@
+...................LINUX NOTES COMPLETE..........................
+
+
+
+@$$@$@$@$@$@$@@$@@      DATE:10-07-2023 @$@$@$@$@$@$@$@$@$@$
+
+
+to check the available volumes in the ec2 we use the lslbk (command )
+
+to mount an EBS volime to a directory we use 
+     $  sudo mount /dev/xvdf <directory-name > 
+
+IN linux everything will be treated as file only.
+
+All the files in linux OS are divided into 3 types
+        1) ordinary files
+        2) directory files 
+        3) device files
+
+--> The files which contains data directory are called as ordinary files.
+        EX: test files, binary files(images, audio & videos)
+
+
+--> Directory files in linux  nothing but folder in windows.
+        Ex: devops_aws_classnotes.
+
+--> In linux every device will be represented as a file.By using device files we can communicate with the devices.
+
+
+Linux File Types:
+we have the seven types of the files:
+
+- regular file
+d- directory
+l- link
+c-special file or device file
+s- socket
+p- named pipe
+b- block device
+
+File System Paths:
+
+absolute path:
+
+cd/var/log/samba
+
+relative path:
+
+cd/var
+
+
+linux file system structure:
+
+..> It is a system used by the operating to manage files. Operating system stores files and directories in an organized and structured way.
+
+
+
+/ --> root directory.
+
+every single file and directory starts from root directory only, 
+root account user will have permission to write under this directory.
+
+ note: '/' and /root are not same
+==> '/' represents root directory.
+==> '/root represents root account user home directory.
+
+
+/bin/ --> essential user command binaries.( every day user commands)
+binary files will be available here  (executable files).
+
+
+
+/boot/ --> static files of the boot loader ( or ) to start the linux some files are required those files are present in the /boot/ directory.
+
+/dev : devices files will be available here.(any physical things connected to the linux system that are stored in the /dev as files )
+..> this contains terminal devices.
+..> EX: cpu, hd, usb, etc..
+
+
+
+
+/etc/ --> host specific system configuration.
+..> contains config files required for all programs in OS.
+..> It also contains startup & shutdown scripts for individual programs.
+
+/home/ :  users home directory 
+..> home directory is for all users to save their personel files,
+
+
+
+/lib/ : libraries for the binaries in /bin & /sbin
+
+..> libray files names are either id* or lib*.so.*
+
+
+/media : mount points for removable devies, 
+..> here we have the libraries files which deals with the removable devices like( pen-drives, dark drives, etc. which we connect to the computers,
+
+
+/mnt : temporary mounted file system 
+..> temporary mount directory wher sysadmin can mount file system.
+
+
+/opt : optional application software  packages.(which are not part off the OS)
+..> it contains  add-on applications should be installed under this /opt
+
+
+/sbin : system binaries 
+
+..> just like /bin directory /sbin also contains files which are executable .
+ex: ifconfig .
+
+/srv : service
+..> server related data will be present here.
+..> site specific data served by system.
+..> data offered by servers.
+..> server specific services related data.
+
+
+/tmp : Temporary files 
+
+..> temporary files will be stored in /tmp directory
+..> files under this directory will be deleted once system is rebooted.
+
+
+/proc : virtual file sysrem  kernel information as files( running processes)
+
+..> it contains information about system process.
+
+
+/usr : User utilites and applications 
+
+..> it contains binaries, libraries, documentation and source code for second level programs, 
+
+
+
++++++++++++++++++++++++++++v++++++++++vv++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+ls -r
+...> print the  files and directory's data with the reverse alphabetical order,
+
+ls | more 
+...> print the files and directory's data with line by line,
+
+ls -l
+..> prints the files and directory's name with complete details,
+
+ls -t
+..> it will display files based on last modified date and time. most recent files will be displayed in top and old files will be displayed at bottom.
+
+ls -ltr
+..> it will display long listing files based on last modified date & time in reverse.( old files will displays at top and recent files will display at bottom)
+
+
+
+ls -la /// or///  ls -a
+... it will displays all the files with the hiden files also.
+
+ls -i 
+..> to display all files along with i-node number and all details  of the file.
+
+note:i-node represents address of the file and where files attributes are stored.
+
+#..>file attributes are:
+Name of the file 
+The no links to the file
+Size of the file
+The owner of the file
+The group 
+
+
+ls -lR
+..> it will displays the content of files with all details and it will also prints the sub-directory details also .
+
+
+
+___________________________________________________________________________________________
+
+
+head file1.txt
+..> This command is used to get the first ten lines of the file1.
+
+head -n 15 file1.txt
+..> this command is used to get the first 15 lines of the file1.
+
+
+head -n -4 file.txt
+..> this command will exclude the last four lines of the file1.txt.
+
+___________________________________________________________________________________________
+
+..> Log files will contain apllication execution details.
+
+..> Problem occurred in the application will be tracked in log file.
+
+..>Always latest data will be available at the end of the file.
+
+..>To VIEW LATEST LOGS OF THE APPLICATIONS WE NEED TO SEE LOG MESSAGES FROM BOTTOM TO TOP 
+
+..> To read file data from bottom to top we 'tail' command.
+
+..> to view latest logs of the appplication we need to see log messages from bottom to top.
+
+tail -n -3 files.txt
+..> this gives us the last 3 file contents.
+
+
+
+
+We can count file data using word count command
+
+wc states.txt
+..> this command will give u the no of words in that file.
+
+
+
+we can move data from one directory to an other directory using 'mv' command 
+EX:  mv demo1/* demo2
+
+
+
+global regular expression print(GREP):
+
+..> It is used to get the matched content from the files.
+
+note: in windows OS we will use " Ctrl+f " to search foe text in a file.
+
+..> In linux OS we will use "grep" command to search for text in a file.
+
+
+syntax: grep "what to search" " file name" 
+
+By default grep is an case sensitive but when we give the """" grep -i """" it will give all things.
+
+..> To search particular text in multiple files then we execute command like below
+
+grep texttosearch *
+
+it will search for text in all log files and it will print the lines which contains 
+
+
++++++++++++++++++++++++++========================+++++++++++++++++++++++++=========================
+==> for grep command we can pass multiple options also
+
+grep -c 'bad' app.log ===> It will print no of lines conatins the text 'bad'
+grep -l 'ab' app.log  ===> it will print the file names which contains the text 'ab'
+
+
+NOTE : we can do the comparison of files in the linux.
+
+
+syntax: cmp file1.txt file2.txt
+
++++++++++++++++++++++++++========================+++++++++++++++++++++++++=========================
+
+for editing the files in the linux we have the vi editor 
+
+syntax vi  <filename>
+ for inserting the data in the file we need to use the " i ".
+for coming out of the file press( esc+:wq) this will save the file and come out from vi mode.
+ 
+
+NOTE: if we have a Requirement that data in file1.txt. AND change that word unix to linux in the above file data
+
+==> using vi editor we can edit file data but searching for 'unix word in every line and modifying it to linux word is very difficult and time taking process.
+
+==> in this scenario we can use 'sed' command:
+
+" SED " : stands for stream editor.
+
+
+==> using SED command we can perform operation on files data without opening the file.
+
+$: sed 's/unix/linux/' file.txt ( by using this command we can change only the first occurance of the word..)
+
+note : inorder to change the all the occurance of the words we need to use the below command
+
+   $:  sed '/unix/linux/g' file.txt
+
+
+
+===> but if we want to modify nth occurance then we can use below command:
+
+sed '/unix/linux/n'
+
+
+
+
+DIFFERENT BETWEEN locate  AND find commands in linux :
+
+Locate uses a prebuilt database,which should be regularly updated,while find iterates over a filesystem to locate files.Thus, locate is much faster than find,but can be inaccurate if the database is not updated.
+
+..> command used to update the database is : updatedb
+
+==> locate and find commands are used for finding files/directories
+
+....> in some linux distributions locate command may not work directly then we have to install it using below command
+
+
+sudo apt install mlocate
+
+..> syntax: locate <file name>
+
+
+note: locate command will maintain its own database and it will give results from its database  
+
+ex: locate *.txt (it will give all text files available) 
+
+ex: locate -c *.txt ( it will give count of text files available )
+
+
+
+
+NOTE: find command will search for files in linux system 
+
+syntax: find . -name "kramer"
+
+
+find /home -name f1.txt
+find /tmp -type f -empty (find all empty files)
+find /tmp -type d -empty ( find all empty directories)
+
+
+note: performance wise 'locate' will be faster than 'find' command 
+      but 'locate' command will not give results for newly create files/directories immediatley. if we want newly created results also then we have to update database
+
+
+locate command is used to identify the path of files or directories.
+
+find is more hierarchical command it will search for files/directories in entire file system.
+
+  ____________________________________________________________________________________________
+
+
+File Permissions In Linux :
+
+..> we will use files to store the data.
+
+..> in order to protect our data we need to secure our files.
+
+..> we can secure our files using file permissions in linux 
+
+r ==> read
+w ==> write
+x ==> execution
+- ==> no permission
+
+
+EX: rwx(1) rwx(2) rwx(3) 
+
+1 section represents the USER permissions on the file. 
+
+2 section represents the GROUP permissions on the file.
+
+3 section represents the OTHERS permissions on the file.
+
+
+ADDING PERMISSIONS TO THE FILES:
+
+chmod this keyword is use to change the permission of a file.
+
+
+EX: file1.txt
+
+adding write per on other of file1.txt
+
+$ chmod o+w file1.txt
+
+o : means others
++ : means add
+w : means write
+
+removing the read per on other of fil1.txt
+
+$ chmod g-r file1.txt
+
+we can use symbolic mode also to work with files permissions
+
+
+number:         permission
++++++++++++++++++++++++++++++++
+0              no  permission
+1               Execute
+2               write
+3                write and execute
+4                read
+5                 read and execute
+6                 read and  write
+7                   read & write  and execute
+
+
+
+Man command is used to get the documentation of particular command
+
+______________________________________________________________________________________________________________________________________________________________________________________
+
+
+USERS IN THE LINUX ::
+
+===> Linux is a multiple based operating system.
+
+===> we can have the multiple accounts in linux.
+
+==> In linux we have the multiple users in it .
+
+Creating user in linux:
+
+$ sudo adduser <username>
+
+switching user account in linux :
+
+$ sudo - <user-name>
+
+Deleting user in linux:
+
+$ sudo userdel <user-name> 
+
+
+WORKING WITH USER GROUPS IN LINUX:: 
+
+group means collection of users
+
+==> The primary purpose of group is to define set of privilges for  a given resource that can be shared among the users within the group.
+
+
+creating a group in linux:
+
+$ sudo groupadd < group-name>
+
+add user to group:
+
+$ sudo usermod -aG <group-name> <user-name> 
+
+to see the execiting groups in the linux 
+
+$ cat /etc/group/
+
+Delete user from group :
+
+$ sudo gpasswd -d <user-name> < group-name> 
+
+Delete a group :
+$ sudo groupdel < group-name> 
+
+
+Changing the owner of the files:
+
+==> we use the 'chown' for change owner
+==> by using the 'chown' command we can change owner /group of a file
+
+the below command is used to change the file's user
+$ sudo chown <user-name> <file-name>
+
+the below command is used to change the file's group
+$ sudo chown :group-name <file-name>
+
+
+
+NETWORKING COMMANDS:
+ifconfig: it is used to check ip address of our machine
+
+syntaxL: $ ifconfig
+
+ping : it is used to check machine/server is up and running or not
+
+syntax: $ping ip/hostname.
+
+
+ex: ping google.com
+NOTE: if ping successful that means that server is up and running,
+      if ping is not successful that means machine/server is down
+
+
+
+curl : it get the server information / it is used to get response from server
+
+$ curl <server-url>
+
+wget : it id used to download files 
+
+syn: $wget <file-url>
+
+____________________________________________________________________________________________v____________________________________________________________________________________________
+
+SHELL SCRIPTING: 
+
+shell : it is responsible to read commands given by user.
+
+shell : shell it is used to provide the input for the kernel.
+
+NOTE: Shell is a interface between the user and kernel.
+
+kernel: it is an interface between the hardware and shell.
+
+
+...> when user execute a command then shell will take that command and willl verify syntax of that command. if syntax is valid shell will give command instructions to kernel.
+
+..> kernel (Program) will interact with hardware wnd will perform operations 
+
+
+              APPLICATION /COMMANDS
+            ++++++++++++++++++++++++++++++++
+                       SHELL 
+                  +++++++++++++++++
+                 +      kernel     +
+                 + +++++++++++++++ +
+                 +  ++hardware++   +
+                 +   +++++++++++   +
+                 ++++++++++++++++++
+
+There are several shells available in linux :
+
+1) bourne shell
+2) bash shell
+3) korn shell
+4) CShell 
+5) TShell
+6) Zshell
+
+note: out of all the above shells, bash is the most powerful shell and it is most , commenly used shell by linux admins/users.
+
+scripting : it is the process of executing the command together. by using scripting we can execute multiple commnads at a time.
+
+..> The file which contains sequence of commands is called as script file.
+
+shell + scripting = shellscripting.
+
+The process of writing sequence of commands in a file and executing that file using shell is called as SHELL SCRIPTING.
+
+Ex: crete files, delete files, start and stop servers.
+
+script files will have .sh as extension.
+
+If we have the execute permmisions to that files then only that files will be executed .
+
+
+NOTE: we use shell scripting for automation of the tasks.
+
+
+RealTime Usecases for shell scripting:
+1) creating/ deleting log files.
+
+2) Taking log files backup
+
+3) Installing software.
+
+4) start /stop servers.
+
+5) daily server restarts etc...
+
+pwd 
+whoami
+date
+ls -l
+++++++++++
+task.sh( saving the file)
+
+chmod u+x task.sh
+
+./task.sh
+
+
+
+Bash shell is the most powerful shell in linux.
+
+
+
+./file-name to execute the file 
+
+
+++++++++++++++++++++++++++:
+echo : it is used to print the statements to the console.
+
+read: It is used to read the data/input from the console/terminal.
+
+ 
+
+
+write a sheel script which will ask user to enter the name and say good evening to  that username.
+
+echo "Enter Your Name:"
+read name
+echo "Hey $name good evening..!"
+
+task1.sh
+chmod u+x task1.sh
+./task1.sh
+
+
+write a sheel script which will ask user to enter the name and age  and print to the console.
+
+echo "Enter Your Name:"
+read name
+echo "Enter Your Age:"
+read age
+
+echo" Enter Your gender:"
+read gender
+
+echo " hey $name, your age is:$age, and you are: $gender"
+
+task2.sh
+chmod u+x task2.sh
+./task2.sh
+
+#!/bin/bash is called the shebang and is used to tell the operating system which interpreter to use to execute the rest of the file .
+
+
+NOTE: It is highly recommened to use the SHEBANG Bash in every line of the shell scripting file.
+Because: In the shell we have the multiple shells but when we are executing the script file (The shell need to understand that this script file is bash script file ) for this purpose we use the 
+#!/bin/bash in the first line of the script file.
+
+
+If we want to work any scripting/programming then we have to deal with below concepts
+
+variables, datatypes, functions/methods , control statements, loops
+
+
+variables:variables are used to store the data.
+
+Variables are divided into 2 type:
+1) Environment Variables
+2) User Defined Variables
+
+..> Environment variables will be used by operating system. we can call these variables as system variables.
+
+..> we can see all the environment/system variables using 'env' command in putty terminal.
+
+
+
+
+
+
+ datatypes:  datatypes are used to tell which type of the data we need to store the in the variables.
+
+functions/methods: are used to perform some actions.
+
+control: control statements are used to execute commands based on some conditions.
+
+echo "enter your name:"
+read name
+echo "enter your age"
+read age
+if age>=21
+   echo "$name , you are eligible for marriage
+else
+   echo "$name, please wait some time"
+
+
+
+loops: loops are ued to execute statements based on the conditions / for multiple times.
+
+
+RULES TO DEFINE VARIABLES:
+
+1) it is recommended to use upper case characters for variables names.
+
+2) if variables contains multiple words then use underscore to seperate words (_)
+
+3) variables name should not start with digit
+
+4) we should not use special symbols like  -.@,# 
+
+
+ 
+
+we have the bashrc file in the linux os, if we want to store any data then we will store in the bashrc file
+
+
+The data which present in the bashrc that data will be be used for the user.
+
+bash.rc is a hiden file .
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+Command Line Arguments:
+..> The arguments we will pass while executing script file are called as command line arguments.
+
+
+$ ./task1.sh (executing script without args)
+
+$ ./task1.sh Linux is eassy(executing the script 
+
+echo $1 (Linux)
+
+echo $2 (is)
+
+echo $3 (eassy)
+
+echo $# (3)
+
+echo $0 (task1.sh)
+
+
+
+..> comments are used to provide meta data about our script
+..> the comments are increase the redability of the code .
+..> meta data means data about data.
+
+..> by looking at command others cab easily understand our script
+
+..> to write single line comments we will use # 
+
+..> The multi line comments:
+<<COMMENT
+.........
+.......
+....
+COMMENT
+
+_______________________________________________________
+ADDING THE TWO NUMBERS USING THE SCRIPTS:
+
+
+#!/bin/bash
+
+# this is a single line comment in bash
+echo Learn Bash Scripting
+a=2
+b=5
+
+# addition : this is another single line comment 
+
+c=$(($a+$b))
+
+# echo result to console
+
+echo $a+&b=$c
+
+if we want to ececute our scripts commands based on conditions then we can control statements.
+
+if else
+if elif else
+
+syntax: 
+ if [condition ]
+   then 
+      echo stamst
+else 
+      echo stsms
+
+_______________________________________________________
+
+write a script for voting system
+
+echo "Enter your age"
+read age
+
+if ["$age" -ge 18];
+ then
+    echo "you are eligible to vote";
+else
+
+    echo "you are younger !!";
+fi
+
+_______________________________________________________
+
+write a script for coloring system:
+
+
+echo " choose your color from red, blue, green"
+
+read color
+
+if [$color == red]
+then 
+  echo "Your are cheerful"
+elif [$color ==blue]
+then
+  echo "your are lucky"
+
+else
+  echo "you are both"
+fi
+
+______________________________________________________
+
+
+write using the case system statement
+
+#!bin/bash
+
+FRUIT="banana"
+
+case "FRUIT" in
+   "apple") echo "apple pie is quite good"
+    ;;
+    "banana") echo "I like banana nut bread"
+    ;;
+    "kiwi")  echo "new zealand is famous for kids."
+    ;;
+esac
+
+______________________________________________________
+
+shell scripting using the loops:
+
+syntax:
+
+for ((cond1; cond2; cond3))
+ do 
+   echo statements
+done  
+
+______________________________________________________
+
+for ((i=1; i<=10; i++))
+do 
+ echo "$i"
+done
+
+______________________________________________________
+
+While [ condition ]
+
+do 
+   .......
+done
+
+i=10;
+while [$i -ge 0]
+
+echo "reverse orer $i"
+  let i--;
+done
+
+
+
+
+until loop in the scripting :
+
+for the  until loop we need to know the starting, ending values  
+
+count=10
+i=0
+
+until [$i -gt $count]:
+do 
+  echo "$i"
+   let i++
+done
+
+The basic difference between while and until loops is that : while loops sops when the condition is false, but, until loop stops when the conditon is true.
+
+
+
+Funtions in the scripting:
+
+funtion funtionname()
+{
+  commands to be executed.
+}
+
+example:
++++++++++++++++++++++++++
+#!/bin/bash
+
+funtion welcome(){
+   echo "welcome to ashokit";
+}
+
+# calling function 
+welcome
+
+
+example:
++++++++++++++++++++++++++
+
+#!/bin/bash
+
+# defining the function
+
+function welcome(){
+
+     echo "welcome to $!";
+}
+
+# calling of the function
+
+welcome Linux
+welcome AWS
+welcome Devops
+
+______________________________________________________
+
+write a script which takes 2 numbers as input and displays which number is greater number.
+
+
+#!/bin/bash
+
+echo "enter F number:"
+read F
+
+echo "enter S number:"
+read S
+
+if ["$F" -gt "$S"]
+ then 
+   echo " the first number is greater:,$F"
+else
+   echo " the second number is greater:,$S"
+
+fi
+______________________________________________________
+
+
+write a script which will read number and print numbers from 1 to given numbers.
+
+
+
+#!/bin/bash
+
+echo "enter GN numbers:"
+
+read GN
+
+ for (( i=0; i<="$GN";i++))
+do 
+  echo "$i"
+done
+
+
+______________________________________________________
+
+write s script which will take filename as input and print file content.
+
+#!/bin/bash
+
+echo "enter the file name:"
+  read filename
+
+if [ "$filename" -et "$sachin"]
+ then 
+   cat sachin.sh
+else
+  echo "file not found"
+______________________________________________________
+
+write a script for boot stratping of a web page as soon as i launch the ec2.
+
+#!/bin/bash
+sudo yum update -y
+sudo amazon-linux-extrat install -y lamp-mariadb10.2-php7.2 php7.2
+sudo yum install -y httpd mariadb-server
+sudo systemctl start httpd
+sudo systemctl enable httpd
+sudo systemctl is-enable httpd
+sudo aws s3 cp s3://<s3file-name> --region us-east-1 /var/www/html/ --recursive 
+
+
+______________________________________________________
+
+write a script to ping the and to check wheather it is working or not?
+
+
+____________________________________________________________________________________________________________
+
+
+write a script to ping multiple servers to check wheather it is working or not?
+
+first step: create a file  (myhosts) and we need to write the ip address in that file ?
+
+8.8.8.8      ( google's ip)
+34.205.145.14 ( any sample ip)
+
+
+step 2: save this file 
+
+step 3: create a script file  and write the code in it?
+
+
+
+#!/bin/bash
+
+hosts="//home/ec2-user/myhosts" 
+#(this is the "myhost" file location get it by "pwd" 
+for ip in $(cat $hosts)
+do 
+  ping -c1 $ip
+   if [ $? -eq 0 ]
+   then 
+     echo $ip OK
+   else
+     echo  $ip NOT OK
+   fi
+done
+
+step 4: save the above file and run the file
+
+____________________________________________________________________________________________________________
+
+
+
+
+
+Write a shell scripting for the html page launching.
+
+#!/bin/bash
+# Use this for your user data (script from top to bottom)
+# install httpd (Linux 2 version)
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "<h1>Hello World from hyderabad</h1>" > /var/www/html/index.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+
+
+
+linux is used every in and around as  in the airplannes, internet acces, tv's, websites, smart phones, tablets, windows data recovery disc, self driving cars, etc.
+
+
+........> What is linux? 
+
+It is no thing but the operating system .
+Which sits in the middle of your hardware and users(how runs the application).
+
+
+we need to install the OS in the computer,so that it will bootstrap and acts according to us(action which you given to it / tasks).
+
+
+........> What the different b/w Unix vs LInux
+
+Unix was first developed for the multi-users and multi-tasking purpose in the id -19070's .
+
+Unix comparatively supports very fewer file systems.
+
+Linux was born in 1991 by Linux Torvalds
+
+Linux is mostly free , it has different falvours.
+
+linux is open source .
+
+Linux can be installed on a wide variety of computer hardware, ranging from mobile phones, tablets, video games consoles to mainframes nd supercomputers.
+
+Linux is used by many developers community or companies (redhat, Centos, debian)
+
+
+.........> Linux Distribution.
+
+Linux has many diff flavours.
+
+redhat it is an enterprise level of the linux Os.(Not Free)
+CentOs it is  redhat product only but (Free).
+Fedora it is  redhat product
+suse 
+debian 
+ubuntu
+
+
+.......> Linux Users:
+
+
+Us govt and agencies 
+NASA 
+
+Health Care
+
+The bullect trains in japan runs at the speed of 150-212 m/h(it's application is done in the linux only and 
+
+Trffic Control systems also done by the linux
+
+financial institues (New tork stock exchange)
+
+world e-commerce leaders , including Amazon , eBAY PAYPAL and Walmart runs their platform on the linux
+
+
+.........> LINUX VS WINDOWS SYSTEMS.
+
+LINUX                                 WINDOWS 
+
+1) IT is free                         It is not free
+
+2) Not user friendly                  It is user friendly
+
+3) Very reliable. Often runs          Often requres reboot
+ for months or years
+
+4) Best for multi-tasking.        Multitasking is avaliable 
+                                  but with very high cpu or 
+                                  memory resources.
+
+5) Very Secure.                   Some what less secure
+
+
+6) open to public                no open source OS.
+
+
+ 
+
+ , 
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Linux has super-user account called the root 
+..> a Root is the most powerful account that can create, modify, delete accoutns and make changes to system configuration files.
+
+Linux is case senditive system .
+
+ABC is not same as abc.
+
+Access to the linux system:
+
+GUI mode
+CLI mode
+Remote mode. we connect to the OS remotely over the network.
+if we are using the windows (in order to connect to the linux system remotely we use the ( Remote desktop connection ), or via putty.
+
+..> Putty is a software which is allows you to connect from a windows system to linux system remotely.
+
+ex: yum install net-tools( this command is used to install latest networking cpmmands).
+
+
+
+we can connect to linux via putty which you know.
+
+we also connect to the linux via SSH.
+
+steps:
+open the command-Prompt
+type: ssh
+ssh -l (user-name) (ip-Address)
+next which will open the 
+username: 
+password: give the credentials.
+
+
+WHat are command-Prompts?
+
+A command prompt, is a simply as a prompt, is a short text at start of the command line followed by prompt symbol on a command line interface.
+
+[root@MyfirstLinuxVM~]#
+  |           |       |
+username    hostname  prompt symbol
+
+..> if the symbol $ then it is user 
+
+# means that user root user.(may be differ for diff systems.)
+
+..> you should change your intial password as soon as you login
+
+command to change password is : passwd userid
+old password:
+New password:
+retype new password:
+
+Soft And Hard Links:
+
+inode = pointer or number of a file on the hard disk.
+
+soft Link : link created when file is created but the link will be removed if file is removed or renamed.
+Hard Link: deleting renaming or moving the original file will nor affect  the haed link
+
+command used to created soft link is : ln
+ 
+command used to created hard link is : ln -s
+
+
+we have a file name "hulk"
+
+creating the soft link for the hulk file :
+
+
+LINUX:Fundamentals:
++++++++++++++++++++++++++++
+ls -lt
+ ..> This command will give you the complete details of the files and directories.
+
+ls -ltr 
+..>This command will give you the complete details of the files and directories.But the  old files/directories on the "TOP" and the newest files on the " BOTTOM ".
+
+ls -l bart.txt
+..>This command will only gives back the details of the  bart.txt file or directory.
+
+rm -f <file name >
+..> THis command is used to remove the file , with out asking any thing.
+
+rm -r <directory name>
+..> This command is used to remove the directory .
+
+
+
+File Permissions:
++++++++++++++++++++++
+
+..> Every file and directory in your account can be protected by the accessing it by ysers.
+
+..> There RE 3 types of the file permissions:
+r - read.
+w- wirte.
+x -Executable =Running the program.
+
+...> Each permissions can be controlled at three levels.
+u -user=yourself.
+g- group = can be people in the same project.
+a- other = everyone on the system.
+
+                         
+ ..> File directry permission can be displayed by the Running ls -l commnad.
+
+....> Command to change the file permission is 
+# chmod
+
+..> To remove the WRITE  file permission of the group is :
+chmod g-w <FileName>
+
+..> To add the WRITE  file permission of the group is :
+chmod g+w <FileName>
+
+..> 
+
+
+
+
