@@ -1,0 +1,816 @@
+for root access in the ec2 instance we need to use: 
+sudo su -
+
+
+
+@@@@@@@@@@@@@@@@@@@   How Does An Internet Works: @@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+
+Generally this is a possible way to transmite the data but not recommended way.
+
+The data which is stored inside the data center, can we be accessed with a single which cloud send to the satellite via an antenna.Then from the satellite a single cloud be sent to your mobile phone via another antenna.
+
+..> This way of data transmission will significantly delay in the data.latency will be more.May be the chance of the data lose.
+
+
+
+
+
+
+
+
+
+
+
+...> the video which we are accessing is stored in the data center in the server,the data center is connected with the optical fiber,
+
+..> Every device has the ip address, which is given by the ((ISP)), and even the server in which our data is present has an Ip address,
+
+
+....>  The DNS server will acts as the Phonr book , where the ip address and the it's domain name is matched in it.
+
+
+
+
+....> FIRST: if we enter the Domain Name(Www.facebook.com ) the broswer will sent the request to the DNS server to get the corresponding IP Adress, after getting the IP adress the browser simply forwards the request to the data center, more specifically to the respective server,
+.....>SECOND: once the server gets a request to access a particular  website the data flows starts, the data is transferred in a digital foemat via optical fiber cables upto you and the fiber will connect to the your router, 
+
+.....>THIRD:  this router will sends the signal to your phone to get the data accessed , 
+
+
+""" THE ABOVE PROCESS WILL HAPPEN WITHIN SECONDS IN THE FORM OF THE CLIENT AND SERVER MODEL.. """.
+
+....> WEB-BrowSer: like google chrome, Internet explore, firefox are required for the accessing of the data.
+
+...> Uniform Resource Locater: when ever we give the this "Required-URL" to the Web Browser, then this URL will be converted in to the IP Address by the DNS Server.
+
+....> ISP (Internet service Providers ) 
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+LAYER ONE DEVICES OF THE OSI MODEL..
+
+
+Anolog modem : it is derived from the modilator /demodulator.
+
+..> modem were develpoed to take the digital signals from the digital node convert it into the analog signal (this is called modulating ) which need to be placed on the wire. 
+..> Even it would accept the analog signal from the wire and convert it to the digital signal that node can understand(this is demodulating)
+
+
+..> Modems provide for a single connection to  network.
+
+..> these only deals with the wires , and the wire is in the physical layer if the OSI model.
+
+
+
+HUB: A hub functions as a concentrator/repeater in that it does not care about where the signal comes from or where it is going.
+
+
+
+..>it takes the  electrical signal that come to it and sends that signal out to all other ports.
+
+..>  A hub may have just a few ports , or it may have many ports.
+
+
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+LAYER TWO  DEVICES OF THE OSI MODEL..
+
+
+Switch:   A Switch is a networking device. It connects multiple devices together on a single network and routes the information. 
+
+...> A switch is used to send the data packets to a particular network by using the mac address over the network.
+
+
+
+...> a switch will only communicates with the local network devices.
+
+
+
+...> A switch works on the data link layer of the osi model.
+
+
+
+
+BRIDGE :
+
+Wireless Access Point(WAP): A wap is a specific type of the network bridge that connects wireless netork segments with the wired network segments .
+
+
+..> a wap will only communicates with the local network devices.
+
+
+
+
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+LAYER THREE   DEVICES OF THE OSI MODEL..
+
+
+
+Multilayer layer switch(MLS): it provides the normal layer two services but it will also provides layer 3 or higher OSI model services.
+
+
+
+...> MLS is a highly programmable and comple network device .
+
+...> this allow devices to communicate and pass data to a non local network devices.
+
+
+
+
+Router: It is a common networking decive for connecting diff networks together .
+
+
+..> A router is a gateway that passes data between one or more local area networks (LANs). Routers use the Internet Protocol (IP) to send IP packets containing data and IP addresses of sending and destination devices located on separate local area networks.
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+SECURITY DEVICES.
+
+
+Fire wall: it blocks packets from entering or leaving the network.
+
+..>a fire wall can be placed on the routers or hosts,
+
+
+...> it functions at the multiple layers of the OSi model
+
+..> layers at 2,3,4,7
+
+
+..> vIa stateless inspection : the fire wall will examine every packet against a set of rules , once the packet matches a rule, the rule is enforced , and the specified action is taken.
+
+
+
+via stateful inspection:
+the fire wall only examine the state of the connection between networks.
+it acts as the ffirst line if defence in protecting the internal network from outside threats.
+
+
+
+
+
+
+Intrusion detection system (IDS): it is a passive  system designed to identify when a network is breached and when attack against the network is occuring.
+
+
+
+an ids cannot prevent or stop a breach or attack on its own.
+it receives a copy of all traffic and evaluates it against a set of standards.
+
+
+
+
+Intrusion prevention system(IPS) :it is an active system designed to stop a breach or attack from damaging the network.
+
+..>it is programmed to make an cative response to the situation.
+
+..>it is placed in between a router with the firewall.
+
+
+..>it will inform to the network administrator through the use of logs files, sms, notification system
+
+
+
+Virtual private network: 
+
+
+
+
+
+
+
+IP: Internet protocol 
+ ..>the protocol are the set of rules .
+
+Dynamic ip: These are the temporary ip's which is provided by the ISP(internet service provider)
+
+static ip's: These are the permanent, which can not be chanaged. ip's. which is purchsed by the large compnnies.
+
+
+
+MAC media access control:
+
+..>each device has the its own mac address
+
+..>it is the physical address of the device
+
+..>working: when we connceted to the d-link router , and we request an file from the internet then the request is send to the server and come to the router , then this wifi-router will search for the particular mac address from which the request is come , because for our router many devices are connected, it will become difficult if mac address is not there.
+
+
+ 
+
+MAC Spoofing: 
+
+A MAC spoofing attack consists of changing the MAC address of a network device (network card). As a result, an attacker can redirect data sent to a device to another device and gain access to this data.
+
+
+
+
+server:
+..> a server is a software or hardware device that accepts and responds to reuests made over a network.
+
+client:
+
+..>the device that makes , the request, and recevies a responce from the server is called client.
+
+
+_____________________________________________________________________________________________________________________________________________________________
+ 
+
+TOPOLOGIES:Network topology is the arrangement or connection of the various  of the elements/nodes through lines/wires of a communication network.
+ 
+
+
+BUS TOPOLOGIES:
+
+It is a computer network where every computer/node is connected to a single main cable.
+
+
+...less cost 
+... if that main cable is not working then entire system will not work.
+... it reqired a lot of cabling.
+...security is very low 
+
+MESH TOPOLOGIES:
+
+it is a computer network where every computer/node is connected to another via dedicated channels/wires.
+
+...communication is very fast
+...more security.
+...required a lot of cables/wires.
+... more maintenance is high.
+
+STAR TOPOLOGIES :
+
+it is a computer network where every computer/nodes are connected to a  centrall single hub through cables.
+
+
+...communication is fast 
+...easy to identify the faults
+...cost of installation is high.
+...if hub is not working then entire system will not work
+
+RING TOPOLOGIES :
+
+
+It is a computer network where every computers/nodes are connected in the ring(closed )form.
+
+...the data flows in one direction only 
+...less cost 
+...the data is fastly transferd
+...less secure
+.. .if one node is not working then entire system will not work. 
+
+
+TREE TOPOLOGIES :
+This topology is the variation of the Star topology.
+... it has the many hubs
+
+
+
+
+HYBRID TOPTOLOGIES : 
+
+This topological technology is the combination of all the various types of topologies .
+
+
+...topology is very flexible.
+...The size of the network can be easily expanded by adding new devices.
+... challenging to design the architecture of the Hybrid Networ
+
+_____________________________________________________________________________________________________________________________________________________________
+
+OSI model :
+
+open system interconnection:
+
+..> It's describes how devices send, receive data.
+
+
+
+
+
+Benefits of osi:
+..>divides the network communication process into layers to be easier to troubleshoot.
+..> layer separetion makes changes in one layer do not affect other layers.
+
+..> layers can interact with each other
+
+
+
+
+application layer :
+..>In this layer  the user will interact with the web browser and
+
+..> in this layer the user will request the web browser to return the content in the required format.And the web browser will sent the requested content to the application layer.
+
+presentation layer:
+
+..> after receiving the data from the application layer here the data is compressed/decompressed.
+
+..>and here the data isencrypted/ decrypted 
+
+Session layer:
+
+
+
+..> in this layer estab of the session, managing of the session, controlling of the session, terminating of the session will happen for the communucation
+
+..> a session is estb for the communication purpose 
+
+
+Transport layer:
+
+
+Here in the transport layer , by using proper protocols only the reliable messages will be transmitted
+..>here the data will be organized  into proper segments.
+
+..>here data is transported in the order way.
+
+..> if data will duplicated, then it is properly remove it and segment it.
+
+..> it ensures that messages are delivered error-free, in sequence , with no loss.
+
+..>by the acknowledment it will ensure whether data is sended or not and recevied or not.
+
+..> estab two way connection between the nodes before data transmission.
+
+
+NETWORK LAYER:
+
+..> in this layer the data is organised in to the data packets.
+
+..>the router works in the network layer
+
+..> selects the best path for moving towards the destination
+
+...> here it receive the segments of data from transport layer and converts them to packets by adding logical addressing information (source, destination address).
+
+DATA LINK layer:
+
+
+..>here in this layer we have the logical link between the nodes.
+
+..> here the data will be organized/converted  into the frames.
+
+..>  here the frames will be error free
+
+..>here Mac address of the devices is present 
+
+..>these frames has the data packages and the sender/receiver physical addresses.
+
+..>switches and bridges devices work in the data link layer.
+
+
+PHYSICAL LAYER:
+
+
+..>Here in the physical layer bits are transmited into the /wires, guided medium and unguided medium cables.
+
+
+...> Hub, repeater work in the physical layer.
+
+
+
+________________________________________________________________________________________
+
+
+Basically in every  device many applications/services running. 
+
+ip addresss identifies the system .
+port number identifies the application on the system .
+
+
+
+
+ip address : it is a logical address used to identify a device on the network.I t is provided by the ISP. Any device connected to the internet is assigned a unique IP address for identification. 
+
+port number :port numbers identify particular applications or services on a system. 
+
+socket address: ip address+ port number
+
+
+different protocols :
+
+
+different linux commands:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+compuert network:
+
+A computer network is a set of devices connected through links.
+
+..The aim of the computer network is the sharing of resources among various devices.
+
+
+Node :
+A node in the network can be a omputer, printer, or any other device capable of sending or receiving the data.
+
+
+..> The links connecting the nodes are known as communication channels.
+
+
+
+Major components of a computer network are:
+______________________________________________________________________________________________________________
+
+
+NIC network interface card:
+A network interface card (NIC) is a hardware component without which a computer cannot be connected over a network.
+
+two types of the nic 
+
+i) wireless Nic 
+... All the modern laptops use the wireless NIC. In Wireless NIC, a connection is made using the antenna that employs the radio wave technology.
+
+ii) Wired NIC: Cables use the wired NIC to transfer the data over the medium.
+
+
+Virtual Network interface card in the cloud
+
+A VNIC enables an instance to connect to a VpC and determines how the instance connects with endpoints inside and outside the VpC. Each VNIC resides in a subnet in a VCp.
+
+....Each instance has a primary VNIC that is automatically created and attached during launch. That VNIC resides in the subnet you specify during launch. 
+
+
+
+HUB: A hub functions as a concentrator/repeater in that it does not care about where the signal comes from or where it is going.
+
+
+Switch:   A Switch is a networking device. It connects multiple devices together on a single network and routes the information. 
+
+
+Cable: A Cable is a transmission media that transmits the communication signals.
+
+ There are three types of cables:
+
+i) twisted pair cable
+ii) coaxial cable
+iii) fibre optic cable
+
+Router:  A router is a gateway that passes data between one or more local area networks (LANs). Routers use the Internet Protocol (IP) to send IP packets containing data and IP addresses of sending and destination devices located on separate local area networks.
+
+
+
+Modem : modem were develpoed to take the digital signals from the digital node convert it into the analog signal (this is called modulating ) which need to be placed on the wire. 
+
+...A modem is a separate part on the PC slot found on the motherboard.
+
+
+Features of the computer network:
+______________________________________________________________________________________________________________
+i) comminication speed.
+
+ii) file sharing.
+
+iii) software and hardware sharing.
+
+iV) security 
+
+v) scalability
+
+vi) reliability.
+
+
+ _
+Computer Network Architecture
+_____________________________________________________________________________________________________________
+
+
+Computer Network Architecture is nothing but how computers are organized and how tasks are allocated to the computer.
+
+types of the architecture:
+
+i) peer-to-peer network.
+ii) client/server network.
+
+
+peer-to-peer network:
+
+Peer-To-Peer network is a network in which all the computers are linked together with equal privilege and responsibilities for processing the data.
+
+
+client/server network: 
+
+Client/Server network is a network model designed for the end users called clients, to access the resources such as songs, video, etc. from a central computer known as Server.
+
+
+
+Computer Network Types:
+____________________________________________________________________________________________________________
+
+
+A computer network is a group of computers linked to each other that enables the computer to communicate with another computer and share their resources, data, and applications.
+
+
+Types of the computer network 
+
+i)LAN local area network.
+
+ii)PAN personal area network.
+
+iii) MAN metropolitan area network.
+
+iv) WAN wide area network.
+
+
+PAN :
+
+personal Area Network is a network arranged within an individual person, typically within a range of 10 meters.
+
+...Personal computer devices that are used to develop the personal area network are the laptop, mobile phones, media player and play stations.
+
+
+
+LAN :
+
+Local Area Network is a group of computers connected to each other in a small area such as building, office.
+
+
+
+...It is less costly as it is built with inexpensive hardware such as hubs, network adapters, and ethernet cables.
+
+...The data is transferred at an extremely faster rate in Local Area Network.
+
+...Local Area Network provides higher security.
+
+
+
+
+
+MAN :
+
+A metropolitan area network is a network that covers a larger geographic area by interconnecting a different LAN to form a larger network.
+
+...in MAN, various LANs are connected to each other.
+
+
+MAN is used in communication between the banks in a city.
+It can be used in an Airline Reservation.
+It can be used in a college within a city.
+It can also be used for communication in the military.
+
+
+WAN :
+
+A Wide Area Network is a network that extends over a large geographical area such as states or countries.
+
+
+...The internet is one of the biggest WAN in the world.
+
+
+....
+
+
+
+Different Types Of The Protocols:
+
+____________________________________________________________________________________________________________
+
+protocol : It is a "set of rules" which are used in digital communication to connect network devices and exchange information between them.
+
+...> set of rules that are establisheed to process.
+
+
+
+Types of protocol:
+1)TCP/IP
+2)HTTP (hyper text transfer protocol)
+3)SMTP (simple mail transfer protocol)
+
+..> it is used to transfer the emails from one user to another 
+...> while working on this protocol we need to at both ends sender and recevier need to have the internet.
+
+
+4)POP(post office protocol) 
+
+..> it is also  used to transfer the emails from one user to another.but
+...> while working on this protocol we need not to have the internet at the receiver end.
+
+
+
+5)FTP (file transfer protocol)
+6)ARP( address resolution protocol) 
+7)IMAP
+8)UDP (User datagram protol)
+9)PPP
+10)DHCP (dynamic host configuration protocol)
+11)DNS( domain name system protocol) 
+
+
+
+EVERY host(computer) need four items for the internet conncetivity
+
+   ...Ip address: hosts identity on the internet
+   ...subnet mask: size of the host's network 
+ 
+ With the above two communicate with devices which are in the local area network/with in the network size only , but not outside the network.
+
+   ...Default Gateway: router's ip address for connecting to the outside network/internet
+   ...DNS Server Ip's: for connecting to the other outside webs.
+
+
+
+
+
+
+
+
+
+
+
+
+12)
+13)SLIP (Serial Line Internal Protocol)
+14) 
+
+
+note: IP v4 : the complete routing of the data packet from source to the destination is done by the IP v4.
+
+
+
+Address resolution protocol:
+
+..>This protocol is used for the communication.
+
+..> In the est of comminication between two computers we need the IP  adddress , MAC address, here IP Address gives the which network in need to go , AND MAC addres gives to which system to conect in that network . THis ARP has the table with all the mac address.
+
+...> By this protocol only the proper IP add is "mapped" to the proper MAC addre.
+
+
+EX: By this protocol only our dell laptop can talk to the vivo phone 
+
+
+
+ICMP: internet control message protocol 
+
+..> by using this protocol n/w devices will send the error messages, when ever any error is occured between the devices while transfering the data.  
+
+
+
+TCP tRansmission control protocol:
+
+..> this is responsible  transfering the data packets from source to destination with the combination of the IP 
+ 
+..> By using the acknowledgement method it will check the errors.If error occurs then it will re-transmit the data.
+
+..> It is also called the connection oriented protocol.
+
+
+UDP: User data gram protocol:
+
+...> This is a connectionless protocol.
+
+..> This protocol just used to send the data from source to destination that-it's..
+
+it's nothing to do with 
+...>No reliability , NO error checking , NO re-transmission of data packet.
+
+
+
+FTP : File Tranfer Protocol:
+
+..>This protocol is used to transfer the files, between the two systems.Like a client and server on a computer network.
+
+..> FTP is built on a client-server model .
+
+..> protocols : These are set rules used the by the computers to communicate.
+
+..> The default FTP Port number is 21.
+
+..> To show the demo of this protocol we need the two linux systems.
+
+
+++++++++++                           ++++++++++ 
+         +                           + Ser    +
+client-A +   ......FTP...........>>  + ver-B  +
+++++++++++                           ++++++++++
+                                      FTPD =21
+
+NOTE: Here a client-A wants to send the file to the server-B by using the FTP Protocol, if the  receiving server-B  does not have,  running any kind of the listeing service to receive  that FTP Protocol  the it will be rejected.
+..> so for this purpose we need to have ftpd daemon on the receiving server.
+
+
+
+(((((( this is at the receiving end))
+Install and configure FTP on the remote server.
+
+become root
+ping www.google.com ( to check for the internet connection)
+yum install vsftpd ( this is a package)
+vi /etc/vsftpd/vsftpd.conf
+
+# find the followinf lines and make the changes as shown below
+  ..> Disable anonymous login
+     anonymous_enable=NO
+  ..> uncomment
+      ascii_upload_enable=YES
+      ascii_download_enable=YES
+  ...>add at the end of this file 
+      use_localtime=YES 
+
+# systemctl start vsftpd
+
+# systemctl status vsftpd
+
+# systemctl enable vsftpd
+
+# systemctl stop firewalld
+
+# systemctl disable firewalld
+create a user
+
+
+(((((( this is at the sender end))
+
+Install FTP client on the client server
+
+become root.
+yum install ftp
+su - switch that user
+touch filename1
+
+after executing the above commands if we type the ftp then we will go to the ftp interactive mode
+
+commands to transfer  file to theFTP server.
+
+ftp 192.145.1.x(ip address of the server to which we need to send the file )
+enter username and password
+ bin ( we need to use the binary mode always to transfer the files)
+hash
+put filename1
+bye 
+
+
+NOTE: vsftpd is the very secure FTP Daemon.(It is an FTP server for many systems.)
+# WinSCP - now supports the SFTP and FTP.
+# FTP (File Transfer Protocol) is a standard network protocol used for the transfer of files from one host to another over a TCP-based network, such as the Internet. 
+
+
+shift+g to com end.
