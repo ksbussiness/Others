@@ -748,10 +748,76 @@ export const triggerUninstallWebhook = async (userId) => {
 };
 
 
+======================================================================================================================================================================================================================================================
+===========
+FALLBACK QUEUES:
+
+PART-3:
+
+
+Key points:
+
+DLQ handling:
+Any failure in generatePayslip or email sending triggers nack(msg, false, false), which sends the message to payslipQueue.dlq.
+
+Idempotency check:
+processedMessages prevents duplicate emails if RabbitMQ retries.
+For production, replace with Redis or a database check for reliability across restarts.
+
+Durable queues & exchanges:
+Matches your producer configuration exactly.
+
+Logging:
+Success, duplicate detection, and DLQ movement are logged.
+
+
+
+
+// notes:
+If your consumer NACKs a message, or retries fail, RabbitMQ automatically sends the message into:
+
+RabbitMQ best practice:
+..> Main queue uses custom exchange
+
+Niyo_exchange → payslipQueue
+..>  DLQ uses the default exchange
+
+Because it directly targets a queue with zero configuration.
+
+Notes:
+.> RabbitMQ refuses to change a queue’s configuration after it’s created. Hence, the PRECONDITION_FAILED.
+.> Queues in RabbitMQ are immutable in terms of arguments like x-dead-letter-exchange.
+.> If you previously created payslipQueue without a DLX, and now you try to declare it with a DLX, RabbitMQ will throw this error.
+.>
+
+options to overcome this :
+----------------------------- >
+# Using RabbitMQ CLI
+rabbitmqctl delete_queue payslipQueue
+
+
+What a DLX is :
+
+.> A Dead Letter Exchange (DLX) is an exchange in RabbitMQ where messages are sent if they cannot be processed normally in the original queue.
+.> Typical reasons for dead-lettering a message:
+# The message is rejected (with requeue: false).
+# The message expires (TTL).
+#The queue reaches its maximum length.
+.>
+
+note point:
+------------ >
+# x-dead-letter-exchange: dlxExchange → This argument in the main queue tells RabbitMQ:
+“If a message in payslipQueue cannot be processed, send it to the exchange Niyo_DLX, which is bound to payslipQueue.dlq.”
+
+Using durable: true ensures queues survive RabbitMQ restarts.
+=======================================================
+
+
 =====================================================================================================================================================================================================================================
 ===========
 
-PART-3:
+PART-4:
 
 
 
