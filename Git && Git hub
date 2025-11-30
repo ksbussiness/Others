@@ -370,3 +370,125 @@ merging branches in forked repository to original repository.
 
 PART-3
 
+
+Git hub details :
+.> Your commit username & email come ONLY from git config — not from Windows Credential Manager.
+
+
+ # This is what decides the “author” shown on GitHub:
+.> git config --global user.name
+.> git config --global user.email
+
+# If your company wants it different, you change it like this:
+.> git config --global user.name "K. Sachin Reddy"
+.> git config --global user.email "your.company@email.com"
+
+# To see the list of the usee details: 
+.> git config --global --list
+
+# To intialize the git hub :
+.> git init
+
+# To check the status:
+.> git status
+
+# Now commit:
+git commit -m "Initial commit - added new folder"
+
+
+# To move in to new branch :
+.> git checkout main
+.> git pull origin main
+
+# To create new branch from main => Development:
+.> git checkout -b development
+.>git push -u origin development
+
+# To create a new branch from the develpoment , and create loginAPI.
+.> git checkout development
+.> git checkout -b loginAPI-module
+.> git push -u origin loginAPI-module
+
+# To see the full tree graph:
+.> git log --oneline  --decorate  -- graph --all
+
+# To see the more git commands :
+.> git --help
+.> git --version
+
+# To get the latestv code in to the the bracn then we use this :
+.> git pull origin <branch-Name>
+
+Commands related to the staging:
+---------------------------------------- >
+# To move data in to the stashing:
+..>  git stash push -m "messages"
+# To see the code changes from the stashing:
+.>  git stash list:
+# To apply those changes to the stashing:
+.>  git stash apply
+# To remove the changes from the stashing:
+.>  git stash pop
+
+
+# To check out to a specific commit :
+.> git checkout < commit-hash >
+
+Understanding the “commit tree” :
+-------------------------------------------- >
+
+# The commit tree is a chronological view of all commits in a branch, showing:
+# Commit hash / ID – unique identifier for a commit.
+# Author and date – who made the commit and when.
+# Commit message – what changes were made.
+ # Branches / merges – shows branching structure.
+
+
+
+Step's to use the SSH in the GitHub :
+-------------------------------------------- >
+
+# what is the ? 
+.> SSH keys are a pair of cryptographic keys used for secure authentication between my
+    computer and remote servers like GitHub. The public key is stored on GitHub and the private key 
+    stays on my local machine. When I push or pull code, GitHub verifies my identity using key-based 
+    authentication instead of passwords, which is more secure and faster.
+
+# SSH = Secure Shell
+.> SSH keys are like a super-secure digital identity card for your laptop.
+.> If i use the ssh kesy then i will not require the No, password required.
+
+Over via of the  ssh working:
+------------------------------------ >
+Let’s simulate a git push
+git push
+
+.> Your laptop looks for your private SSH key
+.> It sends a mathematical proof to GitHub
+.> GitHub checks it against the public key stored in your account
+.> If it matches → ✅ Access allowed
+.> Not ONE TIME does your password travel.
+ 
+Types of SSH keys:
+..................................................................... >
+RSA 
+ED25519
+
+
+ssh-keygen -t ed25519 -C "ksbussiness123@gmail.com"
+
+
+After copying:
+
+Go to GitHub
+Click profile → Settings
+Click SSH and GPG Keys
+Click New SSH key
+Paste the key
+Save it
+
+ssh -T git@github.com
+git remote -v
+git remote set-url origin git@github.com:YOUR_USERNAME/YOUR_REPO.git
+
+
